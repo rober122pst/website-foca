@@ -1,0 +1,252 @@
+@import url(cores.css);
+
+#login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: var(--bg-second);
+}
+
+.wrapper-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60%;
+    width: 60%;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: var(--bg-primary);
+}
+
+.first-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 70%;
+    border-radius: 0 150px 0 0;
+    
+    background: linear-gradient(180deg, var(--color-items-primary), var(--color-items-second));
+}
+
+.sidebar-content {
+    color: var(--text-light);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.input-form {
+    --input_height: 40px;
+
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.input-field {
+    height: var(--input_height);
+    width: 100%;
+    padding-top: calc(var(--input_height) - 20px);
+    font-size: 1rem;
+    background: transparent;
+    border: none;
+    outline: none;
+    z-index: 2;
+}
+
+.underline {
+    border-bottom: 1px solid var(--bg-second);
+}
+
+.input-label {
+    font-size: 1rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    z-index: 1;
+}
+
+.label-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    transform: translateY(calc(var(--input_height) - 20px));
+    transition: transform 200ms ease-in-out;
+    color: var(--bg-second);
+}
+
+.password {
+    padding-right: 25px;
+    position: relative;
+}
+
+.input-label::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    border: 1px solid transparent;
+}
+
+.input-field:focus .underline,
+.input-field:not(:placeholder-shown) .underline{
+    border-bottom: unset;
+}
+
+.input-field:focus ~ .input-label::after,
+.input-field:not(:placeholder-shown) ~ .input-label::after{
+    width: 100%;
+    border: 1px solid var(--color-items-primary);
+    transition: 200ms;
+}
+
+.input-field:focus ~ .input-label .label-name,
+.input-field:not(:placeholder-shown) ~ .input-label .label-name {
+    color: var(--color-items-primary);
+    font-size: 0.75rem;
+    transform: translateY(0px);
+}
+
+.input-field:focus ~ .input-label .visible,
+.input-field:not(:placeholder-shown) ~ .input-label .visible {
+    color: var(--color-items-primary);
+}
+.input-field:focus ~ .input-label .invisible,
+.input-field:not(:placeholder-shown) ~ .input-label .invisible {
+    color: var(--color-items-primary);
+}
+
+.input-label .visible,.input-label .invisible {
+    position: absolute;
+    right: 5px;
+    bottom: 2px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 2px;
+    color: var(--bg-second);
+
+    transition: 200ms;
+}
+
+.input-label .visible {
+    display: none;
+    color: var(--color-items-primary);
+}
+
+.input-check {
+    color: var(--color-items-primary);
+}
+
+.remember {
+    accent-color: var(--accent);
+    transition: all 300ms ease;
+}
+
+.input-button {
+    border: none;
+    width: 100%;
+    height: 2rem;
+    max-width: 150px;
+    margin: auto;
+    
+    /* padding: .8rem; */
+    margin-top: 20px;
+    border-radius: 0.5rem;
+    z-index: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill{
+    color: var(--text-light);
+    font-family: "Nunito", sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    text-decoration: none;
+    line-height: 100%;
+
+    position: relative;
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(180deg, var(--color-items-primary), var(--color-items-second));
+    z-index: -2;
+    transition: all 300ms ease;
+    overflow: hidden;
+}
+
+.complete {
+    cursor: pointer;
+    &:after{
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 0%;
+        background: var(--accent);
+        z-index: -1;
+        transition: 300ms ease;
+        border-radius: .5rem;
+    }
+    &:hover {
+        &:after{
+            height: 100%;
+        }
+    }
+}
+
+.progress-fill-text {
+    position: absolute;
+    overflow: hidden;
+    left: 50%;
+    bottom: 50%;
+    transform: translate(-50%, 50%);
+    width: 0%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    font-size: 1.3rem;
+    font-weight: 800;
+    text-decoration: none;
+    transition: width 300ms ease;
+}
+
+.form-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-primary);
+    border-radius: 3px;
+    padding: 0 1em;
+}
+
+.form-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 45%;
+    & > h1 {
+        margin: 0 auto 0 auto;
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--color-items-primary);
+    }
+}

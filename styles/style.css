@@ -1,0 +1,196 @@
+@import url(cores.css);
+
+.dark-theme {
+    --bg-primary: #17001d;
+    --bg-second: #130018;
+    --bg-cont: #fdfdfd;
+}
+
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+    width: 100%;
+    height: 70px;
+  
+    padding: 15px 30px;
+    position: sticky;
+    top: 0;
+  
+    background: var(--bg-primary);
+    box-shadow: var(--bg-second) 0px 1px 1px 0px;
+    transition: all .3s ease-out;
+    
+    z-index: 1000;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 3.5rem;
+}
+
+.header-title img {
+    height: 4.5rem;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.navbar-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.navbar-links li a {
+    text-decoration: none;
+    color: var(--color-items-primary);
+
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+
+    transition: opacity .3s ease;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 3.5rem;
+}
+
+.navbar-login {
+    text-decoration: none;
+    color: var(--text-light);
+    
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+
+    transition: opacity .3s ease;
+
+    background: var(--accent); 
+    padding: 1rem 1.5rem;
+    border-radius: 3rem;
+}
+
+.theme-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: var(--bg-cont);
+    background: var(--bg-second);
+    border-radius: 50%;
+
+    padding: .5rem;
+
+    cursor: pointer;
+}
+
+.navbar-links li a:hover {
+    opacity: .6;
+}
+
+.navbar-login:hover {
+    opacity: .6;
+}
+
+/***********************************************************/
+
+#start-now {
+    height: auto;
+    width: 100%;
+
+    background-size: cover;
+    background-position: center;
+    
+    background-image: url(../imgs/WL07CURzSB-OrgB4YzpqaQ.png);
+
+    position: relative;
+
+    transition: .4s;
+}
+
+.dark-theme #start-now {
+    background-image: url(../imgs/night.jpg);
+}
+
+.wrapper-start {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+
+    padding: 3rem;
+    gap: 2.5rem;
+    
+    height: 100vh;
+
+    margin: 0 auto;
+
+    color: var(--text-light);
+
+    z-index: 1;
+}
+
+.wrapper-start::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+  
+    height: 100%;
+    width: 100%;
+
+    z-index: -1;
+  
+    background: linear-gradient(180deg, transparent 70%, var(--bg-primary))
+
+}
+
+.text-start-now {
+    font-size: 4.7rem;
+    font-weight: 700;
+
+    text-align: center;
+}
+
+.start-subtitle {
+    font-weight: 500;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.login-button {
+    display: inline-block;
+
+
+    text-decoration: none;
+    color: var(--text-light);
+    
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+
+    transition: opacity .3s ease;
+
+    background: var(--accent); 
+    padding: 1rem 1.5rem;
+    border-radius: 3rem;
+}
+
+#functions {
+    height: 100vh;
+    width: auto;
+
+    background: var(--bg-primary);
+}

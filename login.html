@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Foca</title>
+    <link rel="stylesheet" href="./styles/login.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&" />
+    <title>Login</title>
+</head>
+<body>
+    <div id="login">
+        <div class="wrapper-login">
+            <div class="first-column">
+                <div class="sidebar">
+                    <div class="sidebar-content">
+                        <h1>Foca</h1>
+                        <button>Registrar-se</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-container">
+                <div class="form-content" id="form">
+                    <h1>Login</h1>
+                    <div class="input-form email">
+                        <input type="email" class="input-field" id="email" placeholder=" " />
+                        <label for="" class="input-label">
+                            <span class="label-name">Email</span>
+                            <span class="underline"></span>
+                        </label>
+                    </div>
+                    <div class="input-form password">
+                        <input type="password" class="input-field" id="senha" placeholder=" " />
+                        <label for="" class="input-label">
+                            <span class="label-name">Senha</span>
+                            <span class="underline"></span>
+                            <span class="visible material-symbols-rounded visibility" onclick="toggleSenha()">visibility</span>
+                            <span class="invisible material-symbols-rounded visibility-off" onclick="toggleSenha()">visibility_off</span>
+                        </label>
+                    </div>
+                    <div class="input-form">
+                        <label class="input-check"><input type="checkbox" class="remember"/> Manter logado</label>
+                    </div>
+                    <div class="input-form">
+                        <button class="input-button" type="submit">
+                          <div class="progress-fill">
+                            <div class="progress-fill-text">Entrar</div>
+                          </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./scripts/login.js"></script>
+</html>
