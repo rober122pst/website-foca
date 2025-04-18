@@ -2,6 +2,7 @@ const form = document.getElementById("form");
 const inputs = form.querySelectorAll(".input-field");
 const progressFill = document.querySelector(".progress-fill");
 const progressText = document.querySelector(".progress-fill-text");
+const submitLoginButton = document.querySelector(".login-button")
 
 function updateButtonProgress() {
     let filled = 0;
@@ -15,10 +16,10 @@ function updateButtonProgress() {
     progressText.style.width = percentage + "%";
     if (percentage >= 100) {
         progressFill.classList.add("complete");
-        console.log("complete")
+        submitLoginButton.disabled = false;
     }else {
+        submitLoginButton.disabled = true;
         progressFill.classList.remove("complete");
-        console.log("incomplete")
         console.log(percentage)
     }
 }
@@ -33,7 +34,6 @@ function toggleSenha() {
     input.type = input.type === "password" ? "text" : "password";
     const visible = document.querySelector(".visible");
     const invisible = document.querySelector(".invisible");
-    console.log(`1: ${visible}\n2: ${invisible}`);
     if (input.type === "text") {
         visible.style.display = "block";
         invisible.style.display = "none";
@@ -41,4 +41,27 @@ function toggleSenha() {
         visible.style.display = "none";
         invisible.style.display = "block";
     }
+}
+
+function submitLogin() {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('senha').value; 
+    
+    if (!validateEmail(email)) {
+        alert('Por favor, insira um e-mail válido.');
+        return;
+    }
+    else if (password.length < 8) {
+        alert('A senha deve ter pelo menos 8 caracteres.');
+        return;
+    }
+    else {
+        alert(`Logado com o email: ${email}`);
+    }
+
+}
+
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
 }

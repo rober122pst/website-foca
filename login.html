@@ -10,18 +10,21 @@
     <title>Login</title>
 </head>
 <body>
-    <div id="login">
+    <section id="login">
         <div class="wrapper-login">
             <div class="first-column">
                 <div class="sidebar">
                     <div class="sidebar-content">
-                        <h1>Foca</h1>
-                        <button>Registrar-se</button>
+                        <h1>Bem-vindo<br>de volta!
+                            <p>Não tem uma conta? <b>Registre-se</b> agora e começe a focar!</p>
+                        </h1>
+                        <button class="register-sidebar-button">Registrar-se</button>
                     </div>
                 </div>
             </div>
             <div class="form-container">
                 <div class="form-content" id="form">
+                    <img src="./imgs/foca.svg" alt="">
                     <h1>Login</h1>
                     <div class="input-form email">
                         <input type="email" class="input-field" id="email" placeholder=" " />
@@ -43,16 +46,23 @@
                         <label class="input-check"><input type="checkbox" class="remember"/> Manter logado</label>
                     </div>
                     <div class="input-form">
-                        <button class="input-button" type="submit">
-                          <div class="progress-fill">
-                            <div class="progress-fill-text">Entrar</div>
-                          </div>
+                        <button disabled onclick="submitLogin()" class="input-button login-button" type="submit">
+                            <div class="progress-fill">
+                                <div class="progress-fill-text">Entrar</div>
+                            </div>
                         </button>
                     </div>
+                    <a class="esqueci-senha" href="./">Esqueceu a senha?</a>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="waves">
+            <div class="wave wave1"></div>
+            <div class="wave wave2"></div>
+            <div class="wave wave3"></div>
+            <div class="wave wave4"></div>
+        </div>
+    </section>
 </body>
 <script src="./scripts/login.js"></script>
 </html>

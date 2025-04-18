@@ -1,6 +1,8 @@
 @import url(cores.css);
+@import url(waves.css);
 
 #login {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,10 +15,13 @@
     justify-content: center;
     align-items: center;
     height: 60%;
-    width: 60%;
+    width: 50%;
     border-radius: 20px;
     overflow: hidden;
     background-color: var(--bg-primary);
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.2);
+    animation: floating 1.8s ease-in-out infinite alternate;
+    z-index: 999;
 }
 
 .first-column {
@@ -25,9 +30,74 @@
     align-items: center;
     height: 100%;
     width: 70%;
-    border-radius: 0 150px 0 0;
     
     background: linear-gradient(180deg, var(--color-items-primary), var(--color-items-second));
+}
+
+.sidebar-content h1 {
+    width: 70%;
+    color: var(--text-light);
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0 auto 0 auto;
+    text-align: left;
+}
+
+.sidebar-content p {
+    color: var(--text-light);
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0 auto 0 auto;
+    text-align: left;
+}
+
+.register-sidebar-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 2px var(--accent);
+    
+    width: 100%;
+    height: 2rem;
+    max-width: 150px;
+    margin: auto;
+    
+    margin-top: 20px;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    
+    color: var(--text-light);
+    font-family: "Nunito", sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    text-decoration: none;
+    line-height: 100%;
+    background: transparent;
+    
+    position: relative;
+    cursor: pointer;
+    
+    &:after {
+      content: "Registrar-se";
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, var(--accent), var(--accent-gradient));
+      opacity: 0;
+      
+      transition: 300ms ease;
+    }
+    
+    &:hover {
+      &:after {
+        opacity: 1;
+      }
+    }
 }
 
 .sidebar-content {
@@ -40,6 +110,10 @@
     width: 100%;
 }
 
+#email, #senha {
+  color: var(--color-items-second);
+  font-family: "Nunito", sans-serif;
+}
 .input-form {
     --input_height: 40px;
 
@@ -148,12 +222,16 @@
 }
 
 .input-check {
+    display: flex;
+    align-items: center;
+    gap: 5px;
     color: var(--color-items-primary);
+    font-size: smaller;
 }
 
 .remember {
     accent-color: var(--accent);
-    transition: all 300ms ease;
+    width: 12px;
 }
 
 .input-button {
@@ -227,6 +305,15 @@
     transition: width 300ms ease;
 }
 
+.esqueci-senha {
+    text-decoration: none;
+    font-size: smaller;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    color: var(--accent);
+}
+
 .form-container {
     width: 100%;
     height: 100%;
@@ -245,8 +332,24 @@
     width: 45%;
     & > h1 {
         margin: 0 auto 0 auto;
-        font-size: 2.5rem;
+        font-size: 1.9rem;
         font-weight: 800;
         color: var(--color-items-primary);
     }
+    & > img {
+        margin: 0 auto 0 auto;
+        width: 3rem;
+        height: 3rem;
+        margin-bottom: 1rem;
+    }
 }
+
+@keyframes floating {
+    0% {
+        transform: translateY(0px);
+    }
+    100% {
+        transform: translateY(-10px);
+    }
+}
+
