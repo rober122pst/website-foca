@@ -19,11 +19,11 @@
 }
 .waves .wave.wave2 {
     animation: animate 15s linear infinite;
-    animation-direction: reverse;
     z-index: 49;
     opacity: 0.5;
     animation-delay: -5s;
     bottom: 10px;
+    transform: scaleX(-1);
 }
 .waves .wave.wave3 {
     animation: animate 30s linear infinite;
@@ -34,11 +34,11 @@
 }
 .waves .wave.wave4 {
     animation: animate 10s linear infinite;
-    animation-direction: reverse;
     z-index: 47;
     opacity: 0.7;
     animation-delay: -7s;
     bottom: 20px;
+    transform: scaleX(-1);
 }
 
 @keyframes animate {

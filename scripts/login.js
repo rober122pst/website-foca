@@ -1,39 +1,42 @@
-const form = document.getElementById("form");
-const inputs = form.querySelectorAll(".input-field");
-const progressFill = document.querySelector(".progress-fill");
-const progressText = document.querySelector(".progress-fill-text");
-const submitLoginButton = document.querySelector(".login-button")
+document.querySelectorAll("#form").forEach((form) => {
+    const inputs = form.querySelectorAll(".input-field");
+    const progressFill = form.querySelector(".progress-fill");
+    const progressText = form.querySelector(".progress-fill-text");
+    const submitLoginButton = form.querySelector(".login-button")
 
-function updateButtonProgress() {
-    let filled = 0;
-    inputs.forEach(input => {
-        if (input.value.trim() !== "") {
-            filled++;
+    function updateButtonProgress() {
+        let filled = 0;
+        inputs.forEach(input => {
+            if (input.value.trim() !== "") {
+                filled++;
+            }
+        });
+        const percentage = (filled / inputs.length) * 100;
+        progressFill.style.width = percentage + "%";
+        progressText.style.width = percentage + "%";
+        if (percentage >= 100) {
+            progressFill.classList.add("complete");
+            submitLoginButton.disabled = false;
+        }else {
+            submitLoginButton.disabled = true;
+            progressFill.classList.remove("complete");
+            console.log(percentage)
         }
-    });
-    const percentage = (filled / inputs.length) * 100;
-    progressFill.style.width = percentage + "%";
-    progressText.style.width = percentage + "%";
-    if (percentage >= 100) {
-        progressFill.classList.add("complete");
-        submitLoginButton.disabled = false;
-    }else {
-        submitLoginButton.disabled = true;
-        progressFill.classList.remove("complete");
-        console.log(percentage)
     }
-}
 
 
-inputs.forEach(input => {
-    input.addEventListener("input", updateButtonProgress);
+    inputs.forEach(input => {
+        input.addEventListener("input", updateButtonProgress);
+    });
 });
 
-function toggleSenha() {
-    const input = document.getElementById("senha");
+function toggleSenha(id, iconClicked) {
+    const input = document.getElementById(id);
+    console.log(input)
     input.type = input.type === "password" ? "text" : "password";
-    const visible = document.querySelector(".visible");
-    const invisible = document.querySelector(".invisible");
+    const label = iconClicked.closest("label");
+    const visible = label.querySelector(".visible");
+    const invisible = label.querySelector(".invisible");
     if (input.type === "text") {
         visible.style.display = "block";
         invisible.style.display = "none";
@@ -64,4 +67,9 @@ function submitLogin() {
 function validateEmail(email) {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
+}
+
+function toggleForm() {
+    const wrapperLogin = document.querySelector(".wrapper-login");
+    wrapperLogin.classList.toggle("active");
 }

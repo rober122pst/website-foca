@@ -1,6 +1,6 @@
 @import url(cores.css);
 @import url(waves.css);
-
+/* region Sing Up */
 #login {
     position: relative;
     display: flex;
@@ -24,14 +24,18 @@
     z-index: 999;
 }
 
-.first-column {
+.sign-up-container {
+    position: relative;
+    width: 45%;
+    height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    width: 70%;
-    
     background: linear-gradient(180deg, var(--color-items-primary), var(--color-items-second));
+    border-radius: 3px;
+    padding: 0 1rem;
+    transition: all 0.5s ease-in-out;
 }
 
 .sidebar-content h1 {
@@ -51,55 +55,6 @@
     text-align: left;
 }
 
-.register-sidebar-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: solid 2px var(--accent);
-    
-    width: 100%;
-    height: 2rem;
-    max-width: 150px;
-    margin: auto;
-    
-    margin-top: 20px;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    
-    color: var(--text-light);
-    font-family: "Nunito", sans-serif;
-    font-size: 1rem;
-    font-weight: 800;
-    text-decoration: none;
-    line-height: 100%;
-    background: transparent;
-    
-    position: relative;
-    cursor: pointer;
-    
-    &:after {
-      content: "Registrar-se";
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(180deg, var(--accent), var(--accent-gradient));
-      opacity: 0;
-      
-      transition: 300ms ease;
-    }
-    
-    &:hover {
-      &:after {
-        opacity: 1;
-      }
-    }
-}
-
 .sidebar-content {
     color: var(--text-light);
     display: flex;
@@ -110,10 +65,131 @@
     width: 100%;
 }
 
-#email, #senha {
+.sidebar-content.register {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    opacity: 1;
+
+    transition: all 1s ease-in-out;
+}
+
+.wrapper-login.active .sidebar-content.register {
+    transform: translate(200%, 0);
+    opacity: 0;
+}
+
+
+/* endregion Sing Up */
+/* region Sing In */
+.sidebar-content.login {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 50%;
+    transform: translate(-200%, 0);
+    opacity: 0;
+    
+
+    transition: all 1s ease-in-out;
+    & > h1 {
+        color: var(--color-items-primary);
+    }
+    & p {
+        color: var(--color-items-second);
+    }
+}
+
+
+.wrapper-login.active .sidebar-content.login{
+    transform: translate(-50%, 0);
+    opacity: 1;
+}
+
+.wrapper-login.active .sign-in-container .form-content {
+    transform: translate(200%, 0);
+    opacity: 0;
+}
+
+.wrapper-login.active .sign-up-container .form-content {
+    transform: translate(-50%, 0);
+    opacity: 1;
+}
+
+.sign-in-container {
+    position: relative;
+    width: 55%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-primary);
+    border-radius: 3px;
+    padding: 0 1rem;
+    transition: all 0.5s ease-in-out;
+    overflow: hidden;
+}
+
+.form-content {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 45%;
+    transition: all 1s ease-in-out;
+    & > h1 {
+        margin: 0 auto 0 auto;
+        font-size: 1.9rem;
+        font-weight: 800;
+        color: var(--color-items-primary);
+    }
+    & > img {
+        margin: 0 auto 0 auto;
+        width: 3rem;
+        height: 3rem;
+        margin-bottom: 1rem;
+    }
+}
+
+
+.social-icons {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    & .social-icon {
+        text-decoration: none;
+        color: var(--accent);
+        width: 2.8rem;
+        height: 2.8rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        background-color: var(--bg-second);
+        cursor: pointer;
+        transition: all 300ms ease;
+        font-size: 1.2rem;
+        &:hover {
+            background-color: var(--bg-primary);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+    }
+}
+
+.input-form input {
   color: var(--color-items-second);
   font-family: "Nunito", sans-serif;
 }
+
 .input-form {
     --input_height: 40px;
 
@@ -247,6 +323,7 @@
     z-index: 1;
     position: relative;
     overflow: hidden;
+    background: var(--bg-second);
 }
 
 .progress-fill{
@@ -314,34 +391,81 @@
     color: var(--accent);
 }
 
-.form-container {
-    width: 100%;
-    height: 100%;
+
+.sign-up-button {
+    position: absolute;
+    right: 0;
+    transform: translateX(50%);
+    width: 5rem;
+    height: 5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--bg-primary);
-    border-radius: 3px;
-    padding: 0 1em;
+    border-radius: 50%;
+
+    background-color: var(--color-items-primary);
+
+    color: var(--text-light);
+    cursor: pointer;
+
+    box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.2);
+
+    z-index: 1000;
 }
 
-.form-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.sign-up-button span {
+    font-size: 3rem;
+    font-weight: 800;
+    transition: transform 0.5s ease-in-out;
+}
+
+.wrapper-login.active .sign-up-button span {
+    transform: rotate(180deg);
+}
+
+.wrapper-login.active .sign-in-container {
     width: 45%;
-    & > h1 {
-        margin: 0 auto 0 auto;
-        font-size: 1.9rem;
-        font-weight: 800;
-        color: var(--color-items-primary);
+}
+
+.wrapper-login.active .sign-up-container {
+    width: 55%;
+}
+
+/* endregion Sing In */
+.sign-up-container .form-content {
+    --bg-primary: #ff0546;
+    --bg-second: #9c173b;
+    --color-items-primary: #fdfdfd;
+    --color-items-second: #e0e0e0;
+    --accent: #fdfdfd;
+
+    transform: translate(-200%, 0);
+    opacity: 0;
+}
+
+.sign-up-container .label-name {
+    color: var(--color-items-second);
+}
+
+.sign-up-container .underline {
+    border-bottom: 1px solid var(--color-items-second);
+}
+
+.sign-up-container .complete {
+    cursor: pointer;
+    &:after{
+        content: "";
+        background: #0098db;
     }
-    & > img {
-        margin: 0 auto 0 auto;
-        width: 3rem;
-        height: 3rem;
-        margin-bottom: 1rem;
+    &:hover {
+        &:after{
+            height: 100%;
+        }
     }
+}
+
+.progress-fill-text {
+    color: var(--bg-primary);
 }
 
 @keyframes floating {
@@ -352,4 +476,3 @@
         transform: translateY(-10px);
     }
 }
-
