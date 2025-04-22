@@ -1,11 +1,13 @@
-const body = document.body;
-const button = document.querySelector(".theme-button");
+let header = document.getElementById('header')
 
-function setTheme(theme) {
-    body.className = theme;
+window.addEventListener('scroll', () => {
+    navbarColor();
+})
+
+function navbarColor() {
+    if(window.scrollY >= 10){
+        header.style.background = 'var(--color-items-second)';
+    }else {
+        header.style.background = 'transparent';
+    }
 }
-
-button.addEventListener("click", () => {
-    const currentTheme = body.classList.contains("dark-theme") ? "light-theme" : "dark-theme";
-    setTheme(currentTheme);
-});
