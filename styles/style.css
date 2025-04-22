@@ -2,8 +2,7 @@
 
 .cta-button {
     border: none;
-    margin: 0;
-    max-width: fit-content;
+    width: fit-content;
 
     background: linear-gradient(180deg, var(--color-items-primary), var(--color-items-second));
     
@@ -22,13 +21,12 @@
 
     &:before {
         content: "Começar Agora!";
-        text-align: center;
         white-space: nowrap;
+        text-align: center;
         color: var(--text-light);
         font-family: "Nunito", sans-serif;
         font-size: clamp(12px, calc(0.4rem + 0.66vw), 1.2rem);
         font-weight: 800;
-        line-height: 100%;
     }
 
     &:after{
@@ -69,27 +67,22 @@
     position: fixed;
     top: 0;
     z-index: 999;
-
-    width: 100%;
-    height: 70px;
-
+    
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
+    width: 100%;
 
-    padding: 10px 100px;
+    padding: 10px 10%;
 
     transition: background 0.3s ease-in-out;
 }
 
-.header-container {
-    width: 100%;
-    height: 100%;
-}
-
 .header-title {
+    cursor: pointer;
     width: 100px;
-    height: 100%;
+    height: auto;
     display: flex;
 
     & img {
@@ -99,22 +92,21 @@
     }
 }
 
+.navbar {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
 .navbar-links {
-    margin: 0;
+    list-style: none;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    height: 100%;
     gap: 36px;
 
-    color: var(--text-light);
-    list-style: none;
-
-    & li a {
+    & a {
         text-decoration: none;
         color: var(--text-light);
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 600;
         transition: all 0.3s ease-in-out;
     }
@@ -124,7 +116,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
 
     & .navbar-login {
         text-decoration: none;
@@ -208,7 +199,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: right;
+    align-items: end;
     width: 50%;
     height: 100%;
     gap: clamp(16px, calc(1.05rem + 1vw), 48px);
