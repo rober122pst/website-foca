@@ -43,14 +43,14 @@ div {
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--bg-second);
+    background: var(--bg-cont);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--color-items-primary);
+    background: var(--accent);
     border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-items-second);
+    background: var(--accent-gradient);
 }
