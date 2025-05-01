@@ -1,3 +1,9 @@
+const token = localStorage.getItem('token') || sessionStorage.getItem('token'); // Tenta obter o token do localStorage ou sessionStorage
+if (token) { // Função para verificar se o token existe
+  window.location.href = '../dashboard.html';
+} // Redireciona para a página de dashboard se o token existir
+// Se não existir, continua na página de login
+
 document.querySelectorAll("#form").forEach((form) => {
     const inputs = form.querySelectorAll(".input-field");
     const progressFill = form.querySelector(".progress-fill");
@@ -47,22 +53,46 @@ function toggleSenha(id, iconClicked) {
 }
 
 function submitLogin() {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('senha').value; 
+    const email = document.getElementById('email-login').value;
+    const password = document.getElementById('senha-login').value; 
     
     if (!validateEmail(email)) {
         alert('Por favor, insira um e-mail válido.');
         return;
     }
-    else if (password.length < 8) {
-        alert('A senha deve ter pelo menos 8 caracteres.');
-        return;
-    }
     else {
-        alert(`Logado com o email: ${email}`);
+        login();
     }
 
 }
+
+function submitRegister() {
+    const email = document.getElementById('email-register').value;
+    const password = document.getElementById('senha-register').value; 
+    const password_cofirm = document.getElementById('senha-cofirm').value; 
+    const username = document.getElementById('nickname').value;
+
+    if (username.length < 3) {
+        alert('O nome de usuário deve ter pelo menos 3 caracteres.');
+        return;
+    }
+    else if (!validateEmail(email)) {
+        alert('Por favor, insira um e-mail válido.');
+        return;
+    }
+    else if (password.length < 6) {
+        alert('A senha deve ter pelo menos 6 caracteres.');
+        return;
+    } else if (password !== password_cofirm) {
+        alert('As senhas não coincidem.');
+        return;
+    }
+    else {
+        register();
+    }
+
+}
+
 
 function validateEmail(email) {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -72,4 +102,57 @@ function validateEmail(email) {
 function toggleForm() {
     const wrapperLogin = document.querySelector(".wrapper-login");
     wrapperLogin.classList.toggle("active");
+}
+
+const API_URL = 'http://localhost:3000/auth';
+
+async function register() { // função de registro
+    const username = document.getElementById('nickname').value;
+    const email = document.getElementById('email-register').value;
+    const password = document.getElementById('senha-register').value;
+
+    const res = await fetch(`${API_URL}/register`, { // faz a requisição para o backend
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, email, password }),
+    });
+    const data = await res.json();
+    console.log(data); // imprime a resposta do backend no console
+    // document.getElementById('response').textContent = data.message || data.error;
+
+    if (res.ok) { // verifica se o registro foi bem sucedido
+        document.getElementById('response').textContent = `Usuário ${username} criado com sucesso!`;
+        sessionStorage.setItem('token', data.token); // armazena o token no sessionStorage
+        setTimeout(() => {
+            window.location.href = '../dashboard.html'; // redireciona para a página de login após 2 segundos
+        }, 2000);
+    } else {
+        document.getElementById('response').textContent = data.message || data.error;
+    }
+}
+
+async function login() { // função de login
+    const email = document.getElementById('email-login').value;
+    const password = document.getElementById('senha-login').value;
+    const remember = document.getElementById('remember-me').checked;
+
+    const res = await fetch(`${API_URL}/login`, { // faz a requisição para o backend
+        // o backend vai verificar se o usuário existe e se a senha está correta
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+    });
+
+    const data = await res.json();
+    if (res.ok) { // verifica se o login foi bem sucedido
+        // Armazena o token no localStorage ou sessionStorage, dependendo da opção "Lembrar-me"
+        if (remember) {
+            localStorage.setItem('token', data.token); // fica salvo mesmo após fechar o navegador
+        } else {
+            sessionStorage.setItem('token', data.token); // some quando fecha o navegador
+        }
+        window.location.href = '../dashboard.html';
+    } else {
+        document.getElementById('response').textContent = data.message || data.error;
+    }
 }

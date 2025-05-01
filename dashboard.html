@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard</title>
+</head>
+<body>
+  <h1 id="welcome">Dashboard</h1>
+  <p id="user-info"></p>  <!-- Aqui vai aparecer "Logado como ..." -->
+
+  <button onclick="logout()">Sair</button>
+  
+  <script>
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token'); // Tenta obter o token do localStorage ou sessionStorage
+
+    if (!token) { // Função para verificar se o token existe
+      window.location.href = 'index.html';
+    } else {
+      const payload = parseJwt(token);
+      console.log(payload); // Exibe o payload no console para depuração
+      if (payload && payload.username) { // Verifica se o payload contém o username
+        document.getElementById('welcome').textContent = `Logado como ${payload.username}`;
+      } else {
+        document.getElementById('welcome').textContent = 'Usuário desconhecido';
+      }
+    }
+
+    function parseJwt(token) { // Função para decodificar o JWT
+      try {
+        return JSON.parse(atob(token.split('.')[1]));
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('token');
+      sessionStorage.removeItem('token');
+      window.location.href = './auth/login.html'; // Redireciona para o login
+    }
+  </script>
+</body>
+</html>

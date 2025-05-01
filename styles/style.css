@@ -103,16 +103,16 @@
 
 .header-title {
     cursor: pointer;
-    width: 100px;
-    height: auto;
+
     display: flex;
     justify-content: center;
     align-items: center;
     margin-right: 36px;
 
     & img {
-        width: 100%;
         height: 100%;
+        max-height: 42px;
+        height: auto;
         object-fit: cover;
     }
 }
@@ -162,12 +162,37 @@
     }
 }
 
+@media (max-width: 1050px) {
+    #header {
+        padding: 10px 5%;
+    }
+    .navbar {
+        display: none;
+    }
+}
+
+@media (max-width: 570px) {
+    #header {
+        padding: 10px 5%;
+    }
+
+    .navbar {
+        display: none;
+    }
+
+    .cta-container .cta-button {
+        padding: 10px;
+        &:before {
+            font-size: 16px;
+        }
+    }
+}
 /* ====================== */
 
 #start-now {
     position: relative;
     width: 100%;
-    height: 80vh;
+    height: 864px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -193,7 +218,7 @@
     color: var(--text-light);
 }
 .title{
-    font-size: 40px;
+    font-size: clamp(1.5rem, 1.714vw + 1.0rem, 2.5rem);
     font-weight: 800;
 }
 .subtitle{
@@ -210,7 +235,30 @@
     animation: floating 2s ease-in-out infinite alternate;
     & img {
         height: auto;
-        width: calc(10.42rem + 17.36vw);
+        width: 100%;
+        min-width: 300px;
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 1050px) {
+    #start-now {
+        flex-direction: column-reverse;
+        padding: 10px 5%;
+    }
+
+    .wrapper-start {
+        align-items: center;
+        justify-content: normal;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+        gap: 20px;
+    }
+
+    .hero-image-container {
+        padding-bottom: 5%;
+        align-items: end;
     }
 }
 /* ******************************************** */
@@ -235,8 +283,9 @@
     width: 50%;
     height: 100%;
     /* animation: floating 2s ease-in-out infinite alternate; */
-
+    
     & > img {
+        min-width: 300px;
         width: 500px;
         height: auto;
     }
@@ -325,6 +374,52 @@
 .wrapper-distracao .cta-button {
     &:before {
         content: "PARE DE SE DISTRAIR!";
+    }
+}
+
+@media (max-width: 1050px) {
+    #about {
+        flex-direction: column;
+        padding: 10vh 5%;
+    }
+    
+    #conheca {
+        flex-direction: column-reverse;
+        padding: 10vh 5%;
+    }
+
+    #rotina {
+        flex-direction: column;
+        padding: 10vh 5%;
+    }
+
+    #pontos {
+        flex-direction: column-reverse;
+        padding: 10vh 5%;
+    }
+
+    #notificacao {
+        flex-direction: column;
+        padding: 10vh 5%;
+    }
+
+    #distracao {
+        flex-direction: column-reverse;
+        padding: 10vh 5%;
+    }
+
+    .wrapper {
+        align-items: center;
+        justify-content: normal;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+        gap: 20px;
+    }
+
+    .image-section {
+        padding-bottom: 5%;
+        align-items: end;
     }
 }
 
