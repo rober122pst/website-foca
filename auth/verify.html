@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Verificação de E-mail</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      text-align: center;
+      background-color: #f7f7f7;
+    }
+
+    .msg {
+      font-size: 1.5rem;
+      color: #333;
+    }
+
+    .success {
+      color: green;
+    }
+
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="msg" id="message">Verificando sua conta...</div>
+
+  <script>
+    async function verifyEmail() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = urlParams.get('token');
+      const messageEl = document.getElementById('message');
+
+      if (!token) {
+        messageEl.textContent = 'Token de verificação não encontrado.';
+        messageEl.classList.add('error');
+        return;
+      }
+
+      try {
+        const res = await fetch(`http://localhost:3000/auth/verify?token=${token}`);
+        const text = await res.text();
+
+        if (res.ok) {
+          messageEl.textContent = text;
+          messageEl.classList.add('success');
+
+          // Redireciona pro login depois de 3s
+          setTimeout(() => {
+            window.location.href = 'login.html';
+          }, 3000);
+        } else {
+          messageEl.textContent = text;
+          messageEl.classList.add('error');
+        }
+      } catch (err) {
+        messageEl.textContent = 'Erro ao conectar com o servidor.';
+        messageEl.classList.add('error');
+      }
+    }
+
+    verifyEmail();
+  </script>
+</body>
+</html>

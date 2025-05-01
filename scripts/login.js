@@ -54,7 +54,6 @@ function toggleSenha(id, iconClicked) {
 
 function submitLogin() {
     const email = document.getElementById('email-login').value;
-    const password = document.getElementById('senha-login').value; 
     
     if (!validateEmail(email)) {
         alert('Por favor, insira um e-mail válido.');
@@ -67,29 +66,32 @@ function submitLogin() {
 }
 
 function submitRegister() {
-    const email = document.getElementById('email-register').value;
-    const password = document.getElementById('senha-register').value; 
-    const password_cofirm = document.getElementById('senha-cofirm').value; 
-    const username = document.getElementById('nickname').value;
+    // const email = document.getElementById('email-register').value;
+    // const password = document.getElementById('senha-register').value; 
+    // const password_cofirm = document.getElementById('senha-cofirm').value; 
+    // const username = document.getElementById('nickname').value;
 
-    if (username.length < 3) {
-        alert('O nome de usuário deve ter pelo menos 3 caracteres.');
-        return;
-    }
-    else if (!validateEmail(email)) {
-        alert('Por favor, insira um e-mail válido.');
-        return;
-    }
-    else if (password.length < 6) {
-        alert('A senha deve ter pelo menos 6 caracteres.');
-        return;
-    } else if (password !== password_cofirm) {
-        alert('As senhas não coincidem.');
-        return;
-    }
-    else {
-        register();
-    }
+    // if (username.length < 3) {
+    //     alert('O nome de usuário deve ter pelo menos 3 caracteres.');
+    //     return;
+    // }
+    // else if (!validateEmail(email)) {
+    //     alert('Por favor, insira um e-mail válido.');
+    //     return;
+    // }
+    // else if (password.length < 6) {
+    //     alert('A senha deve ter pelo menos 6 caracteres.');
+    //     return;
+    // } else if (password !== password_cofirm) {
+    //     alert('As senhas não coincidem.');
+    //     return;
+    // }
+    // else {
+    //     register();
+    // }
+
+
+    register(); // Chama a função de registro
 
 }
 
@@ -123,9 +125,9 @@ async function register() { // função de registro
     if (res.ok) { // verifica se o registro foi bem sucedido
         document.getElementById('response').textContent = `Usuário ${username} criado com sucesso!`;
         sessionStorage.setItem('token', data.token); // armazena o token no sessionStorage
-        setTimeout(() => {
-            window.location.href = '../dashboard.html'; // redireciona para a página de login após 2 segundos
-        }, 2000);
+        // setTimeout(() => {
+        //     window.location.href = '../dashboard.html'; // redireciona para a página de login após 2 segundos
+        // }, 2000);
     } else {
         document.getElementById('response').textContent = data.message || data.error;
     }
