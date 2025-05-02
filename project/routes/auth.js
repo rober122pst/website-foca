@@ -97,9 +97,9 @@ router.get('/verify', async (req, res) => {
     user.verified = true;
     await user.save();
 
-    res.send('Conta verificada com sucesso! Agora você pode logar.');
+    res.send('Conta verificada com sucesso!');
   } catch (err) {
-    res.status(400).send('Token inválido ou expirado.');
+    res.status(400).send('Conta não encontrada ou expirada.');
   }
 });
 
@@ -132,6 +132,18 @@ router.post('/resend-verification', async (req, res) => {
     console.error(err);
     res.status(500).json({ error: 'Erro interno do servidor.' });
   }
+});
+
+router.post('/check-verification', async (req, res) => {
+  const { email } = req.body;
+  if (!email) return res.json({ error: 'E-mail não enviado' });
+
+  const user = await User.findOne({ email });
+
+  if (!user) return res.json({ notFound: true });
+  if (user.verified) return res.json({ verified: true });
+
+  return res.json({ verified: false });
 });
 
 module.exports = router;

@@ -114,6 +114,11 @@ function validateEmail(email) {
     return re.test(email);
 }
 
+const urlParams = new URLSearchParams(window.location.search);
+if(urlParams.get('register')) {
+    toggleForm()
+}
+
 function toggleForm() {
     const wrapperLogin = document.querySelector(".wrapper-login");
     wrapperLogin.classList.toggle("active");
@@ -134,7 +139,6 @@ async function register() { // função de registro
     const data = await res.json();
     console.log(data); // imprime a resposta do backend no console
     if (res.ok) { // verifica se o registro foi bem sucedido
-        document.getElementById('response-register').textContent = `Usuário ${username} criado com sucesso!`;
         localStorage.setItem('lastRegisteredEmail', email); // armazena o token no sessionStorage
         window.location.href = '../auth/verify.html'; // redireciona para a página de verificação
     } else {
