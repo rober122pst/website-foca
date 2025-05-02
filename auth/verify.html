@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Verificação de E-mail</title>
+  <title>Foca - Verificar Email</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -27,43 +27,57 @@
   </style>
 </head>
 <body>
-  <div class="msg" id="message">Verificando sua conta...</div>
+  <div class="container">
+    <h1>Por favor, verifique seu email</h1>
+    <p>
+      Um email de verificação foi enviado para <span><strong>
+        <script>
+          const urlParams = new URLSearchParams(window.location.search);
+          const email = localStorage.getItem('lastRegisteredEmail') || urlParams.get('lastRegisteredEmail') || 'email não encontrado';
+          document.write(email);
+        </script>
+      </strong></span>
+    </p>
+    <p>
+      Clique no link de verificação para ativar sua conta. Se você não receber o email, verifique sua caixa de spam.
+    </p>
+    <p>
+      Não encontra o email?
+    </p>
+    <button onclick="resendEmail()" class="btn btn-primary">
+      Reenviar email de verificação
+    </button>
+    <p id="msg" class="msg"></p>
+  </div>
+
 
   <script>
-    async function verifyEmail() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const token = urlParams.get('token');
-      const messageEl = document.getElementById('message');
+    async function resendEmail() {
+      const email = localStorage.getItem('lastRegisteredEmail');
+      const msg = document.getElementById('msg');
 
-      if (!token) {
-        messageEl.textContent = 'Token de verificação não encontrado.';
-        messageEl.classList.add('error');
+      if (!email) {
+        msg.textContent = 'E-mail não encontrado.';
+        msg.style.color = 'red';
         return;
       }
 
       try {
-        const res = await fetch(`http://localhost:3000/auth/verify?token=${token}`);
-        const text = await res.text();
+        const res = await fetch('http://localhost:3000/auth/resend-verification', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
 
-        if (res.ok) {
-          messageEl.textContent = text;
-          messageEl.classList.add('success');
+        const data = await res.json();
+        msg.textContent = data.message || data.error;
+        msg.style.color = res.ok ? 'green' : 'red';
 
-          // Redireciona pro login depois de 3s
-          setTimeout(() => {
-            window.location.href = 'login.html';
-          }, 3000);
-        } else {
-          messageEl.textContent = text;
-          messageEl.classList.add('error');
-        }
       } catch (err) {
-        messageEl.textContent = 'Erro ao conectar com o servidor.';
-        messageEl.classList.add('error');
+        msg.textContent = 'Erro ao reenviar o e-mail.';
+        msg.style.color = 'red';
       }
     }
-
-    verifyEmail();
   </script>
 </body>
 </html>

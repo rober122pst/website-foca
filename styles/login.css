@@ -237,6 +237,7 @@
     transform: translateY(calc(var(--input_height) - 20px));
     transition: transform 200ms ease-in-out;
     color: var(--bg-second);
+    pointer-events: none;
 }
 
 .password {
@@ -298,7 +299,17 @@
     color: var(--color-items-primary);
 }
 
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 20px var(--bg-primary) inset !important;
+    -webkit-text-fill-color: var(--color-items-second) !important;
+}
+
+.check {
+    margin-top: 3px;
+}
+
 .input-check {
+    cursor: pointer;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -307,6 +318,7 @@
 }
 
 .remember {
+    cursor: pointer;
     accent-color: var(--accent);
     width: 12px;
 }
@@ -418,6 +430,26 @@
     font-size: 3rem;
     font-weight: 800;
     transition: transform 0.5s ease-in-out;
+}
+
+#response-login {
+    margin-top: 5px;
+    font-size: .7rem;
+    pointer-events: none;
+
+    color: #ff5405;
+}
+
+#response-register {
+    margin-top: 5px;
+    font-size: .7rem;
+    pointer-events: none;
+
+    color: #0098db;
+}
+
+.error  {
+    animation: shake 0.5s ease-in-out;
 }
 
 .wrapper-login.active .sign-up-button span {
@@ -609,5 +641,23 @@
     }
     100% {
         transform: translateY(-10px);
+    }
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0px);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    50% {
+        transform: translateX(5px);
+    }
+    75% {
+        transform: translateX(-5px);
+    }
+    100% {
+        transform: translateX(0px);
     }
 }

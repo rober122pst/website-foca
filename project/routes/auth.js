@@ -20,16 +20,16 @@ async function sendVerificationEmail(email, token) {
   const url = `${process.env.CLIENT_URL}/auth/verify.html?token=${token}`;
 
   await transporter.sendMail({
-    from: `"Foca App" <${process.env.EMAIL_USER}>`,
+    from: `"Foca" <${process.env.EMAIL_USER}>`,
     to: email,
     subject: 'Confirme seu cadastro',
     html: `
-      <h2>Bem-vindo(a) ao Foca App!</h2>
+      <h2>Bem-vindo(a) ao Foca!</h2>
       <p>Confirme seu e-mail clicando no link abaixo:</p>
       <a href="${url}">Confirmar meu e-mail</a>
       <p>Se você não criou essa conta, apenas ignore.</p>
       <p>Atenciosamente,</p>
-      <p>Equipe Foca App</p>`,
+      <p>Equipe Foca</p>`,
   });
 }
 
@@ -39,7 +39,7 @@ router.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
     try {
         const existing = await User.findOne({ email });
-        if (existing) return res.status(400).json({ message: 'Usuário já existe' });
+        if (existing) return res.status(400).json({ message: 'Email já cadastrado.' });
         
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({ username, email, password: hashedPassword, verified: false });
@@ -49,7 +49,7 @@ router.post('/register', async (req, res) => {
         await newUser.save();
         
         await sendVerificationEmail(newUser.email, verificationToken);
-        res.status(201).json({ message: `Usuário ${email} criado com sucesso` });
+        res.status(201).json({ message: `Usuário ${email} criado com sucesso`, verificationToken });
         console.log(req.body);
     } catch (err) {
         res.status(500).json({ error: 'Erro interno ' + err });
@@ -60,12 +60,12 @@ router.post('/register', async (req, res) => {
 // Login
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
+  console.log(req.body);
   try {
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: 'Usuário não encontrado' });
-
+    if (!user) return res.status(400).json({ message: 'Usuário não encontrado.' });
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(401).json({ message: 'Senha incorreta' });
+    if (!isMatch) return res.status(401).json({ message: 'Senha incorreta.' });
 
     if (!user.verified) {
       return res.status(403).json({ error: 'Conta não verificada. Verifique seu e-mail.' });
@@ -80,6 +80,7 @@ router.post('/login', async (req, res) => {
     res.status(200).json({ token });
   } catch (err) {
     res.status(500).json({ error: 'Erro interno' });
+    console.error(err);
   }
 });
 
@@ -99,6 +100,37 @@ router.get('/verify', async (req, res) => {
     res.send('Conta verificada com sucesso! Agora você pode logar.');
   } catch (err) {
     res.status(400).send('Token inválido ou expirado.');
+  }
+});
+
+router.post('/resend-verification', async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ error: 'Email é obrigatório.' });
+  }
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ error: 'Usuário não encontrado.' });
+    }
+
+    if (user.verified) {
+      return res.status(400).json({ error: 'Este e-mail já foi verificado.' });
+    }
+
+    const verificationToken = jwt.sign({ email }, process.env.JWT_SECRET, {
+      expiresIn: '1d',
+    });
+    sendVerificationEmail(email, verificationToken);
+
+    res.json({ message: 'E-mail de verificação reenviado com sucesso!' });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro interno do servidor.' });
   }
 });
 
