@@ -3,36 +3,9 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const utils = require('../utils')
 
 require('dotenv').config();
-
-const nodemailer = require('nodemailer');
-
-async function sendVerificationEmail(email, token) {
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
-
-  const url = `${process.env.CLIENT_URL}/auth/verify.html?token=${token}`;
-
-  await transporter.sendMail({
-    from: `"Foca" <${process.env.EMAIL_USER}>`,
-    to: email,
-    subject: 'Confirme seu cadastro',
-    html: `
-      <h2>Bem-vindo(a) ao Foca!</h2>
-      <p>Confirme seu e-mail clicando no link abaixo:</p>
-      <a href="${url}">Confirmar meu e-mail</a>
-      <p>Se você não criou essa conta, apenas ignore.</p>
-      <p>Atenciosamente,</p>
-      <p>Equipe Foca</p>`,
-  });
-}
-
 
 // Registro
 router.post('/register', async (req, res) => {
@@ -41,14 +14,14 @@ router.post('/register', async (req, res) => {
         const existing = await User.findOne({ email });
         if (existing) return res.status(400).json({ message: 'Email já cadastrado.' });
         
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await utils.hashPassword(password)
         const newUser = new User({ username, email, password: hashedPassword, verified: false });
         const verificationToken = jwt.sign({ email }, process.env.JWT_SECRET, {
           expiresIn: '1d',
         });
         await newUser.save();
         
-        await sendVerificationEmail(newUser.email, verificationToken);
+        await utils.sendVerificationEmail(newUser.email, verificationToken);
         res.status(201).json({ message: `Usuário ${email} criado com sucesso`, verificationToken });
         console.log(req.body);
     } catch (err) {
@@ -124,7 +97,7 @@ router.post('/resend-verification', async (req, res) => {
     const verificationToken = jwt.sign({ email }, process.env.JWT_SECRET, {
       expiresIn: '1d',
     });
-    sendVerificationEmail(email, verificationToken);
+    utils.sendVerificationEmail(email, verificationToken);
 
     res.json({ message: 'E-mail de verificação reenviado com sucesso!' });
 
@@ -144,6 +117,44 @@ router.post('/check-verification', async (req, res) => {
   if (user.verified) return res.json({ verified: true });
 
   return res.json({ verified: false });
+});
+
+router.post('/forgot-password', async (req, res) => {
+  const {email} = req.body;
+  const user = await User.findOne({email});
+
+  if(!user) return res.json({message: 'Se existir, o link será enviado.'})
+
+  const token = utils.generateToken();
+  user.resetToken = token;
+  user.resetTokenExpires = Date.now() + 1000 *60 *30; // 30 min
+  await user.save();
+
+  utils.sendEmail(email, {
+    subject: 'Redefinição de senha',
+    html: `
+      <h2>Clique no botão para redefinir sua senha.</h2>
+      <a href="http://127.0.0.1:5500/auth/reset.html?token=${token}"><button>Redefinir senha</button></a>
+    `
+  });
+  console.log(email)
+  res.json({menssage: 'Se existir, o link será enviado.'});
+});
+
+router.post('/reset-password', async (req, res) => {
+  const {token, newPassword} = req.body;
+  const user = await User.findOne({resetToken: token});
+  console.log(user)
+  if(!user || user.resetTokenExpires < Date.now()) {
+    return res.status(400).json({error: 'Link inválido ou expirado.'})
+  }
+
+  user.password = await utils.hashPassword(newPassword);
+  user.resetToken = undefined;
+  user.resetTokenExpires = undefined
+  await user.save();
+  
+  res.json({message: 'Senha alterada com sucesso!'})
 });
 
 module.exports = router;
