@@ -1,43 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <title>Dashboard</title>
-</head>
-<body>
-  <h1 id="welcome">Dashboard</h1>
-  <p id="user-info"></p>  <!-- Aqui vai aparecer "Logado como ..." -->
-
-  <button onclick="logout()">Sair</button>
-  
-  <script>
-    const token = localStorage.getItem('token') || sessionStorage.getItem('token'); // Tenta obter o token do localStorage ou sessionStorage
-
-    if (!token) { // Função para verificar se o token existe
-      window.location.href = 'index.html';
-    } else {
-      const payload = parseJwt(token);
-      console.log(payload); // Exibe o payload no console para depuração
-      if (payload && payload.username) { // Verifica se o payload contém o username
-        document.getElementById('welcome').textContent = `Logado como ${payload.username}`;
-      } else {
-        document.getElementById('welcome').textContent = 'Usuário desconhecido';
-      }
-    }
-
-    function parseJwt(token) { // Função para decodificar o JWT
-      try {
-        return JSON.parse(atob(token.split('.')[1]));
-      } catch (e) {
-        return null;
-      }
-    }
-
-    function logout() {
-      localStorage.removeItem('token');
-      sessionStorage.removeItem('token');
-      window.location.href = './auth/login.html'; // Redireciona para o login
-    }
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tailwind Play CDN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./styles/dashboard.css">
+    
+  </head>
+  <body class="bg-gray-100 text-gray-800 p-10">
+    <div class="w-30 h-10 bg-teal-400"></div>
+    <h1 class="text-4xl font-bold text-clifford font-pixel">Vamos, Sport!</h1>
+    <p class="mt-4">Testando Tailwind direto no navegador 🧪</p>
+    <button class="mt-4 px-4 py-2 bg-clifford text-white rounded hover:bg-blue-700 transition">
+      Clica em mim
+    </button>
+  </body>
 </html>

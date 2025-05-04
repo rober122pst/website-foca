@@ -1,6 +1,19 @@
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
+const rateLimit = require('express-rate-limit');
+
 require('dotenv').config();
+
+
+// Limita 5 tentativas a cada 10 minutos por IP
+const loginLimiter = rateLimit({
+  windowMs: 10 * 60 * 1000, // 10 minutos
+  max: 5,
+  message: 'Muitas tentativas de login. Tente novamente em 10 minutos.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
 async function sendEmail(email, emailContent) {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -43,4 +56,4 @@ function generateToken(length = 32) {
   return crypto.randomBytes(length).toString('hex'); // gera token seguro
 }
 
-module.exports = { sendVerificationEmail, sendEmail, hashPassword, generateToken }
+module.exports = { sendVerificationEmail, sendEmail, hashPassword, generateToken, loginLimiter }

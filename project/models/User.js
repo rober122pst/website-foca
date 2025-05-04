@@ -7,6 +7,9 @@ const userSchema = new mongoose.Schema({
     verified: { type: Boolean, default: false },
     resetToken: String,
     resetTokenExpires: Date,
+    failedAttempts: { type: Number, default: 0 },
+    lastFailedLogin: Date,
+    lockedUntil: Date
 });
 
 module.exports = mongoose.model('User', userSchema);

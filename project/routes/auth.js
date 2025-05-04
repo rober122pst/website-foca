@@ -8,7 +8,7 @@ const utils = require('../utils')
 require('dotenv').config();
 
 // Registro
-router.post('/register', async (req, res) => {
+router.post('/register', utils.loginLimiter, async (req, res) => {
     const { username, email, password } = req.body;
     try {
         const existing = await User.findOne({ email });
@@ -38,17 +38,34 @@ router.post('/login', async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ message: 'Usuário não encontrado.' });
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(401).json({ message: 'Senha incorreta.' });
+    if (user.lockedUntil && user.lockedUntil > Date.now()) {
+      return res.status(403).json({ error: 'Conta bloqueada. Tente mais tarde.' });
+    }
+    if (!isMatch) {
+      user.failedAttempts += 1;
+      user.lastFailedLogin = Date.now();
+
+      if (user.failedAttempts >= 5) {
+        user.lockedUntil = Date.now() + 10 * 60 * 1000; // 10 min
+      }
+
+      await user.save();
+      return res.status(401).json({ message: 'Senha incorreta.' });
+    }
 
     if (!user.verified) {
       return res.status(403).json({ error: 'Conta não verificada. Verifique seu e-mail.' });
     }
 
+    user.failedAttempts = 0;
+    user.lockedUntil = undefined;
+    await user.save();
+
     const token = jwt.sign(
-        { id: user._id, username: user.username },
-        process.env.JWT_SECRET,
-        { expiresIn: '1d' }
-      );
+      { id: user._id, username: user.username },
+      process.env.JWT_SECRET,
+      { expiresIn: '1d' }
+    );
 
     res.status(200).json({ token });
   } catch (err) {
