@@ -1,0 +1,49 @@
+@import url(cores.css);
+
+:root {
+    --fc-small-font-size: .85em;
+    --fc-page-bg-color: var(--bg-second);
+    --fc-neutral-bg-color: rgba(208, 208, 208, 0.3);
+    --fc-neutral-text-color: #808080;
+    --fc-border-color: var(--bg-second);
+  
+    --fc-button-text-color: var(--text-light);
+    --fc-button-bg-color: var(--color-items-primary);
+    --fc-button-border-color: var(--color-items-primary);
+    --fc-button-hover-bg-color: var(--color-dark);
+    --fc-button-hover-border-color: var(--color-dark);
+    --fc-button-active-bg-color: var(--color-dark);
+    --fc-button-active-border-color: var(--color-dark);
+  
+    --fc-event-bg-color: var(--color-items-primary);
+    --fc-event-border-color: var(--color-items-primary);
+    --fc-event-text-color: var(--text-light);
+    --fc-event-selected-overlay-color: rgba(0, 0, 0, 0.25);
+  
+    --fc-more-link-bg-color: #d0d0d0;
+    --fc-more-link-text-color: inherit;
+  
+    --fc-event-resizer-thickness: 8px;
+    --fc-event-resizer-dot-total-width: 8px;
+    --fc-event-resizer-dot-border-width: 1px;
+  
+    --fc-non-business-color: rgba(215, 215, 215, 0.3);
+    --fc-bg-event-color: rgb(143, 223, 130);
+    --fc-bg-event-opacity: 0.3;
+    --fc-highlight-color: rgba(188, 232, 241, 0.3);
+    --fc-today-bg-color: rgba(255, 220, 40, 0.15);
+    --fc-now-indicator-color: red;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+    background-color: var(--bg-second);
+}
+
+.fc .fc-scroller-liquid-absolute {
+    /* overflow-y: clip !important; */
+}
+
+#calendar {
+    max-width: 1000px;
+    margin: 0 auto;
+}

@@ -1,6 +1,6 @@
 {
   "name": "website-foca",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "type": "module",
   "main": "project/server.js",
   "scripts": {
@@ -27,6 +27,7 @@
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-rate-limit": "^7.5.0",
+    "fullcalendar": "^6.1.17",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.16.0",
     "mongoose": "^8.14.1",
