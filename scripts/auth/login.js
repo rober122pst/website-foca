@@ -4,7 +4,7 @@ if (token) { // Função para verificar se o token existe
 } // Redireciona para a página de dashboard se o token existir
 // Se não existir, continua na página de login
 
-document.querySelectorAll("#form").forEach((form) => {
+document.querySelectorAll("form").forEach((form) => {
     const inputs = form.querySelectorAll(".input-field");
     
     function updateButtonProgress() {
@@ -32,6 +32,10 @@ document.querySelectorAll("#form").forEach((form) => {
 
     inputs.forEach(input => {
         input.addEventListener("input", updateButtonProgress);
+    });
+    
+    form.addEventListener("submit", async function (e) {
+        e.preventDefault()
     });
 });
 

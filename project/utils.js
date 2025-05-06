@@ -1,8 +1,9 @@
-const nodemailer = require('nodemailer');
-const bcrypt = require('bcrypt');
-const rateLimit = require('express-rate-limit');
+import nodemailer from 'nodemailer';
+import bcrypt from 'bcrypt';
+import rateLimit from 'express-rate-limit';
+import * as dotenv from 'dotenv';
 
-require('dotenv').config();
+dotenv.config();
 
 
 // Limita 5 tentativas a cada 10 minutos por IP
@@ -50,10 +51,10 @@ async function hashPassword(password) {
     return await bcrypt.hash(password, 10);
 }
 
-const crypto = require('crypto');
+import crypto from 'crypto';
 
 function generateToken(length = 32) {
   return crypto.randomBytes(length).toString('hex'); // gera token seguro
 }
 
-module.exports = { sendVerificationEmail, sendEmail, hashPassword, generateToken, loginLimiter }
+export default { sendVerificationEmail, sendEmail, hashPassword, generateToken, loginLimiter }

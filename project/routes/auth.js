@@ -1,11 +1,12 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const User = require('../models/user');
-const utils = require('../utils')
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import User from '../models/user.js';
+import utils from '../utils.js';
+import * as dotenv from 'dotenv';
 
-require('dotenv').config();
+dotenv.config();
 
 // Registro
 router.post('/register', utils.loginLimiter, async (req, res) => {
@@ -174,4 +175,4 @@ router.post('/reset-password', async (req, res) => {
   res.json({message: 'Senha alterada com sucesso!'})
 });
 
-module.exports = router;
+export default router;

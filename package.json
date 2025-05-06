@@ -1,9 +1,12 @@
 {
   "name": "website-foca",
   "version": "1.0.0",
-  "main": "index.js",
+  "type": "module",
+  "main": "project/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "seed:badges": "node project/scripts/seedBadge.js",
+    "grant:badges": "node project/scripts/grantBadgeToUser.js",
+    "token": "node project/scripts/generateToken.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +30,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.16.0",
     "mongoose": "^8.14.1",
+    "nanoid": "^5.1.5",
     "nodemailer": "^6.10.1"
   },
   "description": "",

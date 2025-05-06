@@ -25,7 +25,7 @@
                         chevron_right
                     </span>
                 </div>
-                    <div class="form-content" id="form">
+                    <form class="form-content" onsubmit="submitRegister()" id="form-signup">
                         
                         <img src="../imgs/foca_branco.svg" alt="">
                         <h1>Criar Conta</h1>
@@ -71,13 +71,13 @@
                             <label class="input-check"><input type="checkbox" class="remember" id="termos-servicos"/> Aceitar <a href="" style="text-decoration: none; color: #0098db">Termos e Condições</a></label>
                         </div>
                         <div class="input-form">
-                            <button disabled onclick="submitRegister()" class="input-button login-button" type="submit">
+                            <button disabled class="input-button login-button" type="submit">
                                 <div class="progress-fill">
                                     <div class="progress-fill-text">Registrar</div>
                                 </div>
                             </button>
                         </div>
-                    </div>               
+                    </form>               
             </div>
             <div class="sign-in-container">
                 <div class="sidebar">
@@ -87,7 +87,7 @@
                         </h1>
                     </div>
                 </div>
-                <div class="form-content" id="form">
+                <form class="form-content" onsubmit="submitLogin()" id="form-signin">
                     <img src="../imgs/foca.svg" alt="">
                     <h1>Login</h1>
                     <div class="social-icons">
@@ -116,14 +116,14 @@
                         <label class="input-check"><input type="checkbox" class="remember" id="remember-me"/> Manter logado</label>
                     </div>
                     <div class="input-form">
-                        <button disabled onclick="submitLogin()" class="input-button login-button" type="submit">
+                        <button disabled class="input-button login-button" type="submit">
                             <div class="progress-fill">
                                 <div class="progress-fill-text">Entrar</div>
                             </div>
                         </button>
                     </div>
                     <a class="esqueci-senha" href="./forgot.html">Esqueceu a senha?</a>
-                </div>               
+                </form>               
             </div>
         </div>
         <div class="waves">

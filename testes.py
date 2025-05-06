@@ -44,3 +44,8 @@ if __name__ == "__main__":
         if continuar != 's':
             print("👋 Até mais!")
             break
+
+
+from plyer import notification
+
+notification.notify()
