@@ -1,6 +1,6 @@
 const token = localStorage.getItem('token') || sessionStorage.getItem('token'); // Tenta obter o token do localStorage ou sessionStorage
 if (token) { // Função para verificar se o token existe
-  window.location.href = '../dashboard.html';
+  window.location.href = '/dashboard';
 } // Redireciona para a página de dashboard se o token existir
 // Se não existir, continua na página de login
 
@@ -128,7 +128,9 @@ function toggleForm() {
     wrapperLogin.classList.toggle("active");
 }
 
-const API_URL = 'http://localhost:3000/auth';
+const API_URL = window.location.hostname.includes('localhost')
+    ? 'http://localhost:3000/api/auth'
+    : 'https://vigilant-fishstick-4x5p4vqr95jcjpr6-4000.app.github.dev/api/auth';
 
 async function register() { // função de registro
     const username = document.getElementById('nickname').value;
@@ -144,7 +146,7 @@ async function register() { // função de registro
     console.log(data); // imprime a resposta do backend no console
     if (res.ok) { // verifica se o registro foi bem sucedido
         localStorage.setItem('lastRegisteredEmail', email); // armazena o token no sessionStorage
-        window.location.href = '../auth/verify.html'; // redireciona para a página de verificação
+        window.location.href = '/auth/verify'; // redireciona para a página de verificação
     } else {
         document.getElementById('response-register').textContent = data.error;
     }
@@ -173,7 +175,7 @@ async function login() { // função de login
         } else {
             sessionStorage.setItem('token', data.token); // some quando fecha o navegador
         }
-        window.location.href = '../dashboard.html';
+        window.location.href = '/dashboard';
     } else {
         if (res.status === 400) {
             email_element.classList.add('error'); // Adiciona a classe de erro ao campo de email

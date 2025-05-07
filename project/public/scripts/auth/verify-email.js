@@ -1,10 +1,12 @@
 
-const API_URL = 'http://localhost:3000/auth';
+const API_URL = window.location.hostname.includes('localhost')
+    ? 'http://localhost:3000/api/auth'
+    : 'https://vigilant-fishstick-4x5p4vqr95jcjpr6-4000.app.github.dev/api/auth';
 window.addEventListener('DOMContentLoaded', async () => {
     const email = localStorage.getItem('lastRegisteredEmail'); // você salva o email lá no login/cadastro
     if (!email) {
         // Sem e-mail no localStorage? Vaza!
-        window.location.href = 'login.html';
+        window.location.href = '/auth';
         return;
     }
 
@@ -19,7 +21,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
         if (data.error || data.notFound || data.verified) {
             // Conta apagada, não encontrada ou já verificada = volta pro login/dashboard
-            window.location.href = data.verified ? '../dashboard.html' : 'login.html';
+            window.location.href = data.verified ? '/dashboard' : '/login';
         }
     } catch (e) {
         console.error('Erro ao verificar status do e-mail', e);
@@ -59,7 +61,7 @@ async function verifyEmail() {
             description.textContent = `Sua conta foi ativada com sucesso. Você já pode fazer login e começar a focar!\n\nSe não for redirecionado, clique no botão abaixo.`
             localStorage.removeItem('lastRegisteredEmail')
             setTimeout(() => {
-                window.location.href = 'login.html';
+                window.location.href = '/auth';
             }, 3000);
         }else {
             message.textContent = text;
@@ -90,5 +92,5 @@ async function resendEmail() {
 }
 
 function irLogin() {
-    window.location.href = '../auth/login.html'
+    window.location.href = '/auth'
 }
