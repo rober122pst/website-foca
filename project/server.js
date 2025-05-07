@@ -42,16 +42,19 @@ app.get('/auth/reset', (req, res) => {
 app.get('/user/:id', async (req, res) => {
     const { id } = req.params;
     try {
-        const response = await fetch(`https://vigilant-fishstick-4x5p4vqr95jcjpr6-4000.app.github.dev/api/user/${id}`);
+        const response = await fetch(`https://foca.onrender.com/api/user/${id}`, {method: 'GET', headers: {'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTdlMjMzZjYzMGFlNTY2MjU2ODg0OCIsInVzZXJuYW1lIjoiUm9iZXIxMjIiLCJpYXQiOjE3NDY2Mzc5OTMsImV4cCI6MTc0NjcyNDM5M30.k8g0_vqeX2R-ET-5-vZJwUQcaThPKcYj2MFJe7gHYO4`}});
         if(!response.ok){
-            return res.status(404).render('erro', { mensagem: 'Usuário não encontrado' });
+            return res.status(404).json({ mensagem: 'Usuário não encontrado' });
         }
-        const userData = await response.json();
+        const data = await response.json();
         res.render('dashboard', { username: data.username });
     }catch (err){
         console.error(err);
-        res.status(500).render('erro', { mensagem: 'Erro ao buscar usuário.' });
+        res.status(500).json({ mensagem: 'Erro ao buscar usuário.' });
     }
+});
+app.get('/user/:id/rotina', (req, res) => {
+    res.render('routine', { username: "Robertinho" });
 });
 
 mongoose.connect(process.env.MONGO_URI)
