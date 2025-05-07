@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import rateLimit from 'express-rate-limit';
 import * as dotenv from 'dotenv';
 

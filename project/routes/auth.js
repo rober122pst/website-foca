@@ -1,8 +1,8 @@
 import express from 'express';
 const router = express.Router();
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import User from '../models/user.js';
+import User from '../models/User.js';
 import utils from '../utils.js';
 import * as dotenv from 'dotenv';
 
