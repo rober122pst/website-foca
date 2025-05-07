@@ -1,4 +1,4 @@
-import Task from '../models/User.js'
+import User from '../models/User.js'
 
 export const getUsers = async (req, res) => {
     const users = await User.find({ _id: req.user._id });
