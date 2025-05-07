@@ -1,6 +1,6 @@
 
 const API_URL = window.location.hostname.includes('localhost')
-    ? 'http://localhost:3000/api/auth'
+    ? 'http://localhost:4000/api/auth'
     : 'https://vigilant-fishstick-4x5p4vqr95jcjpr6-4000.app.github.dev/api/auth';
 window.addEventListener('DOMContentLoaded', async () => {
     const email = localStorage.getItem('lastRegisteredEmail'); // você salva o email lá no login/cadastro

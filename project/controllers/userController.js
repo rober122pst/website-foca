@@ -1,7 +1,7 @@
 import User from '../models/User.js'
 
 export const getUsers = async (req, res) => {
-    const users = await User.find({ _id: req.user._id });
+    const users = await User.find();
     res.json(users);
 };
 
