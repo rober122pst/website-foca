@@ -4,16 +4,18 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendar = new FullCalendar.Calendar(calendarEl, {
         locale: 'pt-br',
         timezone: 'America/Recife',
-        initialView: 'timeGridDay',
+        initialView: 'timeGridWeek',
         initialDate: Date.now(),
-        contentHeight: 'auto',
+        contentHeight: 600,
         // expandsRows: true,
         handleWindowResize: true,
         allDaySlot: false,
+        slotMinTime: '08:00:00',
+        slotMaxTime: '22:00:00',
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',
-            right: 'timeGridDay,timeGridWeek,dayGridMonth,listWeek'
+            right: 'timeGridDay,timeGridWeek,dayGridMonth'
         },
         titleFormat: { year: 'numeric', month: 'short', day: 'numeric' },
         dayHeaderFormat: {
