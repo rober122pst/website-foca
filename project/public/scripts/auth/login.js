@@ -128,7 +128,7 @@ function toggleForm() {
     wrapperLogin.classList.toggle("active");
 }
 
-const API_URL = `${process.env.CLIENT_URL}/api/auth`
+const API_URL = `https://foca.onrender.com/api/auth`
 
 async function register() { // função de registro
     const username = document.getElementById('nickname').value;
