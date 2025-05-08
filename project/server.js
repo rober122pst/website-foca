@@ -44,7 +44,7 @@ app.get('/auth/reset', (req, res) => {
 app.get('/user/:id', async (req, res) => {
     const { id } = req.params;
     try {
-        const response = await fetch(`http://localhost:4000/api/user/${id}`, {method: 'GET', headers: {'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTdlMjMzZjYzMGFlNTY2MjU2ODg0OCIsInVzZXJuYW1lIjoiUm9iZXIxMjIiLCJpYXQiOjE3NDY2Mzc5OTMsImV4cCI6MTc0NjcyNDM5M30.k8g0_vqeX2R-ET-5-vZJwUQcaThPKcYj2MFJe7gHYO4`}});
+        const response = await fetch(`${process.env.CLIENT_URL}/api/user/${id}`, {method: 'GET', headers: {'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTdlMjMzZjYzMGFlNTY2MjU2ODg0OCIsInVzZXJuYW1lIjoiUm9iZXIxMjIiLCJpYXQiOjE3NDY2Mzc5OTMsImV4cCI6MTc0NjcyNDM5M30.k8g0_vqeX2R-ET-5-vZJwUQcaThPKcYj2MFJe7gHYO4`}});
         if(!response.ok){
             return res.status(404).json({ mensagem: 'Usuário não encontrado' });
         }
@@ -56,7 +56,7 @@ app.get('/user/:id', async (req, res) => {
     }
 });
 app.get('/user/:id/rotina', (req, res) => {
-    res.render('routine', { username: "Robertinho" });
+    res.sendFile(path.join(__dirname, 'public', 'routine.html'));;
 });
 
 mongoose.connect(process.env.MONGO_URI)

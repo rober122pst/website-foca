@@ -128,9 +128,7 @@ function toggleForm() {
     wrapperLogin.classList.toggle("active");
 }
 
-const API_URL = window.location.hostname.includes('localhost')
-    ? 'http://localhost:4000/api/auth'
-    : 'https://vigilant-fishstick-4x5p4vqr95jcjpr6-4000.app.github.dev/api/auth';
+const API_URL = `${process.env.CLIENT_URL}/api/auth`
 
 async function register() { // função de registro
     const username = document.getElementById('nickname').value;
