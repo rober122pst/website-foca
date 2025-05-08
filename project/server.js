@@ -49,7 +49,7 @@ app.get('/user/:id', async (req, res) => {
             return res.status(404).json({ mensagem: 'Usuário não encontrado' });
         }
         const data = await response.json();
-        res.render('dashboard', { username: data.password });
+        res.render('dashboard', { username: data.username });
     }catch (err){
         console.error(err);
         res.status(500).json({ mensagem: 'Erro ao buscar usuário.' });
