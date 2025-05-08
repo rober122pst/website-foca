@@ -51,7 +51,7 @@ async function verifyEmail() {
     }
 
     try {
-        const res = await fetch(`http://localhost:3000/auth/verify?token=${token}`)
+        const res = await fetch(`${API_URL}/verify?token=${token}`)
         const text = await res.text()
 
         if(res.ok) {
