@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
         allDaySlot: false,
         slotMinTime: '08:00:00',
         slotMaxTime: '22:00:00',
-        headerToolbar: false,
+        headerToolbar: {left: 'title', end: 'timeGridDay,timeGridWeek,dayGridMonth prev,next today'},
+        multiMonthMaxColumns: 1,
         titleFormat: { year: 'numeric', month: 'short', day: 'numeric' },
         dayHeaderFormat: {
             weekday: 'short'

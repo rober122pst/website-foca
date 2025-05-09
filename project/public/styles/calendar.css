@@ -273,6 +273,7 @@ body {
         }
     }
 }
+/**********************************************************/
 
 .fc .fc-daygrid-day.fc-day-today {
     background-color: var(--bg-primary);
@@ -288,23 +289,24 @@ body {
     border-radius: 25px;
     padding: 3rem;
 }
-
 #calendar {
     min-width: 800px;
-    padding: 2rem;
 }
 
 .fc-theme-standard td, .fc-theme-standard th, .fc-theme-standard .fc-scrollgrid {
     border: transparent;
 }
 
+.fc-theme-standard tr {
+    border: 1px solid #f5f3f0;
+}
+
 .fc-col-header {
-    border: 2px solid var(--color-items-primary)
+    
 } 
 
 .fc {
-    border-radius: 20px;
-    box-shadow: 2px 5px 20px rgba(0, 0, 0, 0.2);
+    border-right: 2px solid var(--color-items-primary);
 }
 
 .fc .fc-timegrid-slot-label-cushion {
@@ -335,4 +337,124 @@ body {
 
 .fc .fc-scroller-liquid-absolute {
     overflow: hidden scroll !important;
+    border-top: 2px solid var(--color-items-primary)
+}
+
+.fc .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 10px;
+    padding: 0 2rem;
+}
+
+.fc .fc-toolbar-title {
+    font-size: .95rem;
+}
+
+.fc .fc-button {
+    border: 1px solid transparent;
+    display: inline-block;
+    font-size: .9rem;
+    font-weight: 700;
+    line-height: 1.5;
+    padding: 0.4em 0.65em;
+    text-align: center;
+    user-select: none;
+    vertical-align: middle;
+}
+.fc .fc-button-primary:not(:disabled).fc-button-active:focus, .fc .fc-button-primary:not(:disabled):active:focus {
+    box-shadow: transparent 0px 0px 0px 0rem;
+}
+
+.fc .fc-timeGridDay-button, .fc .fc-timeGridWeek-button, .fc .fc-dayGridMonth-button {
+    background-color: transparent;
+    border-radius: 0px;
+    color: var(--color-items-primary);
+    transition: .1s ease;
+}
+
+.fc .fc-timeGridDay-button:not(:disabled).fc-button-active, .fc .fc-timeGridDay-button:not(:disabled):active,
+.fc .fc-timeGridWeek-button:not(:disabled).fc-button-active, .fc .fc-timeGridWeek-button:not(:disabled):active,
+.fc .fc-dayGridMonth-button:not(:disabled).fc-button-active, .fc .fc-dayGridMonth-button:not(:disabled):active {
+    background-color: transparent;
+    border-color: transparent;
+    border-bottom: 2px solid var(--color-items-primary);
+    color: var(--color-items-primary);
+}
+
+.fc .fc-timeGridDay-button:hover,
+.fc .fc-timeGridWeek-button:hover,
+.fc .fc-dayGridMonth-button:hover {
+    background-color: transparent;
+    border-color: transparent;
+    border-bottom: 2px solid var(--color-items-primary);
+    color: var(--color-items-primary);
+}
+
+.fc .fc-next-button, .fc .fc-prev-button{
+    transition: .1s ease;
+    border: transparent;
+}
+
+.fc .fc-next-button:not(:disabled):focus, .fc .fc-next-button:not(:disabled):active:focus, 
+.fc .fc-prev-button:not(:disabled):focus, .fc .fc-prev-button:not(:disabled):active:focus {
+    box-shadow: var(--color-items-second) -39.5px 0 inset;
+}
+
+.fc .fc-next-button:hover {
+    background-color: var(--color-items-primary);
+    border-color: transparent;
+    box-shadow: var(--color-items-second) 39.5px 0 inset;
+}
+.fc .fc-prev-button:hover {
+    background-color: var(--color-items-primary);
+    border-color: transparent;
+    box-shadow: var(--color-items-second) -39.5px 0 inset;
+}
+/*********************************************/
+
+.sidebar-calendar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-calendar {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 8px;
+}
+
+.header-buttons {
+    display: flex;
+    color: var(--text-light);
+    gap: 5px;
+}
+
+.prev, .next {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(var(--color-items-primary), var(--color-items-second));
+    box-shadow: inset 0px 0px var(--color-items-second);
+
+    width: 30px;
+    border-radius: 5px;
+    transition: .2s ease;
+    & i {
+        font-size: 12px;
+    }
+    &:hover {
+        box-shadow: inset 0px -25px var(--accent);
+    }
+}
+
+.routines-container {
+    height: 323px;
+    width: 250px;
+    border-top: 2px solid var(--color-items-primary);
+
+
+    background: green;
 }
