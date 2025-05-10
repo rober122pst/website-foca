@@ -428,7 +428,7 @@ body {
 }
 
 .fc .fc-col-header-cell.fc-day-today {
-  background-color: var(--color-items-second);  /* amarelinho */
+  background-color: #ff8997;  /* amarelinho */
   color: var(--text-light);
   font-weight: bold;
   border-radius: 4px;
@@ -469,6 +469,45 @@ body {
     left: 48.2px;
     transform: translate(-100%,-50%);
 }
+
+.fc-timegrid-event .fc-event-main {
+    color: var(--color-items-second);
+    padding: .85rem;
+}
+
+.fc-timegrid-event .fc-event-main div {
+    color: #B5828C;
+}
+
+.fc-v-event {
+    border-radius: 10px;
+    border: transparent;
+    background: #FFCDB2;
+    box-shadow: 0px -10px 0px inset #ff8997;
+}
+
+.fc-timegrid-event-harness-inset .fc-timegrid-event {
+    box-shadow: 0px -10px 0px inset #FFB4A2;
+    
+}
+
+.fc-timegrid-event-harness-inset .fc-timegrid-event.done {
+    background-color: #4ade80;
+    box-shadow: 0px -10px 0px inset rgb(43, 196, 119)
+}
+
+.fc-timegrid-event.done .fc-event-main div {
+    color: rgb(7, 104, 88);
+}
+
+.fc-timegrid-event-harness-inset .fc-timegrid-event.not-done {
+    box-shadow: 0px -10px 0px inset #ff8997;
+}
+
+.fc-timegrid-event.not-done .fc-event-main div {
+    color: #ff495b;
+}
+
 /*********************************************/
 
 .sidebar-calendar {
@@ -522,19 +561,40 @@ body {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    background-color: #FFE1E0;
-    box-shadow: 0px 10px 0px #F49BAB;
+    background-color: #ffcdcb;
+    box-shadow: 0px 10px 0px #ff8997;
     border-radius: 10px;
     padding: 24px;
     margin-bottom: 2rem;
+    & > b {
+        color: var(--color-items-primary);
+        font-size: 1.15rem;
+    }
 }
 
+.semanas {
+    cursor: default;
+}
 .semanas span {
-    cursor: pointer;
+    font-weight: 700;
     border-radius: 5px;
-    background: #F49BAB;
+    background: #ff8997;
+    color: var(--color-items-primary);
     width: 10px;
     height: 10px;
     font-size: 15px;
     padding: 2px .75rem;
+}
+
+.routine .bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color-items-primary);
+    font-weight: 800;
+}
+
+.routine .edit-routine {
+    font-size: 12px;
+    cursor: pointer;
 }

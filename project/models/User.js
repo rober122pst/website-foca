@@ -3,7 +3,7 @@ import { customAlphabet } from 'nanoid'
 const nanoid = customAlphabet('1234567890ABCDEFG', 8)
 const userSchema = new mongoose.Schema({
     // Auth basico
-    userId: { type: String, unique: true, defalt: nanoid() },
+    userId: { type: String, unique: true, default: nanoid() },
     username: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },

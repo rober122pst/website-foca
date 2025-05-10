@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 extendedProps: {
                     description: "hoje to maluco",
                     completedToday: false,
+                    completedDays: ['2025-05-05', '2025-05-09']
                 }
             },
             {
@@ -49,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 extendedProps: {
                     description: "hoje to maluco",
                     completedToday: false,
+                    completedDays: ['2025-05-05', '2025-05-09']
                 }
             },
             {
@@ -60,55 +62,49 @@ document.addEventListener('DOMContentLoaded', function() {
                 className: 'evento',
                 extendedProps: {
                     description: "hoje to maluco",
-                    completedToday: false,
+                    completedToday: true,
+                    completedDays: ['2025-05-01', '2025-05-09']
                 }
             }
         ],
         eventContent: function(arg) {
             const props = arg.event.extendedProps;
-            console.log('props', props)
+            const completados = props.completedDays || [];
+            const dataEvento = arg.event.start;
+            const dataFormatada = dataEvento.toISOString().split('T')[0];
+            const hoje = new Date();
+            hoje.setHours(0, 0, 0, 0);
+
+            let icon = '<i class="fa-solid fa-hourglass-start"></i>'
+
+            if(completados.includes(dataFormatada)) {
+                icon = '<i class="fa-solid fa-check"></i>'
+            } else if (dataEvento < hoje) {
+                icon = '<i class="fa-solid fa-x"></i>'
+            }
             return {
                 html: `
                 <div>
-                    <b>${arg.event.title}</b><br>
-                    <em>${props.description}</em>
-                    <small>${arg.timeText}</small>
+                    ${icon}<br><b>${arg.event.title}</b><br>
                 </div>
-                <div class="button-swipe">
-                    <span></span>
-                </div>
+                
                 `
             };
         },
         eventDidMount: function(info) {
-            const btn = info.el.querySelector('.button-swipe');
-            if (btn) {
-                btn.addEventListener('click', (e) => {
-                e.stopPropagation();
+            const completados = info.event.extendedProps.completedDays || [];
+            const dataEvento = info.event.start;
+            const dataFormatada = dataEvento.toISOString().split('T')[0];
+            const hoje = new Date();
+            hoje.setHours(0, 0, 0, 0);
 
-                const evento = info.event;
-
-                // Pega a data atual (só a parte da data, sem hora)
-                const hoje = new Date();
-                hoje.setHours(0, 0, 0, 0);
-                
-                // Data do evento (também zerando hora pra comparar só a data)
-                const dataEvento = new Date(evento.start);
-                dataEvento.setHours(0, 0, 0, 0);
-                
-                // Verifica se é o mesmo dia
-                const mesmoDia = hoje.getTime() === dataEvento.getTime();
-                
-                if (mesmoDia) {
-                    // Faz alguma ação com o evento, tipo marcar como concluído
-                    btn.classList.toggle('active');
-                    btn.classList.remove('none');
-                } else {
-                    btn.classList.add('none');
-                }
-                });
-            }   
-            
+            if (completados.includes(dataFormatada)) {
+                info.el.style.backgroundColor = ' #4ade80 ';
+                info.el.classList.add("done");
+            }else if (dataEvento < hoje) {
+                info.el.style.backgroundColor = ' #ffcdcb ';
+                info.el.classList.add("not-done");
+            }
         },
         eventTimeFormat: {
             hour: '2-digit',
