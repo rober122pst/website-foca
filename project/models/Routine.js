@@ -6,8 +6,9 @@ const routineSchema = new mongoose.Schema({
     title: { type: String, required: true },
     description: { type: String },
     frequency: [{ type: String, enum: ['0', '1', '2', '3', '4', '5', '6'], default: ['0', '1', '2', '3', '4', '5', '6'] }],
-    time: Date,
-    timeDisplay: String, // Ex: "07:30"
+    timeStart: Date,
+    timeEnd: Date,
+    //timeDisplay: String, // Ex: "07:30"
     completedToday: { type: Boolean, default: false },
     lastCompletedAt: Date,
     completedDays: [{ type: Date }],

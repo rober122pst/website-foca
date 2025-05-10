@@ -73,7 +73,7 @@
         <div id='calendar'></div>
         <div class="sidebar-calendar">
             <div class="header-calendar">
-                <b>Rotinas</b>
+                <h1>Rotinas</h1>
             </div>
           <div class="routines-container">
                 <div class="routine">
@@ -90,14 +90,57 @@
                     </div>
                     <div class="bottom">
                         <small>07:00</small>
-                        <i class="edit-routine fa-solid fa-pen"></i>
+                        <i onclick="editRoutine()" class="edit-routine fa-solid fa-pen"></i>
                     </div>
                 </div>
           </div>
         </div>
       </div>
     </div>
+    <div style="display: none;" id="popup" class="popup">
+        <div class="popup-conteudo">
+            <span class="fechar" onclick="fecharEditarRotina()"><i class="fa-solid fa-xmark"></i></span>
+            <h2>Criar rotina</h2>
+            <br>
+            <form>
+                <div class="input-cont">
+                    <label for="titulo">Título</label>
+                    <input type="text" id="titulo" name="titulo" required>
+                </div>
+                <br>
+                <div class="input-cont">
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" name="descricao" rows="6" cols="40"></textarea>
+                </div>
+                <br>
+                <p>Dias</p>
+                <div class="semanas-button">
+                    <button type="button" onclick="toggleDia(this)">D</button>
+                    <button onclick="toggleDia(this)" type="button">S</button>
+                    <button onclick="toggleDia(this)" type="button">T</button>
+                    <button onclick="toggleDia(this)" type="button">Q</button>
+                    <button onclick="toggleDia(this)" type="button">Q</button>
+                    <button onclick="toggleDia(this)" type="button">S</button>
+                    <button onclick="toggleDia(this)" type="button">S</button>
+                </div>
+                <br>
+                <div class="time-inputs">
+                    <div class="input-cont">
+                        <label for="time-start">Horário de início</label>
+                        <input type="time" id="time-start" name="time-start" required>
+                    </div>
+                    <div class="input-cont">
+                        <label for="time-end">Horário do término</label>
+                        <input type="time" id="time-end" name="time-end" required>
+                    </div>
+                </div>
+                <br>
+                <button type="submit" class="cta-button btn-popup"></button>
+            </form>
+        </div>
+    </div>
     <script src="./scripts/calendar-routine.js"></script>
+    <script src="./scripts/routines.js"></script>
     <script src="https://kit.fontawesome.com/c27d52a16d.js" crossorigin="anonymous"></script>
   </body>
 </html>
