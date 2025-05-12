@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
          .map(ev => ({
             daysOfWeek: ev.frequency,
             title: ev.title,
-            startTime: new Date(ev.timeStart).toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit', second: '2-digit'}),
-            endTime: new Date(ev.timeEnd).toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit', second: '2-digit'}),
+            startTime: ev.timeStart,
+            endTime: ev.timeEnd,
             extendedProps: {
                 description: ev.description,
                 completedToday: ev.completedToday,

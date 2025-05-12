@@ -574,17 +574,26 @@ body {
 }
 
 .semanas {
+
     cursor: default;
 }
 .semanas span {
     font-weight: 700;
     border-radius: 5px;
-    background: #ff8997;
+    background: #ffcdcb;
     color: var(--color-items-primary);
     width: 10px;
     height: 10px;
     font-size: 15px;
     padding: 2px .75rem;
+}
+
+.semanas span:not(:last-child) {
+    margin-right: .25rem;
+}
+
+.semanas .dia-ativo {
+    background: #ff8997;
 }
 
 .routine .bottom {
@@ -602,7 +611,7 @@ body {
 
 /* POP-UP */
 
-.popup {
+.popup, .popup-criar {
     display: none; /* esconde inicialmente */
     justify-content: center;
     align-items: center;

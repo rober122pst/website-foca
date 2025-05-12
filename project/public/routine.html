@@ -62,7 +62,7 @@
                     <h2>Crie sua rotina</h2>
                     <p>Use nossa IA para criar sua rotina. Você pode também pode criar cards únicos.</p>
                 </div>
-                <button class="cta-button"></button>
+                <button onclick="criarRoutine()" class="cta-button"></button>
             </div>
             <div class="image">
                 <img src="./imgs/dashboard/SPORTRECIFE.gif" alt="" class="art">
@@ -100,7 +100,7 @@
     <div style="display: none;" id="popup" class="popup">
         <div class="popup-conteudo">
             <span class="fechar" onclick="fecharEditarRotina()"><i class="fa-solid fa-xmark"></i></span>
-            <h2>Criar rotina</h2>
+            <h2>Editar rotina</h2>
             <br>
             <form>
                 <div class="input-cont">
@@ -136,6 +136,49 @@
                 </div>
                 <br>
                 <button type="submit" class="cta-button btn-popup"></button>
+                <button onclick="excluirRotina()" type="button" class="apagar-rotina">Apagar</button>
+            </form>
+        </div>
+    </div>
+    <div style="display: none;" id="popup-criar" class="popup">
+        <div class="popup-conteudo">
+            <span class="fechar" onclick="fecharEditarRotina()"><i class="fa-solid fa-xmark"></i></span>
+            <h2>Criar rotina</h2>
+            <br>
+            <form>
+                <div class="input-cont">
+                    <label for="titulo">Título</label>
+                    <input type="text" id="titulo" name="titulo" required>
+                </div>
+                <br>
+                <div class="input-cont">
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" name="descricao" rows="6" cols="40"></textarea>
+                </div>
+                <br>
+                <p>Dias</p>
+                <div class="semanas-button">
+                    <button type="button" onclick="toggleDia(this)">D</button>
+                    <button onclick="toggleDia(this)" type="button">S</button>
+                    <button onclick="toggleDia(this)" type="button">T</button>
+                    <button onclick="toggleDia(this)" type="button">Q</button>
+                    <button onclick="toggleDia(this)" type="button">Q</button>
+                    <button onclick="toggleDia(this)" type="button">S</button>
+                    <button onclick="toggleDia(this)" type="button">S</button>
+                </div>
+                <br>
+                <div class="time-inputs">
+                    <div class="input-cont">
+                        <label for="time-start">Horário de início</label>
+                        <input type="time" id="time-start" name="time-start" required>
+                    </div>
+                    <div class="input-cont">
+                        <label for="time-end">Horário do término</label>
+                        <input type="time" id="time-end" name="time-end" required>
+                    </div>
+                </div>
+                <br>
+                <button type="submit" class="cta-button btn-popup criar-rotina"></button>
             </form>
         </div>
     </div>

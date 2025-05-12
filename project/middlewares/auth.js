@@ -8,7 +8,7 @@ export default (req, res, next) => {
     try {
         const decoded = jwt.verify(token, secret);
         req.user = decoded; // deve conter o _id
-        console.log(req.user)
+        // console.log(req.user)
         next();
     } catch (err) {
         res.status(401).json({ error: 'Token inválido' });
