@@ -1,8 +1,8 @@
-import Routine from '../models/Routine.js'
+import Routines from '../models/Routine.js'
 
 export const createRoutine = async (req, res) => {
     try {
-        const routine = new Routine({ ...req.body, userId: req.user._id });
+        const routine = new Routines({ ...req.body, userId: req.user._id });
         await routine.save();
         console.log(routine)
         res.status(201).json(routine);
@@ -11,29 +11,29 @@ export const createRoutine = async (req, res) => {
     }
 };
 
-export const getTasks = async (req, res) => {
-    const tasks = await Task.find({ userId: req.user._id });
-    res.json(tasks);
+export const getRoutine = async (req, res) => {
+    const routine = await Routines.find({ userId: req.user._id });
+    res.json(routine);
 };
 
-export const getTaskById = async (req, res) => {
-    const task = await Task.findOne({ _id: req.params.id, userId: req.user._id });
-    if (!task) return res.status(404).json({ error: 'Tarefa não encontrada' });
-    res.json(task);
+export const getRoutineById = async (req, res) => {
+    const routine = await Routines.findOne({ _id: req.params.id, userId: req.user._id });
+    if (!routine) return res.status(404).json({ error: 'Rotina não encontrada' });
+    res.json(routine);
 };
 
-export const updateTask = async (req, res) => {
-    const task = await Task.findOneAndUpdate(
+export const updateRoutine = async (req, res) => {
+    const routine = await Routines.findOneAndUpdate(
         { _id: req.params.id, userId: req.user._id },
         req.body,
         { new: true }
     );
-    if (!task) return res.status(404).json({ error: 'Tarefa não encontrada' });
-    res.json(task);
+    if (!routine) return res.status(404).json({ error: 'Rotina não encontrada' });
+    res.json(routine);
 };
 
-export const deleteTask = async (req, res) => {
-    const result = await Task.findOneAndDelete({ _id: req.params.id, userId: req.user._id });
-    if (!result) return res.status(404).json({ error: 'Tarefa não encontrada' });
-    res.json({ message: 'Tarefa deletada' });
+export const deleteRoutine = async (req, res) => {
+    const result = await Routines.findOneAndDelete({ _id: req.params.id, userId: req.user._id });
+    if (!result) return res.status(404).json({ error: 'Rotina não encontrada' });
+    res.json({ message: 'Rotina deletada' });
 };

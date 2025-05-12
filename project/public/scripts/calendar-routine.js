@@ -1,6 +1,30 @@
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var agendaEl = document.getElementById('agenda');
+
+    fetch(`/api/routines`, {
+        method: 'GET',
+        headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODE3ZTIzM2Y2MzBhZTU2NjI1Njg4NDgiLCJlbWFpbCI6InRlc3RlQGZvY2EuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NDcwMTQwNzksImV4cCI6MTc0NzYxODg3OX0.YtJr6FkOziOtuIlLIejSi2cqbUiVLxUIbH0goP5MOpE`
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        const eventosRotinas = data
+         .map(ev => ({
+            daysOfWeek: ev.frequency,
+            title: ev.title,
+            startTime: new Date(ev.timeStart).toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit', second: '2-digit'}),
+            endTime: new Date(ev.timeEnd).toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit', second: '2-digit'}),
+            extendedProps: {
+                description: ev.description,
+                completedToday: ev.completedToday,
+                completedDays: ev.com
+            }
+         }));
+        calendar.addEventSource({ groupId: 'rotinas', events: eventosRotinas });
+    });
   
     var calendar = new FullCalendar.Calendar(calendarEl, {
         locale: 'pt-br',
@@ -26,47 +50,47 @@ document.addEventListener('DOMContentLoaded', function() {
             day: 'Dia',
             list: 'Lista'
         },
-        events: [
-            {
-                groupId: 'rotinas',
-                daysOfWeek: ['1', '2', '4', '5'],
-                title: 'Ir para a faculdade',
-                startTime: '07:10:00',
-                endTime: '10:20:00',
-                className: 'evento',
-                extendedProps: {
-                    description: "hoje to maluco",
-                    completedToday: false,
-                    completedDays: ['2025-05-05', '2025-05-09']
-                }
-            },
-            {
-                groupId: 'rotinas',
-                daysOfWeek: ['1', '2', '3', '4', '5'],
-                title: 'Ir para academia',
-                startTime: '10:30:00',
-                endTime: '11:40:00',
-                className: 'evento',
-                extendedProps: {
-                    description: "hoje to maluco",
-                    completedToday: false,
-                    completedDays: ['2025-05-05', '2025-05-09']
-                }
-            },
-            {
-                groupId: 'rotinas',
-                daysOfWeek: ['1', '2', '3', '4', '5'],
-                title: 'Ir para o trabalho',
-                startTime: '11:40:00',
-                endTime: '17:00:00',
-                className: 'evento',
-                extendedProps: {
-                    description: "hoje to maluco",
-                    completedToday: true,
-                    completedDays: ['2025-05-01', '2025-05-09']
-                }
-            }
-        ],
+        // events: [
+        //     {
+        //         groupId: 'rotinas',
+        //         daysOfWeek: ['1', '2', '4', '5'],
+        //         title: 'Ir para a faculdade',
+        //         startTime: '07:10:00',
+        //         endTime: '10:20:00',
+        //         className: 'evento',
+        //         extendedProps: {
+        //             description: "hoje to maluco",
+        //             completedToday: false,
+        //             completedDays: ['2025-05-05', '2025-05-09']
+        //         }
+        //     },
+        //     {
+        //         groupId: 'rotinas',
+        //         daysOfWeek: ['1', '2', '3', '4', '5'],
+        //         title: 'Ir para academia',
+        //         startTime: '10:30:00',
+        //         endTime: '11:40:00',
+        //         className: 'evento',
+        //         extendedProps: {
+        //             description: "hoje to maluco",
+        //             completedToday: false,
+        //             completedDays: ['2025-05-05', '2025-05-09']
+        //         }
+        //     },
+        //     {
+        //         groupId: 'rotinas',
+        //         daysOfWeek: ['1', '2', '3', '4', '5'],
+        //         title: 'Ir para o trabalho',
+        //         startTime: '11:40:00',
+        //         endTime: '17:00:00',
+        //         className: 'evento',
+        //         extendedProps: {
+        //             description: "hoje to maluco",
+        //             completedToday: true,
+        //             completedDays: ['2025-05-01', '2025-05-09']
+        //         }
+        //     }
+        // ],
         eventContent: function(arg) {
             const props = arg.event.extendedProps;
             const completados = props.completedDays || [];
