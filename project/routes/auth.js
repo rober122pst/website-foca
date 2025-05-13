@@ -1,11 +1,12 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const User = require('../models/user');
-const utils = require('../utils')
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import User from '../models/User.js';
+import utils from '../utils.js';
+import * as dotenv from 'dotenv';
 
-require('dotenv').config();
+dotenv.config();
 
 // Registro
 router.post('/register', utils.loginLimiter, async (req, res) => {
@@ -62,7 +63,17 @@ router.post('/login', async (req, res) => {
     await user.save();
 
     const token = jwt.sign(
-      { id: user._id, username: user.username },
+      { 
+        _id: user._id, 
+        userId: user.userId, 
+        username: user.username, 
+        role: user.role, 
+        plan: user.plan,
+        preferences: {
+          language: user.preferences.language, 
+          theme: user.preferences.theme, 
+        } 
+      },
       process.env.JWT_SECRET,
       { expiresIn: '1d' }
     );
@@ -174,4 +185,4 @@ router.post('/reset-password', async (req, res) => {
   res.json({message: 'Senha alterada com sucesso!'})
 });
 
-module.exports = router;
+export default router;
