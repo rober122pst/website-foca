@@ -63,7 +63,17 @@ router.post('/login', async (req, res) => {
     await user.save();
 
     const token = jwt.sign(
-      { id: user._id, username: user.username },
+      { 
+        _id: user._id, 
+        userId: user.userId, 
+        username: user.username, 
+        role: user.role, 
+        plan: user.plan,
+        preferences: {
+          language: user.preferences.language, 
+          theme: user.preferences.theme, 
+        } 
+      },
       process.env.JWT_SECRET,
       { expiresIn: '1d' }
     );

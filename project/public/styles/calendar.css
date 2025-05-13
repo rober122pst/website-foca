@@ -35,7 +35,20 @@
     --fc-now-indicator-color: red;
 }
 
-
+.dark-mode {
+    --bg-primary: #1D1D1D;
+    --bg-second: #121212;
+    --bg-third: #121212;
+    --bg-cont: #fdfdfd;
+    --color-items-primary: #ff0546;
+    --color-items-second: #9c173b;
+    --color-dark: #450327;
+    --accent: #0098db;
+    --accent-gradient: #1e579c;
+    --text-light: #fdfdfd;
+    --text-dark: #17001d;
+    --text-theme: #fdfdfd;
+}
 
 .sidebar-container {
     position: sticky;
@@ -104,8 +117,9 @@ body {
 .site-container {
     width: 100%;
     height: auto;
-    background: #f5f3f0;
+    background: var(--bg-third);
 }
+
 
 .header {
     display: flex;
@@ -172,6 +186,15 @@ body {
         height: 100%;
         object-fit: cover;
     }
+}
+
+.theme-button {
+    color: var(--text-theme);
+    
+    transition: .3s ease;
+
+    cursor: pointer;
+
 }
 
 .art-section {
@@ -284,7 +307,7 @@ body {
     justify-content: center;
     align-items: center;
     background: var(--bg-primary);
-    margin: 0 3rem;
+    margin: 0 3rem 3rem 3rem;
     box-shadow: 2px 10px 30px rgba(0, 0, 0, 0.2);
     border-radius: 25px;
     padding: 3rem;
@@ -299,7 +322,7 @@ body {
 }
 
 .fc-theme-standard tr {
-    border: 1px solid #f5f3f0;
+    border: 1px solid var(--bg-third);
 }
 
 .fc-col-header {
@@ -471,6 +494,7 @@ body {
 }
 
 .fc-timegrid-event .fc-event-main {
+    overflow: hidden;
     color: var(--color-items-second);
     padding: .85rem;
 }
@@ -558,6 +582,19 @@ body {
     padding: 1.5rem;
 }
 
+.routines-container::-webkit-scrollbar {
+    width: 7px;
+}
+
+.routines-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.routines-container::-webkit-scrollbar-thumb {
+    background: var(--bg-second);
+    border-radius: 5px;
+}
+
 .routine {
     display: flex;
     flex-direction: column;
@@ -570,6 +607,9 @@ body {
     & > b {
         color: var(--color-items-primary);
         font-size: 1.15rem;
+    }
+    & > em {
+        color: var(--text-dark);
     }
 }
 
@@ -622,7 +662,7 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.5); /* fundo escuro semi-transparente */
-    }
+}
 
 .popup-conteudo {
     background-color: white;
@@ -724,9 +764,25 @@ body {
     max-width: 268px;
 }
 
-.cta-button.btn-popup {
+.botoes-finais {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#popup .cta-button.btn-popup {
     margin: auto;
     &:before {
         content: "EDITAR ROTINA";
     }
+}
+
+.apagar-rotina {
+    cursor: pointer;
+    color: var(--accent);
+    text-decoration: underline;
+
+    margin: auto;
 }

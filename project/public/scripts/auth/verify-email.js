@@ -1,5 +1,5 @@
 
-const API_URL = `https://foca.onrender.com/api/auth`
+const API_URL = `/api/auth`
 window.addEventListener('DOMContentLoaded', async () => {
     const email = localStorage.getItem('lastRegisteredEmail'); // você salva o email lá no login/cadastro
     if (!email) {

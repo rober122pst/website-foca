@@ -1,9 +1,16 @@
+
+// const token = localStorage.getItem("token") || sessionStorage.getItem("token");
 document.addEventListener('DOMContentLoaded', async function() {
+
+    if(!token) {
+        window.location.href('/')
+    }
+
     const res = await fetch(`/api/routines`, {
         method: 'GET',
         headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODE3ZTIzM2Y2MzBhZTU2NjI1Njg4NDgiLCJlbWFpbCI6InRlc3RlQGZvY2EuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NDcwMTQwNzksImV4cCI6MTc0NzYxODg3OX0.YtJr6FkOziOtuIlLIejSi2cqbUiVLxUIbH0goP5MOpE`
+        'Authorization': `Bearer ${token}`
         }
     })
 
@@ -11,14 +18,16 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     await gerarCards(rotinas);
 
-    document.querySelectorAll('.edit-routine').forEach(btn => {
-    console.log(btn)
-    btn.addEventListener('click', () => {
-            const id = btn.dataset.id;
-            abrirFormRotina(id);
-        });
-    });
 
+    
+});
+
+document.querySelector('.routines-container').addEventListener('click', (e) => {
+    console.log("cliquei")
+    if (e.target.classList.contains("edit-routine")) {
+        const id = e.target.dataset.id;
+        abrirFormRotina(id);
+    }
 });
 
 const formEditar = document.querySelector("#popup form")
@@ -28,12 +37,13 @@ async function abrirFormRotina(id) {
         method: 'GET',
         headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODE3ZTIzM2Y2MzBhZTU2NjI1Njg4NDgiLCJlbWFpbCI6InRlc3RlQGZvY2EuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NDcwMTQwNzksImV4cCI6MTc0NzYxODg3OX0.YtJr6FkOziOtuIlLIejSi2cqbUiVLxUIbH0goP5MOpE`
+        'Authorization': `Bearer ${token}`
         }
     })
     const rotina = await res.json();
 
     document.getElementById("popup").style.display = "flex";
+    document.getElementById("popup").setAttribute('data-id', rotina._id);;
 
     formEditar.querySelector("#titulo").value = rotina.title;
     formEditar.querySelector("#descricao").value = rotina.description || '';
@@ -57,8 +67,10 @@ function criarRoutine() {
 }
 
 function fecharRotina() {
-    document.querySelector(".popup").style.display = "none";
+    document.querySelector("#popup").style.display = "none";
+    document.querySelector("#popup-criar").style.display = "none";
     document.querySelector('.popup form').reset();
+    document.getElementById("popup").removeAttribute('data-id');
 }
 
 function toggleDia(button) {
@@ -92,13 +104,13 @@ async function editRoutine(id) {
         method: 'PUT',
         headers: { 
             'Content-Type': 'application/json',
-            'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODE3ZTIzM2Y2MzBhZTU2NjI1Njg4NDgiLCJlbWFpbCI6InRlc3RlQGZvY2EuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NDcwMTQwNzksImV4cCI6MTc0NzYxODg3OX0.YtJr6FkOziOtuIlLIejSi2cqbUiVLxUIbH0goP5MOpE`
+            'Authorization': `Bearer ${token}`
          },
         body: JSON.stringify({ title, description, frequency, timeStart, timeEnd, updatedAt }),
     });
-    const rotina = res.json()
+    const rotina = await res.json()
     if(res.ok) {
-        await editarCard(rotina);
+        location.reload();
         fecharRotina();
     }
 }
@@ -109,8 +121,8 @@ async function postarRotina() {
     const title = formCriar.querySelector("#titulo").value;
     const description = formCriar.querySelector("#descricao").value;
     const buttons = formCriar.querySelectorAll(".semanas-button button");
-    const timeStart = formCriar.querySelector("#time-start").value += ":00";
-    const timeEnd = formCriar.querySelector("#time-end").value += ":00";
+    const timeStart = formCriar.querySelector("#time-start").value;
+    const timeEnd = formCriar.querySelector("#time-end").value;
 
     let frequency = [];
 
@@ -129,11 +141,12 @@ async function postarRotina() {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',
-            'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODE3ZTIzM2Y2MzBhZTU2NjI1Njg4NDgiLCJlbWFpbCI6InRlc3RlQGZvY2EuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NDcwMTQwNzksImV4cCI6MTc0NzYxODg3OX0.YtJr6FkOziOtuIlLIejSi2cqbUiVLxUIbH0goP5MOpE`
+            'Authorization': `Bearer ${token}`
          },
         body: JSON.stringify({ title, description, frequency, timeStart, timeEnd }),
     });
-    await gerarNovoCard(rotina);
+    const rotina = await res.json();
+    location.reload();
     fecharRotina()
 }
 
@@ -149,27 +162,8 @@ formEditar.addEventListener("submit", (event) => {
 })
 
 async function gerarCards(rotinas) {
-    const container = document.querySelector(".routines-container");
-    const semanas_days = ["D","S","T","Q","Q","S","S"]
     rotinas.forEach(r => {
-        const card = document.createElement("div");
-        card.className = "routine";
-        card.innerHTML = `
-        <b>${r.title}</b>
-        <em>${r.description || ""}</em>
-        <div class="semanas">
-            ${semanas_days.map((dia, i) => {
-  const         ativo = r.frequency.includes(i.toString());
-  return        `<span class="${ativo ? 'dia-ativo' : ''}">${dia}</span>`;
-}).join('')}
-        </div>
-        <div class="bottom">
-            <small>${r.timeStart}-${r.timeEnd}</small>
-            <i class="edit-routine fa-solid fa-pen" data-id="${r._id}"></i>
-        </div>
-        `;
-
-        container.appendChild(card);
+        gerarNovoCard(r)
     });
 }
 
@@ -177,15 +171,16 @@ async function gerarNovoCard(r) {
     const container = document.querySelector(".routines-container");
     const card = document.createElement("div");
     const semanas_days = ["D","S","T","Q","Q","S","S"]
+    card.setAttribute('data-id', r._id);
     card.className = "routine";
     card.innerHTML = `
     <b>${r.title}</b>
     <em>${r.description || ""}</em>
     <div class="semanas">
         ${semanas_days.map((dia, i) => {
-const         ativo = r.frequency.includes(i.toString());
-return        `<span class="${ativo ? 'dia-ativo' : ''}">${dia}</span>`;
-}).join('')}
+            const ativo = r.frequency.includes(i.toString());
+            return `<span class="${ativo ? 'dia-ativo' : ''}">${dia}</span>`;
+        }).join('')}
     </div>
     <div class="bottom">
         <small>${r.timeStart}-${r.timeEnd}</small>
@@ -193,14 +188,13 @@ return        `<span class="${ativo ? 'dia-ativo' : ''}">${dia}</span>`;
     </div>
     `;
 
-    container.appendChild(card);
+    container.prepend(card);
 }
 
 async function editarCard(rotinaAtualizada) {
     const card = document.querySelector(`[data-id="${rotinaAtualizada._id}"]`);
     if(card) {
         const semanas_days = ["D","S","T","Q","Q","S","S"];
-        card.className = "routine";
         card.innerHTML = `
         <b>${rotinaAtualizada.title}</b>
         <em>${rotinaAtualizada.description || ""}</em>
@@ -217,4 +211,29 @@ async function editarCard(rotinaAtualizada) {
         `;
     }
     
+}
+
+function excluirRotina() {
+    const idRotina = document.getElementById("popup").dataset.id;
+
+    if (!idRotina) return alert("Rotina não encontrada!");
+
+    if (confirm("Tem certeza que deseja excluir esta rotina?")) {
+        // Aqui você pode chamar uma função do backend, ou apenas remover da lista local
+        // Exemplo com fetch:
+        fetch(`/api/routines/${idRotina}`, {
+            method: 'DELETE',
+            headers: { 
+                'Authorization': `Bearer ${token}`
+            },
+        }).then(res => {
+            if (res.ok) {
+                alert("Rotina excluída com sucesso!");
+                fecharRotina();
+                location.reload(); // ou atualizar sua UI
+            } else {
+                alert("Erro ao excluir rotina.");
+            }
+        });
+    }
 }

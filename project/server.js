@@ -41,8 +41,8 @@ app.get('/auth/forgot', (req, res) => {
 app.get('/auth/reset', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/auth', 'reset.html'));
 });
-app.get('/user/:id/rotina', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'routine.html'));;
+app.get('/user/rotina', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/views', 'routine.html'));;
 });
 
 mongoose.connect(process.env.MONGO_URI)

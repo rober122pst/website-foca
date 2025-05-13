@@ -1,12 +1,13 @@
+// const token = localStorage.getItem("token") || sessionStorage.getItem("token");
 document.addEventListener('DOMContentLoaded', function() {
+
     var calendarEl = document.getElementById('calendar');
-    var agendaEl = document.getElementById('agenda');
 
     fetch(`/api/routines`, {
         method: 'GET',
         headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODE3ZTIzM2Y2MzBhZTU2NjI1Njg4NDgiLCJlbWFpbCI6InRlc3RlQGZvY2EuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NDcwMTQwNzksImV4cCI6MTc0NzYxODg3OX0.YtJr6FkOziOtuIlLIejSi2cqbUiVLxUIbH0goP5MOpE`
+        'Authorization': `Bearer ${token}`
         }
     })
     .then(res => res.json())
@@ -35,8 +36,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // expandsRows: true,
         handleWindowResize: true,
         allDaySlot: false,
-        slotMinTime: '08:00:00',
-        slotMaxTime: '22:00:00',
         headerToolbar: {left: 'title', end: 'timeGridDay,timeGridWeek,dayGridMonth prev,next today'},
         multiMonthMaxColumns: 1,
         titleFormat: { year: 'numeric', month: 'short', day: 'numeric' },

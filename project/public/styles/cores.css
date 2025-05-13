@@ -3,6 +3,7 @@
 :root {
     --bg-primary: #fdfdfd;
     --bg-second: #e0e0e0;
+    --bg-third:#f5f3f0;
     --bg-cont: #17001d;
     --color-items-primary: #ff0546;
     --color-items-second: #9c173b;
@@ -11,7 +12,7 @@
     --accent-gradient: #1e579c;
     --text-light: #fdfdfd;
     --text-dark: #17001d;
-    --text-theme: #fdfdfd;
+    --text-theme: #17001d;
 }
 
 * {
@@ -23,14 +24,14 @@
 body {
     font-family: "Nunito", sans-serif;
     font-weight: 400;
+    background: var(--bg-primary);
     
+    color: var(--text-theme);
 }
 
 html {
     scroll-behavior: smooth;
-    background: var(--bg-primary);
     font-size: 16px;
-    color: var(--text-dark);
 }
 
 div {

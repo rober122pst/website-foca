@@ -1,6 +1,6 @@
 const token = localStorage.getItem('token') || sessionStorage.getItem('token'); // Tenta obter o token do localStorage ou sessionStorage
 if (token) { // Função para verificar se o token existe
-  window.location.href = '/dashboard';
+  window.location.href = '/user';
 } // Redireciona para a página de dashboard se o token existir
 // Se não existir, continua na página de login
 
@@ -128,7 +128,7 @@ function toggleForm() {
     wrapperLogin.classList.toggle("active");
 }
 
-const API_URL = `https://foca.onrender.com/api/auth`
+const API_URL = `/api/auth`
 
 async function register() { // função de registro
     const username = document.getElementById('nickname').value;
@@ -169,7 +169,7 @@ async function login() { // função de login
         } else {
             sessionStorage.setItem('token', data.token); // some quando fecha o navegador
         }
-        window.location.href = '/dashboard';
+        window.location.href = '/user';
     } else {
         if (res.status === 400) {
             email_element.classList.add('error'); // Adiciona a classe de erro ao campo de email
