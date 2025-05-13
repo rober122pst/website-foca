@@ -59,7 +59,8 @@
     align-items: center;
     height: 100vh;
     display: inline-block;
-    background: linear-gradient(180deg, var(--color-items-primary), var(--color-items-second));
+    background: var(--bg-primary);
+    border-right: 5px groove var(--color-items-primary) ;
 }
 
 .sidebar {

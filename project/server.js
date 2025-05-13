@@ -41,6 +41,9 @@ app.get('/auth/forgot', (req, res) => {
 app.get('/auth/reset', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/auth', 'reset.html'));
 });
+app.get('/user', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/views', 'dashboard.html'));;
+});
 app.get('/user/rotina', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/views', 'routine.html'));;
 });
