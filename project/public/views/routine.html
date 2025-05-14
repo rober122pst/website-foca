@@ -5,12 +5,14 @@
 
     <meta charset='utf-8' />
     <title>Rotina - Foca</title>
+    <link rel="shortcut icon" href="../imgs/foca_branco.svg" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales-all.global.min.js"></script>
     <link rel="stylesheet" href="../styles/calendar.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&" />
   </head>
-  <body>
+  <body class="big-sidebar">
     <aside class="sidebar-container">
       <div class="sidebar">
         <div class="logo-container">
@@ -18,11 +20,11 @@
         </div>
         <nav class="navbar">
             <ul class="navbar-links">
-                <li><i class="fa-solid fa-chart-line"></i><span>Overview</span></li>
-                <li><i class="fa-solid fa-calendar"></i><span>Rotina</span></li>
-                <li><i class="fa-solid fa-list-check"></i><span>Tarefas</span></li>
-                <li><i class="fa-solid fa-hourglass-half"></i><span>Pomodoro</span></li>
-                <li><i class="fa-solid fa-brain"></i><span>Focão AI</span></li>
+                <a href="/user"><li><i class="fa-solid fa-chart-line"></i><span>Overview</span></li></a>
+                <a href="/user/rotina"><li><i class="fa-solid fa-calendar"></i><span>Rotina</span></li></a>
+                <a href="/user/tarefas"><li><i class="fa-solid fa-list-check"></i><span>Tarefas</span></li></a>
+                <a href="/user/pomodoro"><li><i class="fa-solid fa-hourglass-half"></i><span>Pomodoro</span></li>
+                <a href="/user/ai"><li><i class="fa-solid fa-brain"></i><span>Focão AI</span></li></a>
             </ul>
         </nav>
         <div class="divider"></div>
@@ -34,9 +36,7 @@
             </nav>
         </div>
         <div class="sidebar-slide" onclick="toggleSizeSidebar()">
-            <span class="material-symbols-rounded">
-                chevron_right
-            </span>
+            <i class="fa-solid fa-bars"></i>
         </div>
     </aside>
     <main class="site-container">
@@ -184,6 +184,7 @@
             </form>
         </div>
     </div>
+    <script src="../scripts/main-user.js"></script>
     <script src="../scripts/calendar-routine.js"></script>
     <script src="../scripts/routine-user-info.js"></script>
     <script src="../scripts/routines.js"></script>

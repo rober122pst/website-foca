@@ -1,18 +1,8 @@
-const token = localStorage.getItem("token") || sessionStorage.getItem("token")
 
-async function mudarTema() {
-
-    const fotFoca = document.querySelector(".logo-container img")
-    console.log(fotFoca)
-    document.body.classList.toggle("dark-mode");
-    
-    fotFoca.src = document.body.classList.contains("dark-mode") ? '/imgs/foca_texto_branco.png' : '/imgs/foca_texto.svg'
-    console.log(document.body.classList.contains("dark-mode"))
-}
 
 document.addEventListener('DOMContentLoaded', async function() {
     if (!token) return;
-    const payload = JSON.parse(atob(token.split('.')[1]));
+    
     user = await getUser(token);
 
     if(user.preferences.theme === "dark") {
@@ -51,6 +41,25 @@ async function getUser(token) {
     }
 }
 
+// async function putUser(token, data) {
+//     const payload = JSON.parse(atob(token.split('.')[1]));
+//     try {
+//         const res = await fetch(`/api/user/${payload._id}`, {
+//             method: 'PUT',
+//             headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': `Bearer ${token}`,
+//             body: JSON.stringify(data)
+//             }
+//         })
+//         const data = res.json();
+//         return data
+//     } catch (e) {
+//         console.error(e);
+//         return
+//     }
+// }
+
 function formatarPara00_00(numero) {
     // Garante que o número tem duas casas decimais e arredonda se necessário
     const numeroFormatado = Number(numero).toFixed(2);
@@ -65,14 +74,3 @@ function formatarPara00_00(numero) {
     return `${parteInteiraFormatada},${parteDecimal}`;
 }
 
-function toggleSizeSidebar() {
-    const sidebarEl = document.querySelector(".sidebar-container");
-    sidebarEl.classList.toggle("small");
-    sidebarEl.classList.toggle("big");
-
-    if(sidebarEl.classList.contains("small")) {
-        document.querySelector(".logo-container img").src = document.body.classList.contains("dark-mode") ? '/imgs/foca_branco.svg' : '/imgs/foca.svg'
-    }else {
-        document.querySelector(".logo-container img").src = document.body.classList.contains("dark-mode") ? '/imgs/foca_texto_branco.png' : '/imgs/foca_texto.svg'
-    }
-}

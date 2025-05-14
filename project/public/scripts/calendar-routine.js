@@ -32,7 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
         timezone: 'America/Recife',
         initialView: 'timeGridWeek',
         initialDate: Date.now(),
-        contentHeight: 600,
+        aspectRatio: 1.35,
+        // contentHeight: 600,
         // expandsRows: true,
         handleWindowResize: true,
         allDaySlot: false,
@@ -49,47 +50,15 @@ document.addEventListener('DOMContentLoaded', function() {
             day: 'Dia',
             list: 'Lista'
         },
-        // events: [
-        //     {
-        //         groupId: 'rotinas',
-        //         daysOfWeek: ['1', '2', '4', '5'],
-        //         title: 'Ir para a faculdade',
-        //         startTime: '07:10:00',
-        //         endTime: '10:20:00',
-        //         className: 'evento',
-        //         extendedProps: {
-        //             description: "hoje to maluco",
-        //             completedToday: false,
-        //             completedDays: ['2025-05-05', '2025-05-09']
-        //         }
-        //     },
-        //     {
-        //         groupId: 'rotinas',
-        //         daysOfWeek: ['1', '2', '3', '4', '5'],
-        //         title: 'Ir para academia',
-        //         startTime: '10:30:00',
-        //         endTime: '11:40:00',
-        //         className: 'evento',
-        //         extendedProps: {
-        //             description: "hoje to maluco",
-        //             completedToday: false,
-        //             completedDays: ['2025-05-05', '2025-05-09']
-        //         }
-        //     },
-        //     {
-        //         groupId: 'rotinas',
-        //         daysOfWeek: ['1', '2', '3', '4', '5'],
-        //         title: 'Ir para o trabalho',
-        //         startTime: '11:40:00',
-        //         endTime: '17:00:00',
-        //         className: 'evento',
-        //         extendedProps: {
-        //             description: "hoje to maluco",
-        //             completedToday: true,
-        //             completedDays: ['2025-05-01', '2025-05-09']
-        //         }
-        //     }
-        // ],
+        windowResize: function(arg) {
+            const screenWidth = window.innerWidth;
+            ;
+            if(screenWidth <= 768) {
+                calendar.setOption('aspectRatio', .65);
+            }else {
+                calendar.setOption('aspectRatio', 1.35);
+            }
+        },
         eventContent: function(arg) {
             const props = arg.event.extendedProps;
             const completados = props.completedDays || [];

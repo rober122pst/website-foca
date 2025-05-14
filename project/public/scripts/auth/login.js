@@ -135,7 +135,12 @@ async function register() { // função de registro
     const email = document.getElementById('email-register').value;
     const password = document.getElementById('senha-register').value;
 
-    
+    const res = await fetch(`${API_URL}/register`, { // faz a requisição para o backend
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, email, password }),
+    });
+
     const data = await res.json();
     console.log(data); // imprime a resposta do backend no console
     if (res.ok) { // verifica se o registro foi bem sucedido
