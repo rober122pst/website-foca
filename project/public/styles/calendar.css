@@ -41,6 +41,7 @@
     --bg-third: #121212;
     --bg-cont: #fdfdfd;
     --color-items-primary: #ff0546;
+    --color-items-primary50: #ff05487c;
     --color-items-second: #9c173b;
     --color-dark: #450327;
     --accent: #0098db;
@@ -54,25 +55,51 @@
     position: sticky;
     top: 0;
     left: 0;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 270px;
     height: 100vh;
     display: inline-block;
     background: var(--bg-primary);
     border-right: 5px groove var(--color-items-primary) ;
+    /* z-index: 1000; */
+    transition: width .35s ease-in-out;
+}
+
+.sidebar-container.small {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 80px;
+}
+
+.sidebar-container.small .navbar-links li span, .sidebar-container.small .navbar-insights li span {
+    display: none;
+}
+
+.sidebar-container.small .sidebar {
+    margin: 2rem 0 2rem .78rem;
+}
+
+.sidebar-container.small .logo-container img{
+    padding-left: 7px;
 }
 
 .sidebar {
-    margin: 2rem 1.2rem;
+    margin: 2rem 0 2rem 1.2rem;
+    transition: .35s ease-in-out;
 }
 
 .logo-container img{
+    padding-left: 7px;
     max-height: 40px;
     height: 100%;
 }
 
 .navbar-links {
+    cursor: pointer;
     margin: 3rem 0;
     display: flex;
     flex-direction: column;
@@ -80,18 +107,20 @@
     list-style: none;
 }
 .divider {
-    border-bottom: 1px rgba(255, 255, 255, 0.25) solid
+    border-bottom: unset;
 }
 .navbar-links li{
     width: 250px;
     padding: 15px;
-    border-radius: 10px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
     
     font-size: 1.2rem;
-    color: var(--text-light);
+    color: var(--text-theme);
     display: flex;
     align-items: center;
     gap: 10px;
+    transition: box-shadow .35s ease;
     & > i {
         width: 20px;
         display: flex;
@@ -99,8 +128,15 @@
         align-items: center;
     }
 }
+
+.navbar-links li:hover {
+    box-shadow: inset 250px 0px 0px var(--color-items-primary50);
+    color: var(--text-light);
+}
+
 .navbar .navbar-links li:nth-child(2){
-    background-color: var(--accent);
+    box-shadow: inset 250px 0px 0px var(--color-items-primary50);
+    color: var(--text-light);
 }
 
 body {
@@ -145,6 +181,7 @@ body {
 .section-info h1 {
     font-size: 3rem;
     font-weight: 900;
+    color: var(--color-items-primary);
 }
 
 .profile-container {
@@ -195,7 +232,6 @@ body {
     transition: .3s ease;
 
     cursor: pointer;
-
 }
 
 .art-section {
@@ -666,7 +702,7 @@ body {
 }
 
 .popup-conteudo {
-    background-color: white;
+    background-color: var(--bg-primary);
     padding: 20px;
     border-radius: 8px;
     position: relative;
@@ -786,4 +822,23 @@ body {
     text-decoration: underline;
 
     margin: auto;
+}
+
+.sidebar-slide span {
+    position: absolute;
+    right: 50%;
+    bottom: 2rem;
+    padding: .35rem;
+    border-radius: 50%;
+
+    background-color: var(--color-items-primary);
+
+    color: var(--text-light);
+    cursor: pointer;
+
+    translate: 50% 0;
+
+    box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.2);
+
+    z-index: 1000;
 }

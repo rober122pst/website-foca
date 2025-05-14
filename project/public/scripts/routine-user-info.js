@@ -1,8 +1,13 @@
 const token = localStorage.getItem("token") || sessionStorage.getItem("token")
 
 async function mudarTema() {
-    console.log("Mudei")
+
+    const fotFoca = document.querySelector(".logo-container img")
+    console.log(fotFoca)
     document.body.classList.toggle("dark-mode");
+    
+    fotFoca.src = document.body.classList.contains("dark-mode") ? '/imgs/foca_texto_branco.png' : '/imgs/foca_texto.svg'
+    console.log(document.body.classList.contains("dark-mode"))
 }
 
 document.addEventListener('DOMContentLoaded', async function() {
@@ -12,6 +17,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     if(user.preferences.theme === "dark") {
         document.body.classList.add("dark-mode");
+        document.querySelector(".logo-container img").src = document.body.classList.contains("dark-mode") ? '/imgs/foca_texto_branco.png' : '/imgs/foca_texto.svg'
     }
     
     const usernameEl = document.getElementById("user-name");
@@ -57,4 +63,16 @@ function formatarPara00_00(numero) {
     
     // Retorna no formato 00.00
     return `${parteInteiraFormatada},${parteDecimal}`;
+}
+
+function toggleSizeSidebar() {
+    const sidebarEl = document.querySelector(".sidebar-container");
+    sidebarEl.classList.toggle("small");
+    sidebarEl.classList.toggle("big");
+
+    if(sidebarEl.classList.contains("small")) {
+        document.querySelector(".logo-container img").src = document.body.classList.contains("dark-mode") ? '/imgs/foca_branco.svg' : '/imgs/foca.svg'
+    }else {
+        document.querySelector(".logo-container img").src = document.body.classList.contains("dark-mode") ? '/imgs/foca_texto_branco.png' : '/imgs/foca_texto.svg'
+    }
 }
