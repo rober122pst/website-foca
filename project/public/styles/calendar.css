@@ -60,11 +60,12 @@
     justify-content: center;
     align-items: center;
     width: 270px;
+    max-width: 270px;
     height: 100vh;
     display: inline-block;
     background: var(--bg-primary);
     border-right: 5px groove var(--color-items-primary) ;
-    /* z-index: 1000; */
+    z-index: 1000;
     transition: width .35s ease-in-out;
 }
 
@@ -73,6 +74,7 @@
     top: 0;
     left: 0;
     width: 80px;
+    min-width: 80px;
 }
 
 .sidebar-container.small .navbar-links li span, .sidebar-container.small .navbar-insights li span {
@@ -155,13 +157,13 @@ body {
     width: 100%;
     height: auto;
     background: var(--bg-third);
+    padding: 3rem;
 }
 
 
 .header {
     display: flex;
     flex-direction: column;
-    padding: 3rem;
     justify-content: space-between;
     align-items: center;
 }
@@ -339,19 +341,28 @@ body {
     background-color: var(--bg-primary);
 }
 
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: 
+        "calendar calendar rotinas";
+
+    gap: 2rem;;
+}
+
 .container-calendar {
     display: flex;
     justify-content: center;
     align-items: center;
     background: var(--bg-primary);
-    margin: 0 3rem 3rem 3rem;
-    box-shadow: 2px 10px 30px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 2px 10px 30px rgba(0, 0, 0, 0.2); */
     border-radius: 25px;
     padding: 3rem;
+    grid-area: calendar;
 }
+
 #calendar {
-    min-width: 400px;
-    width: 1000px;
+    width: 100%;
 }
 
 .fc-theme-standard td, .fc-theme-standard th, .fc-theme-standard .fc-scrollgrid {
@@ -362,13 +373,6 @@ body {
     border: 1px solid var(--bg-third);
 }
 
-.fc-col-header {
-    
-} 
-
-.fc {
-    border-right: 2px solid var(--color-items-primary);
-}
 
 .fc .fc-timegrid-slot-label-cushion {
     font-size: .85rem;
@@ -571,6 +575,12 @@ body {
 
 /*********************************************/
 
+.container-rotinas {
+    grid-area: rotinas;
+    background: var(--bg-primary);
+    border-radius: 25px;
+}
+
 .sidebar-calendar {
     display: flex;
     flex-direction: column;
@@ -613,7 +623,7 @@ body {
 
 .routines-container {
     height: 573px;
-    width: 100%;
+    
     border-top: 2px solid var(--color-items-primary);
     overflow: hidden auto;
     padding: 1.5rem;
@@ -841,4 +851,24 @@ body {
     box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.2);
 
     z-index: 1000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .container-calendar { flex-direction: column; padding: 1rem; }
+  #calendar { width: 100%; min-width: auto; }
+  .sidebar-container { display: none; }
+}
+
+@media (max-width: 768px) {
+  .header { padding: 1.5rem; }
+  .first-header { flex-direction: column; align-items: flex-start; }
+  .section-info h1 { font-size: 2rem; }
+  .profile-container { margin-top: 1rem; }
+}
+
+@media (max-width: 480px) {
+  .art-section { flex-direction: column; height: auto; }
+  .art-content { left: 20px; }
+  .cta-button { width: 100%; text-align: center; }
 }
