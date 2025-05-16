@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+:root {
+    --bg-primary: #fdfdfd;
+    --bg-second: #e0e0e0;
+    --bg-third:#f5f3f0;
+    --bg-cont: #17001d;
+    --color-items-primary: #ff0546;
+    --color-items-primary50: #ff05487c;
+    --color-items-second: #9c173b;
+    --color-dark: #450327;
+    --accent: #0098db;
+    --accent-gradient: #1e579c;
+    --text-light: #fdfdfd;
+    --text-dark: #17001d;
+    --text-theme: #17001d;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Nunito", sans-serif;
+    font-weight: 400;
+    background: var(--bg-primary);
+    
+    color: var(--text-theme);
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+div {
+    display: block;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-cont);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-gradient);
+}

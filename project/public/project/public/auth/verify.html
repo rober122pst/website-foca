@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Foca - Verificar Email</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=forward_to_inbox" />
+  <style>
+    @import url('../styles/cores.css');
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--bg-second);
+    }
+
+    #container {
+      background-color: var(--bg-primary);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 800px;
+      height: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 3rem;
+      border-radius: 20px;
+    }
+
+    #container h1 {
+      font-size: 2rem;
+      margin: 20px 0;
+    }
+
+    #container p {
+      font-size: 1.2rem;
+      margin: 10px 0;
+    }
+
+    #container span {
+      color: var(--color-items-primary);
+      font-weight: bold;
+    }
+
+    #container .material-symbols-rounded {
+      display: flex;
+      font-size: 2rem;
+      color: var(--text-light);
+      background: var(--accent);
+      padding: 1.3rem;
+      border-radius: 50%;
+    }
+
+    .cta-button {
+      cursor: pointer;
+      border: none;
+      width: fit-content;
+
+      background: linear-gradient(180deg, var(--color-items-primary), var(--color-items-second));
+      
+      border-radius: 0.5rem;
+      z-index: 1;
+      position: relative;
+      overflow: hidden;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      padding: 12px;
+
+      text-decoration: none;
+
+      &:before {
+          content: "REENVIAR EMAIL DE VERIFICAÇÃO";
+          white-space: nowrap;
+          text-align: center;
+          color: var(--text-light);
+          font-family: "Nunito", sans-serif;
+          font-size: 18px;
+          font-weight: 800;
+      }
+
+      &:after{
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          height: 0%;
+          background: var(--accent);
+          z-index: -1;
+          transition: 300ms ease;
+          border-radius: .5rem;
+      }
+
+      &:hover {
+          &:after{
+              height: 100%;
+          }
+      }
+
+      .cta-button.btn-verify {
+        &:before {
+          content: "FAZER LOGIN";
+        }
+      }
+  }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <span class="material-symbols-rounded">
+      <i class="fa-solid fa-envelope"></i>
+    </span>
+    <h1>Por favor, verifique seu email</h1>
+    <p>
+      Um email de verificação foi enviado para <br><span><strong>
+        <script>
+          const urlParams = new URLSearchParams(window.location.search);
+          const email = localStorage.getItem('lastRegisteredEmail') || urlParams.get('lastRegisteredEmail') || 'email não encontrado';
+          document.write(email);
+        </script>
+      </strong></span>
+    </p>
+    <p>
+      Clique no link de verificação para ativar sua conta. Não esqueça de verificar sua caixa de spam.
+    </p>
+    <p>
+      Não encontra o email?
+    </p>
+    <button onclick="resendEmail()" class="cta-button">
+    </button>
+  </div>
+
+
+
+  
+  <script src="https://kit.fontawesome.com/c27d52a16d.js"></script>
+  <script src="../scripts/auth/verify-email.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+[
+    {
+        "name": "Primeira Sessão",
+        "iconUrl": "/icons/primeira-sessao.png",
+        "description": "Complete sua primeira sessão de foco.",
+        "rewardXP": 50,
+        "rewardCoins": 10,
+        "type": "meta"
+    },
+    {
+        "name": "Foco Total",
+        "iconUrl": "/icons/foco-total.png",
+        "description": "Complete 10 sessões de foco sem interrupções.",
+        "rewardXP": 150,
+        "rewardCoins": 20,
+        "type": "meta"
+    },
+    {
+        "name": "Constância",
+        "iconUrl": "/icons/constancia.png",
+        "description": "Mantenha um streak de 7 dias seguidos.",
+        "rewardXP": 200,
+        "rewardCoins": 30,
+        "type": "especial"
+    },
+    {
+        "name": "Guerreiro da Manhã",
+        "iconUrl": "/icons/manha.png",
+        "description": "Faça uma sessão antes das 8h da manhã.",
+        "rewardXP": 100,
+        "rewardCoins": 15,
+        "type": "especial"
+    },
+    {
+        "name": "Foca Pro",
+        "iconUrl": "/icons/pro.png",
+        "description": "Alcance o nível 10 no sistema de gamificação.",
+        "rewardXP": 300,
+        "rewardCoins": 50,
+        "type": "meta"
+    }
+  ]
+  

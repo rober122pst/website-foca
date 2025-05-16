@@ -1,0 +1,781 @@
+@import url(cores.css);
+
+@import url(user-styles.css);
+
+:root {
+    --fc-small-font-size: .85em;
+    --fc-page-bg-color: var(--bg-second);
+    --fc-neutral-bg-color: rgba(208, 208, 208, 0.3);
+    --fc-neutral-text-color: #808080;
+    --fc-border-color: var(--bg-second);
+  
+    --fc-button-text-color: var(--text-light);
+    --fc-button-bg-color: var(--color-items-primary);
+    --fc-button-border-color: var(--color-items-primary);
+    --fc-button-hover-bg-color: var(--color-dark);
+    --fc-button-hover-border-color: var(--color-dark);
+    --fc-button-active-bg-color: var(--color-dark);
+    --fc-button-active-border-color: var(--color-dark);
+  
+    --fc-event-bg-color: var(--color-items-primary);
+    --fc-event-border-color: var(--color-items-primary);
+    --fc-event-text-color: var(--text-light);
+    --fc-event-selected-overlay-color: rgba(0, 0, 0, 0.25);
+  
+    --fc-more-link-bg-color: #d0d0d0;
+    --fc-more-link-text-color: inherit;
+  
+    --fc-event-resizer-thickness: 8px;
+    --fc-event-resizer-dot-total-width: 8px;
+    --fc-event-resizer-dot-border-width: 1px;
+  
+    --fc-non-business-color: rgba(215, 215, 215, 0.3);
+    --fc-bg-event-color: rgb(143, 223, 130);
+    --fc-bg-event-opacity: 0.3;
+    --fc-highlight-color: rgba(188, 232, 241, 0.3);
+    --fc-today-bg-color: rgba(255, 40, 87, 0.15);
+    --fc-now-indicator-color: red;
+}
+
+
+.header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.first-header {
+    display: flex;
+    justify-content: space-between;
+
+    width: 100%;
+}
+
+.section-info h3 {
+    font-size: 19px;
+    line-height: 5px;
+    font-weight: 400;
+}
+.section-info h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--color-items-primary);
+}
+
+.profile-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-container .container {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    font-weight: 800;
+    & span {
+        color: var(--accent);
+    }
+}
+
+.progress-bar-xp {
+    overflow: hidden;
+    width: 100px;
+    height: 5px;
+    background: var(--color-dark);
+    border-radius: 5px;
+}
+.progress-fill-xp {
+    width: 60%;
+    height: 5px;
+    background: var(--color-items-primary);
+}
+
+.profile-container .profile {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px var(--color-items-primary) solid;
+    & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.theme-button {
+    color: var(--text-theme);
+    
+    transition: .3s ease;
+
+    cursor: pointer;
+}
+
+.art-section {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 1.4rem 0;
+}
+
+.art-section .image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.25);
+    }
+}
+
+.art-content {
+    position: absolute;
+    top: 50%;
+    left: 60px;
+    transform: translateY(-50%);
+    color: var(--text-light);
+    z-index: 1;
+    & .texts {
+        margin-bottom: 20px;
+        & h2 {
+            font-size: 2.8rem;
+            font-weight: 900;
+        }
+        & p {
+            font-size: .9rem;
+            font-weight: 500;
+        }
+    }
+}
+
+.cta-button {
+    cursor: pointer;
+    border: none;
+    width: fit-content;
+
+    background: linear-gradient(180deg, var(--color-items-primary), var(--color-items-second));
+    
+    border-radius: 0.5rem;
+    z-index: 1;
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 12px;
+
+    text-decoration: none;
+
+    &:before {
+        content: "CRIAR ROTINA";
+        white-space: nowrap;
+        text-align: center;
+        color: var(--text-light);
+        font-family: "Nunito", sans-serif;
+        font-size: 18px;
+        font-weight: 800;
+    }
+
+    &:after{
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 0%;
+        background: var(--accent);
+        z-index: -1;
+        transition: 300ms ease;
+        border-radius: .5rem;
+    }
+
+    &:hover {
+        &:after{
+            height: 100%;
+        }
+    }
+}
+/**********************************************************/
+
+.fc .fc-daygrid-day.fc-day-today {
+    background-color: var(--bg-primary);
+}
+
+.grid {
+    margin-top: 1.3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+        "calendar calendar rotinas";
+
+    gap: 2rem;;
+}
+
+.container-calendar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg-primary);
+    /* box-shadow: 2px 10px 30px rgba(0, 0, 0, 0.2); */
+    border-radius: 25px;
+    padding: 3rem;
+    grid-area: calendar;
+}
+
+#calendar {
+    width: 100%;
+}
+
+.fc-theme-standard td, .fc-theme-standard th, .fc-theme-standard .fc-scrollgrid {
+    border: transparent;
+}
+
+.fc-theme-standard tr {
+    border: 1px solid var(--bg-third);
+}
+
+
+.fc .fc-timegrid-slot-label-cushion {
+    font-size: .85em;
+    font-weight: 400;
+    padding: 0 1rem;
+    &:after{
+        content: "h00";
+    }
+}
+
+.fc .fc-timegrid-slot {
+    height: 3rem;
+}
+
+.fc .fc-scroller-liquid-absolute::-webkit-scrollbar {
+    width: 7px;
+}
+
+.fc .fc-scroller-liquid-absolute::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.fc .fc-scroller-liquid-absolute::-webkit-scrollbar-thumb {
+    background: var(--bg-second);
+    border-radius: 5px;
+}
+
+.fc-scroller-harness .fc-scroller {
+    overflow: hidden !important;
+}
+
+.fc .fc-scroller-liquid-absolute {
+    overflow: hidden scroll !important;
+    border-top: 2px solid var(--color-items-primary)
+}
+
+.fc .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 10px;
+    padding: 0 2rem;
+}
+
+.fc .fc-toolbar-title {
+    font-size: .95em;
+    color: #b6afaf;
+}
+
+.fc .fc-button {
+    border: transparent;
+    display: inline-block;
+    font-size: .9em;
+    font-weight: 700;
+    line-height: 1.5;
+    padding: 0.4em 0.65em;
+    text-align: center;
+    user-select: none;
+    vertical-align: middle;
+}
+.fc .fc-button-primary:not(:disabled).fc-button-active:focus, .fc .fc-button-primary:not(:disabled):active:focus {
+    box-shadow: transparent 0px 0px 0px 0rem;
+}
+
+.fc .fc-timeGridDay-button, .fc .fc-timeGridWeek-button, .fc .fc-dayGridMonth-button {
+    background-color: transparent;
+    border-radius: 0px;
+    color: var(--color-items-primary);
+    transition: .1s ease;
+}
+
+.fc .fc-timeGridDay-button:not(:disabled).fc-button-active, .fc .fc-timeGridDay-button:not(:disabled):active,
+.fc .fc-timeGridWeek-button:not(:disabled).fc-button-active, .fc .fc-timeGridWeek-button:not(:disabled):active,
+.fc .fc-dayGridMonth-button:not(:disabled).fc-button-active, .fc .fc-dayGridMonth-button:not(:disabled):active {
+    background-color: transparent;
+    border-color: transparent;
+    border-bottom: 2px solid var(--color-items-primary);
+    color: var(--color-items-primary);
+}
+
+.fc .fc-timeGridDay-button:hover,
+.fc .fc-timeGridWeek-button:hover,
+.fc .fc-dayGridMonth-button:hover {
+    background-color: transparent;
+    border-color: transparent;
+    border-bottom: 2px solid var(--color-items-primary);
+    color: var(--color-items-primary);
+}
+
+.fc .fc-next-button, .fc .fc-prev-button{
+    transition: .1s ease;
+    border: transparent;
+}
+
+.fc .fc-next-button:not(:disabled):focus, .fc .fc-next-button:not(:disabled):active:focus, 
+.fc .fc-prev-button:not(:disabled):focus, .fc .fc-prev-button:not(:disabled):active:focus {
+    box-shadow: var(--color-items-second) -39.5px 0 inset;
+}
+
+.fc .fc-next-button:hover {
+    background-color: var(--color-items-primary);
+    border-color: transparent;
+    box-shadow: var(--color-items-second) 39.5px 0 inset;
+}
+.fc .fc-prev-button:hover {
+    background-color: var(--color-items-primary);
+    border-color: transparent;
+    box-shadow: var(--color-items-second) -39.5px 0 inset;
+}
+
+.fc .fc-today-button:hover {
+    background: var(--color-items-second);
+    border: transparent;
+}
+
+.fc .fc-col-header-cell {
+  color: #b6afaf;                /* texto preto */
+  font-weight: 400;
+  border-radius: 4px;
+}
+
+.fc .fc-col-header-cell.fc-day-today {
+  background-color: #ff8997;  /* amarelinho */
+  color: var(--text-light);
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.fc .fc-daygrid-day.fc-day-today,
+.fc .fc-timegrid-col.fc-day-today {
+  background-color: transparent !important;
+}
+
+.fc .button-swipe {
+    cursor: pointer;
+    position: relative;
+    background: var(--bg-cont);
+    width: 3.2rem;
+    height: 1.4rem;
+    border-radius: 20px;
+    transition: .2s;
+}
+
+.fc .button-swipe span {
+    position: absolute;
+    top: 50%;
+    left: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    transform: translate(0,-50%);
+    transition: .2s ease-in-out;
+}
+
+.fc .button-swipe.active {
+    background: var(--color-items-second);
+}
+
+.fc .button-swipe.active span {
+    left: 48.2px;
+    transform: translate(-100%,-50%);
+}
+
+.fc-timegrid-event .fc-event-main {
+    overflow: hidden;
+    color: var(--color-items-second);
+    font-size: 1em;
+    padding: .85rem;
+}
+
+.fc-timegrid-event .fc-event-main div {
+    color: #B5828C;
+}
+
+.fc-v-event {
+    border-radius: 10px;
+    border: transparent;
+    background: #FFCDB2;
+    box-shadow: 0px -10px 0px inset #ff8997;
+}
+
+.fc-timegrid-event-harness-inset .fc-timegrid-event {
+    box-shadow: 0px -10px 0px inset #FFB4A2;
+    
+}
+
+.fc-timegrid-event-harness-inset .fc-timegrid-event.done {
+    background-color: #4ade80;
+    box-shadow: 0px -10px 0px inset rgb(43, 196, 119)
+}
+
+.fc-timegrid-event.done .fc-event-main div {
+    color: rgb(7, 104, 88);
+}
+
+.fc-timegrid-event-harness-inset .fc-timegrid-event.not-done {
+    box-shadow: 0px -10px 0px inset #ff8997;
+}
+
+.fc-timegrid-event.not-done .fc-event-main div {
+    color: #ff495b;
+}
+
+.fc-timegrid-body, .fc .fc-scrollgrid-section-body table {
+    width: 100% !important;
+}
+
+/*********************************************/
+
+.container-rotinas {
+    grid-area: rotinas;
+    background: var(--bg-primary);
+    border-radius: 25px;
+    padding: 3rem;
+
+    height: 600px;
+}
+
+.sidebar-calendar {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-calendar {
+    height: 72px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    border-bottom: 2px solid var(--color-items-primary);
+}
+
+.header-buttons {
+    display: flex;
+    color: var(--text-light);
+    gap: 5px;
+}
+
+.prev, .next {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(var(--color-items-primary), var(--color-items-second));
+    box-shadow: inset 0px 0px var(--color-items-second);
+
+    width: 30px;
+    border-radius: 5px;
+    transition: .2s ease;
+    & i {
+        font-size: 12px;
+    }
+    &:hover {
+        box-shadow: inset 0px -25px var(--accent);
+    }
+}
+
+.routines-container {
+    height: 100%;
+    overflow: hidden auto;
+    padding: 1.5rem;
+}
+
+.routines-container::-webkit-scrollbar {
+    width: 7px;
+}
+
+.routines-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.routines-container::-webkit-scrollbar-thumb {
+    background: var(--bg-second);
+    border-radius: 5px;
+}
+
+.routine {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: #ffcdcb;
+    box-shadow: 0px 10px 0px #ff8997;
+    border-radius: 10px;
+    padding: 24px;
+    width: 100%;
+    margin-bottom: 2rem;
+    font-size: clamp(10px, 1vw, 16px);
+    & > b {
+        color: var(--color-items-primary);
+        font-size: 1.15em;
+    }
+    & > em {
+        color: var(--text-dark);
+    }
+}
+
+.semanas {
+    display: flex;
+    gap: 5px;
+    cursor: default;
+}
+.semanas span {
+    text-align: center;
+    font-weight: 700;
+    border-radius: 5px;
+    background: #ffcdcb;
+    color: var(--color-items-primary);
+    width: 100%;
+    height: 110%;
+    font-size: clamp(9px, 1vw, 15px);
+    /* padding: 2px min(calc(1.3vw - 10px)); */
+}
+
+
+.semanas .dia-ativo {
+    background: #ff8997;
+}
+
+.routine .bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color-items-primary);
+    font-weight: 800;
+}
+
+.routine .edit-routine {
+    font-size: .75em;
+    cursor: pointer;
+}
+
+/* POP-UP */
+
+.popup, .popup-criar {
+    display: none; /* esconde inicialmente */
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5); /* fundo escuro semi-transparente */
+}
+
+.popup-conteudo {
+    background-color: var(--bg-primary);
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+}
+
+.fechar {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.input-cont {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-cont input, .input-cont textarea {
+    border: 1px solid var(--color-items-primary);
+    border-radius: 8px;
+    height: 2rem;
+    padding: 1rem;
+
+    color: var(--color-items-second);
+    font-family: "Nunito", sans-serif;
+}
+
+.input-cont input:focus, .input-cont textarea:focus {
+    border: 2px solid var(--color-items-second);
+    outline: none;
+}
+
+.input-cont textarea {
+    resize: none;
+    height: 6rem;
+}
+
+.semanas-button {
+    display: flex;
+}
+
+.semanas-button button {
+    cursor: pointer;
+    border: transparent;
+    box-shadow: transparent;
+    font-weight: 700;
+    background: #ff8997;
+    font-family: "Nunito", sans-serif;
+    color: var(--color-items-primary);
+    padding: .25rem 1.3rem;
+    font-size: 15px;
+    border-style: solid;
+    border-color: var(--color-items-primary);
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-right-width: 0px;
+    border-left-width: 0px;
+
+    transition: background .3s ease;
+}
+
+.semanas-button button:first-child {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+
+    border-right-width: 0px;
+    border-left-width: 2px;
+    
+}
+
+.semanas-button button:last-child {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+
+    border-right-width: 2px;
+    border-left-width: 0px;
+}
+
+.semanas-button .escolhido {
+    background: var(--color-items-primary);
+    color: var(--text-light);
+}
+
+.time-inputs {
+    display: flex;
+    justify-content: space-between;
+}
+
+.time-inputs .input-cont {
+    min-width: 150px;
+    max-width: 268px;
+}
+
+.botoes-finais {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#popup .cta-button.btn-popup {
+    margin: auto;
+    &:before {
+        content: "EDITAR ROTINA";
+    }
+}
+
+.apagar-rotina {
+    cursor: pointer;
+    color: var(--accent);
+    text-decoration: underline;
+
+    margin: auto;
+}
+
+.navbar .navbar-links a:nth-child(2) li{
+    box-shadow: inset 250px 0px 0px var(--color-items-primary50);
+    color: var(--text-light);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1590px) {
+    body.big-sidebar { grid-template-columns: 210px 1fr; }
+}
+@media (max-width: 1280px) {
+    .grid { 
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-template-areas: 
+            "calendar"
+            "rotinas";
+    }
+    .routine {
+        font-size: clamp(10px, 1.5vw, 24px);
+    }
+    .semanas span {
+        font-size: clamp(9px, 1.5vw, 23px);
+    }
+}
+@media (max-width: 1024px) {
+    body {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 80px 1fr;
+        grid-template-areas: 
+            "sidebar sidebar"
+            "site site";
+    }
+    .site-container {
+        padding: 1rem;
+    }
+    .fc {
+        font-size: clamp(5px, 1.8vw, 16px);
+    }
+
+    .fc-timegrid-event .fc-event-main {
+        padding: .5rem;
+    }
+
+    .fc .fc-toolbar.fc-header-toolbar {
+        padding: 0 1rem;
+    }
+}
+@media (max-width: 768px) {
+    .fc .fc-timegrid-slot { height: 2rem; }
+    .container-calendar { padding: 1rem; }
+    .container-rotinas { padding: 1rem; }
+}
+@media (max-width: 420px) {
+    .fc-timegrid-event .fc-event-main {
+        writing-mode: vertical-lr;
+    }
+    .fc .fc-toolbar-title { font-size: .65em; }
+}

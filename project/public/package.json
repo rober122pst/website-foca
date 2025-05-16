@@ -1,0 +1,46 @@
+{
+  "name": "website-foca",
+  "version": "1.0.2",
+  "type": "module",
+  "main": "project/server.js",
+  "scripts": {
+    "start": "node project/server.js",
+    "dev": "nodemon project/server.js",
+    "seed:badges": "node project/scripts/seedBadge.js",
+    "grant:badges": "node project/scripts/grantBadgeToUser.js",
+    "token": "node project/scripts/generateTokensTest.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rober122pst/website-foca.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rober122pst/website-foca/issues"
+  },
+  "homepage": "https://github.com/rober122pst/website-foca#readme",
+  "dependencies": {
+    "-": "^0.0.1",
+    "@tailwindcss/cli": "^4.1.5",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "fullcalendar": "^6.1.17",
+    "g": "^2.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.16.0",
+    "mongoose": "^8.14.1",
+    "nanoid": "^5.1.5",
+    "nodemailer": "^6.10.1",
+    "nodemon": "^3.1.10"
+  },
+  "description": "",
+  "devDependencies": {
+    "tailwindcss": "^4.1.5"
+  }
+}

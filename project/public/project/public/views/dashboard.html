@@ -1,0 +1,411 @@
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Foca - Overview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles/overview.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&" />
+    <style>
+
+        ul::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ul::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ul::-webkit-scrollbar-thumb {
+            background-color: var(--color-items-primary);
+            border-radius: 3px;
+        }
+
+        /* Custom checkbox */
+        .custom-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            border: 2px solid var(--color-items-primary);
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            position: relative;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .custom-checkbox:checked {
+            background-color: var(--color-items-primary);
+            border-color: var(--color-items-primary);
+        }
+
+        .custom-checkbox:checked::after {
+            content: "";
+            position: absolute;
+            left: 5px;
+            top: 1px;
+            width: 6px;
+            height: 12px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+
+<body class="big-sidebar">
+    <!-- Sidebar -->
+    <aside class="sidebar-container">
+      <div class="sidebar">
+        <div class="logo-container">
+            <img src="/imgs/foca_texto.svg" alt="Logo foca">
+        </div>
+        <nav class="navbar">
+            <ul class="navbar-links">
+                <a href="/user"><li><i class="fa-solid fa-chart-line"></i><span>Overview</span></li></a>
+                <a href="/user/rotina"><li><i class="fa-solid fa-calendar"></i><span>Rotina</span></li></a>
+                <a href="/user/tarefas"><li><i class="fa-solid fa-list-check"></i><span>Tarefas</span></li></a>
+                <a href="/user/pomodoro"><li><i class="fa-solid fa-hourglass-half"></i><span>Pomodoro</span></li>
+                <a href="/user/pomodoro"><li><i class="fa-solid fa-comment"></i><span>Comunidades</span></li>
+                <a href="/user/ai"><li><i class="fa-solid fa-brain"></i><span>Focão AI</span></li></a>
+            </ul>
+        </nav>
+        <div class="divider"></div>
+        <nav class="navbar-insights">
+            <ul class="navbar-links">
+                <li><i class="fa-solid fa-gear"></i><span>Configurações</span></li>
+                <li><i class="fa-solid fa-right-from-bracket"></i><span>Sair</span></li>
+             </ul>
+            </nav>
+        </div>
+        <div class="sidebar-slide" onclick="toggleSizeSidebar()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="site-container bg-[var(--bg-second)]">
+        <header class="header">
+        <div class="first-header">
+            <div class="section-info">
+                <h3>Olá <strong id="user-name"></strong>,</h3>
+                <h1>Visão Geral</h1>
+            </div>
+            <div class="profile-container">
+                <span onclick="mudarTema()" class="theme-button material-symbols-rounded">
+                    brightness_medium
+                </span>
+                <div class="stats">
+                    <div class="container">
+                        <span class="material-symbols-rounded">paid</span><p id="coins"></p>
+                    </div>
+                    <div class="container">
+                        <span class="material-symbols-rounded">star</span>
+                        <div class="progress-bar-xp">
+                            <div class="progress-fill-xp"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile">
+                    <img id="profile-pic" src="/upload/default-profile.png" alt="" class="profile-pic">
+                </div>
+            </div>
+        </div>
+        <div class="art-section">
+            <div class="art-content">
+                <div class="texts">
+                    <h2>Sua central de foco</h2>
+                    <p>Tudo o que você precisa, reunido num só lugar.</p>
+                </div>
+            </div>
+            <div class="image">
+                <img src="../imgs/dashboard/SPORTRECIFE.gif" alt="" class="art">
+            </div>
+        </div>
+        </header>
+        <div class="grid grid-cols-1 lg:grid-cols-4 grid-rows-10 gap-8">
+
+            <div class="flex justify-between items-center bg-[var(--bg-primary)] rounded-[20px] p-8 select-none hover:scale-105 transition duration-300 hover:shadow-md">
+                <div class="text-sm font-extrabold text-[#b6afaf]">
+                    Sequência de foco
+                    <br>
+                    <strong class="text-lg text-[var(--color-items-primary)]">0 dias</strong>
+                        
+                </div>
+                <div class="flex justify-center items-center bg-[--color-items-primary] rounded-lg w-[63px] h-[63px] text-[var(--text-light)] text-4xl "><i class="fa-solid fa-fire-flame-simple"></i></i></div>
+            </div>
+            <!-- Completed tasks -->
+            <div class="flex justify-between items-center bg-[var(--bg-primary)] rounded-[20px] p-8 select-none hover:scale-105 transition duration-300 hover:shadow-md">
+                <div class="text-sm font-extrabold text-[#b6afaf]">
+                    Hoje
+                    <br>
+                    <strong class="text-lg text-[var(--color-items-primary)]">0 tarefas</strong>
+                        
+                </div>
+                <div class="flex justify-center items-center bg-[--color-items-primary] rounded-lg w-[63px] h-[63px] text-[var(--text-light)] text-4xl"><i class="fa-solid fa-calendar-day "></i></div>
+            </div>
+
+            <div class="flex justify-between items-center bg-[var(--bg-primary)] rounded-[20px] p-8 select-none hover:scale-105 transition duration-300 hover:shadow-md">
+                <div class="text-sm font-extrabold text-[#b6afaf]">
+                    Tarefas completadas
+                    <br>
+                    <strong class="text-lg text-[var(--color-items-primary)]">0 concluídas</strong>
+                        
+                </div>
+                <div class="flex justify-center items-center bg-[--color-items-primary] rounded-lg w-[63px] h-[63px] text-[var(--text-light)] text-4xl"><i class="fa-solid fa-check"></i></div>
+            </div>
+
+            <div class="flex justify-between items-center bg-[var(--bg-primary)] rounded-[20px] p-8 select-none hover:scale-105 transition duration-300 hover:shadow-md">
+                <div class="text-sm font-extrabold text-[#b6afaf]">
+                    Tempo em foco
+                    <br>
+                    <strong class="text-lg text-[var(--color-items-primary)]">0 minutos</strong>
+                        
+                </div>
+                <div class="flex justify-center items-center bg-[--color-items-primary] rounded-lg w-[63px] h-[63px] text-[var(--text-light)] text-4xl"><i class="fa-solid fa-stopwatch"></i></div>
+            </div>
+            
+            <div class="flex justify-center items-center lg:col-span-3 col-span-1 row-span-2 bg-[var(--bg-primary)] rounded-[20px] p-8 select-none transition duration-300 hover:shadow-md">
+                <div class="w-1/3 flex-1 m-auto">
+                    <div class="text-md font-extrabold text-[#b6afaf]"> Minutos focados
+                        <br>
+                        <strong class="text-7xl text-[var(--color-items-primary)]">200</strong>
+                        <br>
+                        <small><i class="text-[--color-items-primary] fa-solid fa-caret-up"></i> 10% a mais que na última semana.</small>
+                    </div>
+                </div>
+                <div class="w-2/3 h-full">
+                    <canvas id="meuGrafico"></canvas>
+                </div>      
+            </div>
+
+            <div class="flex justify-center items-center col-span-1 row-span-2 bg-[var(--bg-primary)] rounded-[20px] p-8 select-none transition duration-300 hover:shadow-md">
+                <ul id="taskList"
+                    class="max-h-72 overflow-y-auto space-y-3 list-none">
+                    <!-- Task items will be inserted here -->
+                </ul>
+            </div>
+
+
+            <!-- Dashboard section below tasks -->
+            <!-- <section> -->
+                <!-- <div class="flex flex-col sm:flex-row justify-between gap-6 mt-10"> -->
+
+                    <!-- Uncompleted tasks -->
+                <!-- </div> -->
+
+                <!-- <div class="w-full max-w-md mx-auto h-72 mt-6">
+                    <canvas id="tasksChart"
+                        aria-label="Gráfico de pizza mostrando porcentagem de tarefas completadas e não completadas"
+                        role="img"></canvas>
+                </div> -->
+
+                <!-- <div class="flex justify-center gap-10 mt-6 select-none text-sm font-semibold text-[#b3b3b3] tracking-wide">
+                    <div class="flex items-center gap-3">
+                        <span class="w-5 h-5 rounded-full bg-[var(--color-items-primary)] block shadow-[0_0_8px_var(--color-items-primary)]"></span>
+                        Completadas
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="w-5 h-5 rounded-full bg-[#666666] block shadow-[0_0_8px_#666666]"></span> Não
+                        Completadas
+                    </div>
+                </div> -->
+            <!-- </section> -->
+        </div>
+    </main>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+        <div class="absolute inset-0 bg-black bg-opacity-70"></div>
+        <div class="relative bg-[#1a1a1a] rounded-lg p-6 max-w-sm w-full text-center shadow-lg z-10">
+            <p class="text-white mb-6 text-base" id="confirmMessage">Deseja realmente remover esta tarefa?</p>
+            <div class="flex justify-center gap-6">
+                <button id="confirmYes" class="btn-completed px-6 py-2 rounded-md font-semibold transition">Sim</button>
+                <button id="confirmNo"
+                    class="bg-[#666666] hover:bg-[#444444] text-white px-6 py-2 rounded-md font-semibold transition">Não</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const taskList = document.getElementById('taskList');
+        const taskForm = document.getElementById('taskForm');
+        const taskInput = document.getElementById('taskInput');
+        const completedCountEl = document.getElementById('completedCount');
+        const uncompletedCountEl = document.getElementById('uncompletedCount');
+        // const ctx = document.getElementById('tasksChart').getContext('2d');
+
+        const confirmModal = document.getElementById('confirmModal');
+        const confirmMessage = document.getElementById('confirmMessage');
+        const confirmYes = document.getElementById('confirmYes');
+        const confirmNo = document.getElementById('confirmNo');
+
+        let taskToDeleteId = null;
+
+        // Initial dummy tasks (3 tasks)
+        let tasks = [
+            { id: 1, text: 'Revisar relatório mensal', completed: false },
+            { id: 2, text: 'Planejar semana', completed: false },
+            { id: 3, text: 'Enviar e-mails pendentes', completed: true },
+            { id: 4, text: 'Enviar e-mails pendentes', completed: false },
+            { id: 5, text: 'Enviar e-mails pendentes', completed: false },
+            { id: 6, text: 'Enviar e-mails pendentes', completed: false },
+        ];
+
+        // Render task list items
+        function renderTaskList() {
+            taskList.innerHTML = '';
+            tasks.forEach(task => {
+                const li = document.createElement('li');
+                li.className = 'flex justify-between items-center rounded-md p-3';
+
+                const label = document.createElement('label');
+                label.className = 'flex items-center gap-2 cursor-pointer select-none';
+                label.setAttribute('for', `task-${task.id}`);
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = `task-${task.id}`;
+                checkbox.checked = task.completed;
+                checkbox.className = 'custom-checkbox';
+                checkbox.addEventListener('change', () => {
+                    task.completed = checkbox.checked;
+                    updateCountsAndChart();
+                    renderTaskList();
+                });
+
+                const span = document.createElement('span');
+                span.textContent = task.text;
+                if (task.completed) {
+                    span.className = 'line-through text-[#666666]';
+                }
+
+                label.appendChild(checkbox);
+                label.appendChild(span);
+
+                const btnRemove = document.createElement('button');
+                btnRemove.setAttribute('aria-label', `Remover tarefa ${task.text}`);
+                btnRemove.className = 'text-[var(--color-items-primary)] hover:text-[#c4002f] ml-4';
+                btnRemove.innerHTML = '<i class="fas fa-trash-alt"></i>';
+                btnRemove.addEventListener('click', () => {
+                    taskToDeleteId = task.id;
+                    confirmMessage.textContent = `Deseja realmente remover a tarefa:\n"${task.text}"?`;
+                    confirmModal.classList.remove('hidden');
+                });
+
+                li.appendChild(label);
+                li.appendChild(btnRemove);
+                taskList.appendChild(li);
+            });
+        }
+
+        // Update completed/uncompleted counts and chart
+        function updateCountsAndChart() {
+            const completed = tasks.filter(t => t.completed).length;
+            const uncompleted = tasks.length - completed;
+            completedCountEl.textContent = completed;
+            uncompletedCountEl.textContent = uncompleted;
+
+            doughnutChart.data.datasets[0].data = [completed, uncompleted];
+            doughnutChart.update();
+        }
+
+        // Confirmation modal buttons
+        confirmYes.addEventListener('click', () => {
+            if (taskToDeleteId !== null) {
+                tasks = tasks.filter(t => t.id !== taskToDeleteId);
+                taskToDeleteId = null;
+                renderTaskList();
+                updateCountsAndChart();
+            }
+            confirmModal.classList.add('hidden');
+        });
+
+        confirmNo.addEventListener('click', () => {
+            taskToDeleteId = null;
+            confirmModal.classList.add('hidden');
+        });
+
+        // Initialize chart
+        const ctx = document.getElementById('meuGrafico').getContext('2d');
+        const meuGrafico = new Chart(ctx, {
+            type: 'bar', // Tipo do gráfico
+            data: {
+            labels: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'], // Eixo X
+            datasets: [
+                {
+                    label: 'Semana passada', // Nome do gráfico
+                    data: [12, 19, 3, 5, 2, 60, 25], // Eixo Y
+                    borderColor: '#ff0546',
+                    backgroundColor: '#ff0546',
+                    fill: true,
+                },
+                {
+                    label: 'Essa semana', // Nome do gráfico
+                    data: [10, 2, 8, 30, 75, 63, 50], // Eixo Y
+                    borderColor: '#0098db',
+                    backgroundColor: '#0098db',
+                    fill: true,
+                }
+            ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#b6afaf',
+                            font: {
+                                family: 'Montserrat'
+                            }
+                        },
+                        position: 'bottom'
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false,
+                            drawBorder: false,
+                            drawTicks: false,
+                            color: 'transparent' // tira a grade do eixo X
+                        },
+                        ticks: {
+                            display: false
+                        },
+                        border: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false,
+                            drawBorder: false,
+                            drawTicks: false,
+                            color: 'transparent'
+                        },
+                        ticks: {
+                            display: false
+                        },
+                        border: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // Initial render
+        renderTaskList();
+        updateCountsAndChart();
+    </script>
+    <script src="../scripts/main-user.js"></script>
+    <script src="https://kit.fontawesome.com/c27d52a16d.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

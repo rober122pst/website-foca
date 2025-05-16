@@ -1,0 +1,182 @@
+@import url(user-styles.css);
+@import url(cores.css);
+
+.navbar .navbar-links a:nth-child(1) li{
+    box-shadow: inset 250px 0px 0px var(--color-items-primary50);
+    color: var(--text-light);
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.first-header {
+    display: flex;
+    justify-content: space-between;
+
+    width: 100%;
+}
+
+.section-info h3 {
+    font-size: 19px;
+    line-height: 5px;
+    font-weight: 400;
+}
+.section-info h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--color-items-primary);
+}
+
+.profile-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-container .container {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    font-weight: 800;
+    & span {
+        color: var(--accent);
+    }
+}
+
+.progress-bar-xp {
+    overflow: hidden;
+    width: 100px;
+    height: 5px;
+    background: var(--color-dark);
+    border-radius: 5px;
+}
+.progress-fill-xp {
+    width: 60%;
+    height: 5px;
+    background: var(--color-items-primary);
+}
+
+.profile-container .profile {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px var(--color-items-primary) solid;
+    & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.theme-button {
+    color: var(--text-theme);
+    
+    transition: .3s ease;
+
+    cursor: pointer;
+}
+
+.art-section {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 1.4rem 0;
+}
+
+.art-section .image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.25);
+    }
+}
+
+.art-content {
+    position: absolute;
+    top: 50%;
+    left: 60px;
+    transform: translateY(-50%);
+    color: var(--text-light);
+    z-index: 1;
+    & .texts {
+        margin-bottom: 20px;
+        & h2 {
+            font-size: 2.8rem;
+            font-weight: 900;
+        }
+        & p {
+            font-size: .9rem;
+            font-weight: 500;
+        }
+    }
+}
+
+.cta-button {
+    cursor: pointer;
+    border: none;
+    width: fit-content;
+
+    background: linear-gradient(180deg, var(--color-items-primary), var(--color-items-second));
+    
+    border-radius: 0.5rem;
+    z-index: 1;
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 12px;
+
+    text-decoration: none;
+
+    &:before {
+        content: "CRIAR ROTINA";
+        white-space: nowrap;
+        text-align: center;
+        color: var(--text-light);
+        font-family: "Nunito", sans-serif;
+        font-size: 18px;
+        font-weight: 800;
+    }
+
+    &:after{
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 0%;
+        background: var(--accent);
+        z-index: -1;
+        transition: 300ms ease;
+        border-radius: .5rem;
+    }
+
+    &:hover {
+        &:after{
+            height: 100%;
+        }
+    }
+}

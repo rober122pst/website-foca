@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esqueci Minha Senha</title>
+    
+    <style>
+        @import url('../styles/cores.css');
+        body {
+            background-color: var(--bg-second);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: var(--bg-primary);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 800px;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 3rem;
+            border-radius: 20px;
+        }
+        i {
+            display: flex;
+            font-size: 2rem;
+            color: var(--text-light);
+            background: var(--accent);
+            padding: 1.3rem;
+            border-radius: 50%;
+        }
+        h1 {
+            font-size: 2rem;
+            margin: 10px 0;
+        }
+        p {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+        form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .cta-button {
+            cursor: pointer;
+            border: none;
+            width: fit-content;
+
+            background: linear-gradient(180deg, var(--color-items-primary), var(--color-items-second));
+            
+            border-radius: 0.5rem;
+            z-index: 1;
+            position: relative;
+            overflow: hidden;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 12px;
+
+            text-decoration: none;
+
+            &:before {
+                content: "CRIAR NOVA SENHA";
+                white-space: nowrap;
+                text-align: center;
+                color: var(--text-light);
+                font-family: "Nunito", sans-serif;
+                font-size: 18px;
+                font-weight: 800;
+            }
+
+            &:after{
+                content: "";
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                height: 0%;
+                background: var(--accent);
+                z-index: -1;
+                transition: 300ms ease;
+                border-radius: .5rem;
+            }
+
+            &:hover {
+                &:after{
+                    height: 100%;
+                }
+            }
+        }
+
+        #response {
+            margin: 1rem 0;
+            color: var(--accent);
+            font-weight: bolder;
+        }
+    </style>
+    <link rel="shortcut icon" href="../imgs/foca_branco.svg" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <i class="fa-solid fa-key"></i>
+        <h1>Crie uma nova senha!</h1>
+        <p>Não esquece dessa vez, hein?</p>
+        <form id="resetForm">
+            <input type="password" name="password" id="password" placeholder="Digite sua nova senha" required style="padding: 10px; width: 100%; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px;">
+            <input type="password" name="password" id="password-confirm" placeholder="Confirme sua senha" required style="padding: 10px; width: 100%; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px;">
+            <button onclick="resetPassword()" type="submit" class="cta-button"></button>
+        </form>
+        <span id="response"></span>
+    </div>
+    <script src="https://kit.fontawesome.com/c27d52a16d.js" crossorigin="anonymous"></script>
+    <script src="../scripts/auth/reset-password.js"></script>
+</body>
+</html>

@@ -1,0 +1,663 @@
+@import url(cores.css);
+@import url(waves.css);
+/* region Sing Up */
+#login {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: var(--bg-second);
+}
+
+.wrapper-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 648px;
+    width: 960px;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: var(--bg-primary);
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.2);
+    animation: floating 1.8s ease-in-out infinite alternate;
+    z-index: 999;
+}
+
+.sign-up-container {
+    position: relative;
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, var(--color-items-primary), var(--color-items-second));
+    border-radius: 3px;
+    padding: 0 1rem;
+    transition: all 0.5s ease-in-out;
+}
+
+.sidebar-content h1 {
+    width: 70%;
+    color: var(--text-light);
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0 auto 0 auto;
+    text-align: left;
+}
+
+.sidebar-content p {
+    color: var(--text-light);
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0 auto 0 auto;
+    text-align: left;
+}
+
+.sidebar-content {
+    color: var(--text-light);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.sidebar-content.register {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    opacity: 1;
+
+    transition: all 1s ease-in-out;
+}
+
+.wrapper-login.active .sidebar-content.register {
+    transform: translate(200%, 0);
+    opacity: 0;
+}
+
+
+/* endregion Sing Up */
+/* region Sing In */
+.sidebar-content.login {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 50%;
+    transform: translate(-200%, 0);
+    opacity: 0;
+    
+
+    transition: all 1s ease-in-out;
+    & > h1 {
+        color: var(--color-items-primary);
+    }
+    & p {
+        color: var(--color-items-second);
+    }
+}
+
+
+.wrapper-login.active .sidebar-content.login{
+    transform: translate(-50%, 0);
+    opacity: 1;
+}
+
+.wrapper-login.active .sign-in-container .form-content {
+    transform: translate(200%, 0);
+    opacity: 0;
+}
+
+.wrapper-login.active .sign-up-container .form-content {
+    transform: translate(-50%, 0);
+    opacity: 1;
+}
+
+.sign-in-container {
+    position: relative;
+    width: 55%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-primary);
+    border-radius: 3px;
+    padding: 0 1rem;
+    transition: all 0.5s ease-in-out;
+    overflow: hidden;
+}
+
+.form-content {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    padding: 0 20%;
+    transition: all 1s ease-in-out;
+    & > h1 {
+        margin: 0 auto 0 auto;
+        font-size: 1.9rem;
+        font-weight: 800;
+        color: var(--color-items-primary);
+    }
+    & > img {
+        margin: 0 auto 0 auto;
+        width: 3rem;
+        height: 3rem;
+        margin-bottom: 1rem;
+    }
+}
+
+
+.social-icons {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    & .social-icon {
+        text-decoration: none;
+        color: var(--accent);
+        width: 2.8rem;
+        height: 2.8rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        background-color: var(--bg-second);
+        cursor: pointer;
+        transition: all 300ms ease;
+        font-size: 1.2rem;
+        &:hover {
+            background-color: var(--bg-primary);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+    }
+}
+
+.input-form input {
+  color: var(--color-items-second);
+  font-family: "Nunito", sans-serif;
+}
+
+.input-form {
+    --input_height: 40px;
+
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.input-field {
+    height: var(--input_height);
+    width: 100%;
+    padding-top: calc(var(--input_height) - 20px);
+    font-size: 1rem;
+    background: transparent;
+    border: none;
+    outline: none;
+    z-index: 2;
+}
+
+.underline {
+    border-bottom: 1px solid var(--bg-second);
+}
+
+.input-label {
+    font-size: 1rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    z-index: 1;
+}
+
+.label-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    transform: translateY(calc(var(--input_height) - 20px));
+    transition: transform 200ms ease-in-out;
+    color: var(--bg-second);
+    pointer-events: none;
+}
+
+.password {
+    padding-right: 25px;
+    position: relative;
+}
+
+.input-label::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    border: 1px solid transparent;
+}
+
+.input-field:focus .underline,
+.input-field:not(:placeholder-shown) .underline{
+    border-bottom: unset;
+}
+
+.input-field:focus ~ .input-label::after,
+.input-field:not(:placeholder-shown) ~ .input-label::after{
+    width: 100%;
+    border: 1px solid var(--color-items-primary);
+    transition: 200ms;
+}
+
+.input-field:focus ~ .input-label .label-name,
+.input-field:not(:placeholder-shown) ~ .input-label .label-name {
+    color: var(--color-items-primary);
+    font-size: 0.75rem;
+    transform: translateY(0px);
+}
+
+.input-field:focus ~ .input-label .visible,
+.input-field:not(:placeholder-shown) ~ .input-label .visible {
+    color: var(--color-items-primary);
+}
+.input-field:focus ~ .input-label .invisible,
+.input-field:not(:placeholder-shown) ~ .input-label .invisible {
+    color: var(--color-items-primary);
+}
+
+.input-label .visible,.input-label .invisible {
+    position: absolute;
+    right: 5px;
+    bottom: 2px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 2px;
+    color: var(--bg-second);
+
+    transition: 200ms;
+}
+
+.input-label .visible {
+    display: none;
+    color: var(--color-items-primary);
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 20px var(--bg-primary) inset !important;
+    -webkit-text-fill-color: var(--color-items-second) !important;
+}
+
+.check {
+    margin-top: 3px;
+}
+
+.input-check {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--color-items-primary);
+    font-size: smaller;
+}
+
+.remember {
+    cursor: pointer;
+    accent-color: var(--accent);
+    width: 12px;
+}
+
+.input-button {
+    border: none;
+    width: 100%;
+    height: 2rem;
+    max-width: 150px;
+    margin: auto;
+    
+    /* padding: .8rem; */
+    margin-top: 20px;
+    border-radius: 0.5rem;
+    z-index: 1;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-second);
+}
+
+.progress-fill{
+    color: var(--text-light);
+    font-family: "Nunito", sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    text-decoration: none;
+    line-height: 100%;
+
+    position: relative;
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(180deg, var(--color-items-primary), var(--color-items-second));
+    z-index: -2;
+    transition: all 300ms ease;
+    overflow: hidden;
+}
+
+.complete {
+    cursor: pointer;
+    &:after{
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 0%;
+        background: var(--accent);
+        z-index: -1;
+        transition: 300ms ease;
+        border-radius: .5rem;
+    }
+    &:hover {
+        &:after{
+            height: 100%;
+        }
+    }
+}
+
+.progress-fill-text {
+    position: absolute;
+    overflow: hidden;
+    left: 50%;
+    bottom: 50%;
+    transform: translate(-50%, 50%);
+    width: 0%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    font-size: 1.3rem;
+    font-weight: 800;
+    text-decoration: none;
+    transition: width 300ms ease;
+}
+
+.esqueci-senha {
+    text-decoration: none;
+    font-size: smaller;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    color: var(--accent);
+}
+
+
+.sign-up-button {
+    position: absolute;
+    right: 0;
+    transform: translateX(50%);
+    width: 5rem;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+
+    background-color: var(--color-items-primary);
+
+    color: var(--text-light);
+    cursor: pointer;
+
+    box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.2);
+
+    z-index: 1000;
+}
+
+.sign-up-button span {
+    font-size: 3rem;
+    font-weight: 800;
+    transition: transform 0.5s ease-in-out;
+}
+
+#response-login {
+    margin-top: 5px;
+    font-size: .7rem;
+    pointer-events: none;
+
+    color: #ff5405;
+}
+
+#response-register {
+    margin-top: 5px;
+    font-size: .7rem;
+    pointer-events: none;
+
+    color: #0098db;
+}
+
+.error  {
+    animation: shake 0.5s ease-in-out;
+}
+
+.wrapper-login.active .sign-up-button span {
+    transform: rotate(180deg);
+}
+
+.wrapper-login.active .sign-in-container {
+    width: 45%;
+}
+
+.wrapper-login.active .sign-up-container {
+    width: 55%;
+}
+
+/* endregion Sing In */
+.sign-up-container .form-content {
+    --bg-primary: #ff0546;
+    --bg-second: #9c173b;
+    --color-items-primary: #fdfdfd;
+    --color-items-second: #e0e0e0;
+    --accent: #fdfdfd;
+
+    transform: translate(-200%, 0);
+    opacity: 0;
+}
+
+.sign-up-container .label-name {
+    color: var(--color-items-second);
+}
+
+.sign-up-container .underline {
+    border-bottom: 1px solid var(--color-items-second);
+}
+
+.sign-up-container .complete {
+    cursor: pointer;
+    &:after{
+        content: "";
+        background: #0098db;
+    }
+    &:hover {
+        &:after{
+            height: 100%;
+        }
+    }
+}
+
+.progress-fill-text {
+    color: var(--bg-primary);
+}
+
+@media (max-width: 1050px){
+    .wrapper-login {
+        width: 100%;
+        height: 100%;
+        border-radius: 0px;
+        box-shadow: none;
+        animation: none;
+    }
+}
+
+@media (max-width: 768px){
+    .wrapper-login {
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        border-radius: 0px;
+        box-shadow: none;
+        animation: none;
+    }
+    .sign-up-container {
+        width: 100%;
+        height: 35%;
+    }
+    .sign-in-container {
+        width: 100%;
+        height: 65%;
+    }
+    .sign-up-button {
+        left: 50%;
+        bottom: 0;
+        transform: translate(-50%, 50%);
+        width: 3.5rem;
+        height: 3.5rem;
+        & span {
+            font-size: 2rem;
+            transform: rotate(90deg);
+        }
+    }
+
+    .form-content {
+        padding: 0 20%;
+    }
+
+    .sidebar-content.login {
+        transform: translate(-50%, -100%);
+        opacity: 1;
+    }
+
+    .sign-up-container .form-content {
+        transform: translate(-50%, -100%);
+        opacity: 0;
+    }
+
+    .wrapper-login.active .sign-up-button span{
+        transform: rotate(-90deg);
+    }
+
+    .wrapper-login.active .sign-in-container {
+        width: 100%;
+        height: 35%;
+    }
+    
+    .wrapper-login.active .sign-up-container {
+        width: 100%;
+        height: 65%;
+    }
+
+    .wrapper-login.active .sidebar-content.register {
+        transform: translate(-50%, 100%);
+        opacity: 0;
+    }
+
+    .wrapper-login.active .sidebar-content.login{
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+    
+    .wrapper-login.active .sign-in-container .form-content {
+        transform: translate(-50%, 100%);
+        opacity: 0;
+    }
+    
+    .wrapper-login.active .sign-up-container .form-content {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+}
+
+@media (max-height: 840px) and (max-width: 600px)  {
+    .sign-in-container {
+        height: 75%;
+    }
+
+    .sign-up-container {
+        height: 25%;
+    }
+
+    .wrapper-login.active .sign-in-container {
+        width: 100%;
+        height: 25%;
+    }
+    
+    .wrapper-login.active .sign-up-container {
+        width: 100%;
+        height: 75%;
+    }
+
+    .sidebar-content h1{
+        font-size: 2rem;
+    }
+
+    .sidebar-content p{
+        font-size: 0.85rem;
+    }
+
+    .sign-up-button {
+        left: 50%;
+        bottom: 0;
+        transform: translate(-50%, 50%);
+        width: 3rem;
+        height: 3rem;
+        & span {
+            font-size: 1.5rem;
+            transform: rotate(90deg);
+        }
+    }
+
+    .form-content {
+        & img {
+            display: none;
+        }
+    }
+}
+
+@keyframes floating {
+    0% {
+        transform: translateY(0px);
+    }
+    100% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0px);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    50% {
+        transform: translateX(5px);
+    }
+    75% {
+        transform: translateX(-5px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}
