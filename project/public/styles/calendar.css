@@ -371,7 +371,7 @@
 }
 
 .fc .fc-col-header-cell.fc-day-today {
-  background-color: #ff8997;  /* amarelinho */
+  background-color: var(--color-items-primary50);  /* amarelinho */
   color: var(--text-light);
   font-weight: bold;
   border-radius: 4px;

@@ -180,3 +180,220 @@
         }
     }
 }
+
+#calendar {
+    width: 100%;
+}
+
+.fc-theme-standard td, .fc-theme-standard th, .fc-theme-standard .fc-scrollgrid {
+    border: transparent;
+}
+
+.fc-theme-standard tr {
+    border: 1px solid var(--bg-third);
+}
+
+
+.fc .fc-timegrid-slot-label-cushion {
+    font-size: .85em;
+    font-weight: 400;
+    padding: 0 1rem;
+    &:after{
+        content: "h00";
+    }
+}
+
+.fc .fc-timegrid-slot {
+    height: 3rem;
+}
+
+.fc .fc-scroller-liquid-absolute::-webkit-scrollbar {
+    width: 7px;
+}
+
+.fc .fc-scroller-liquid-absolute::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.fc .fc-scroller-liquid-absolute::-webkit-scrollbar-thumb {
+    background: var(--bg-second);
+    border-radius: 5px;
+}
+
+.fc-scroller-harness .fc-scroller {
+    overflow: hidden !important;
+}
+
+.fc .fc-scroller-liquid-absolute {
+    overflow: hidden scroll !important;
+    border-top: 2px solid var(--color-items-primary)
+}
+
+.fc .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 10px;
+    padding: 0 2rem;
+}
+
+.fc .fc-toolbar-title {
+    font-size: .95em;
+    color: #b6afaf;
+}
+
+.fc .fc-button {
+    border: transparent;
+    display: inline-block;
+    font-size: .9em;
+    font-weight: 700;
+    line-height: 1.5;
+    padding: 0.4em 0.65em;
+    text-align: center;
+    user-select: none;
+    vertical-align: middle;
+}
+.fc .fc-button-primary:not(:disabled).fc-button-active:focus, .fc .fc-button-primary:not(:disabled):active:focus {
+    box-shadow: transparent 0px 0px 0px 0rem;
+}
+
+.fc .fc-timeGridDay-button, .fc .fc-timeGridWeek-button, .fc .fc-dayGridMonth-button {
+    background-color: transparent;
+    border-radius: 0px;
+    color: var(--color-items-primary);
+    transition: .1s ease;
+}
+
+.fc .fc-timeGridDay-button:not(:disabled).fc-button-active, .fc .fc-timeGridDay-button:not(:disabled):active,
+.fc .fc-timeGridWeek-button:not(:disabled).fc-button-active, .fc .fc-timeGridWeek-button:not(:disabled):active,
+.fc .fc-dayGridMonth-button:not(:disabled).fc-button-active, .fc .fc-dayGridMonth-button:not(:disabled):active {
+    background-color: transparent;
+    border-color: transparent;
+    border-bottom: 2px solid var(--color-items-primary);
+    color: var(--color-items-primary);
+}
+
+.fc .fc-timeGridDay-button:hover,
+.fc .fc-timeGridWeek-button:hover,
+.fc .fc-dayGridMonth-button:hover {
+    background-color: transparent;
+    border-color: transparent;
+    border-bottom: 2px solid var(--color-items-primary);
+    color: var(--color-items-primary);
+}
+
+.fc .fc-next-button, .fc .fc-prev-button{
+    transition: .1s ease;
+    border: transparent;
+}
+
+.fc .fc-next-button:not(:disabled):focus, .fc .fc-next-button:not(:disabled):active:focus, 
+.fc .fc-prev-button:not(:disabled):focus, .fc .fc-prev-button:not(:disabled):active:focus {
+    box-shadow: var(--color-items-second) -39.5px 0 inset;
+}
+
+.fc .fc-next-button:hover {
+    background-color: var(--color-items-primary);
+    border-color: transparent;
+    box-shadow: var(--color-items-second) 39.5px 0 inset;
+}
+.fc .fc-prev-button:hover {
+    background-color: var(--color-items-primary);
+    border-color: transparent;
+    box-shadow: var(--color-items-second) -39.5px 0 inset;
+}
+
+.fc .fc-today-button:hover {
+    background: var(--color-items-second);
+    border: transparent;
+}
+
+.fc .fc-col-header-cell {
+  color: #b6afaf;                /* texto preto */
+  font-weight: 400;
+  border-radius: 4px;
+}
+
+.fc .fc-col-header-cell.fc-day-today {
+  background-color: var(--color-items-primary50);  /* amarelinho */
+  color: var(--text-light);
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.fc .fc-daygrid-day.fc-day-today,
+.fc .fc-timegrid-col.fc-day-today {
+  background-color: transparent !important;
+}
+
+.fc .button-swipe {
+    cursor: pointer;
+    position: relative;
+    background: var(--bg-cont);
+    width: 3.2rem;
+    height: 1.4rem;
+    border-radius: 20px;
+    transition: .2s;
+}
+
+.fc .button-swipe span {
+    position: absolute;
+    top: 50%;
+    left: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    transform: translate(0,-50%);
+    transition: .2s ease-in-out;
+}
+
+.fc .button-swipe.active {
+    background: var(--color-items-second);
+}
+
+.fc .button-swipe.active span {
+    left: 48.2px;
+    transform: translate(-100%,-50%);
+}
+
+.fc-timegrid-event .fc-event-main {
+    overflow: hidden;
+    color: var(--color-items-second);
+    font-size: 1em;
+    padding: .85rem;
+}
+
+.fc-timegrid-event .fc-event-main div {
+    color: #B5828C;
+}
+
+.fc-v-event {
+    border-radius: 10px;
+    border: transparent;
+    background: #FFCDB2;
+    box-shadow: 0px -10px 0px inset #ff8997;
+}
+
+.fc-timegrid-event-harness-inset .fc-timegrid-event {
+    box-shadow: 0px -10px 0px inset #FFB4A2;
+    
+}
+
+.fc-timegrid-event-harness-inset .fc-timegrid-event.done {
+    background-color: #4ade80;
+    box-shadow: 0px -10px 0px inset rgb(43, 196, 119)
+}
+
+.fc-timegrid-event.done .fc-event-main div {
+    color: rgb(7, 104, 88);
+}
+
+.fc-timegrid-event-harness-inset .fc-timegrid-event.not-done {
+    box-shadow: 0px -10px 0px inset #ff8997;
+}
+
+.fc-timegrid-event.not-done .fc-event-main div {
+    color: #ff495b;
+}
+
+.fc-timegrid-body, .fc .fc-scrollgrid-section-body table {
+    width: 100% !important;
+}

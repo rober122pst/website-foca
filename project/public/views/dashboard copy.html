@@ -70,7 +70,7 @@
             <ul class="navbar-links">
                 <a href="#/user"><li><i class="fa-solid fa-chart-line"></i><span>Overview</span></li></a>
                 <a href="#/user/rotina"><li><i class="fa-solid fa-calendar"></i><span>Rotina</span></li></a>
-                <a href="/user/tarefas"><li><i class="fa-solid fa-clipboard-list"></i><span>Tarefas</span></li></a>
+                <a href="/user/tarefas"><li><i class="fa-solid fa-list-check"></i><span>Tarefas</span></li></a>
                 <a href="/user/pomodoro"><li><i class="fa-solid fa-hourglass-half"></i><span>Pomodoro</span></li>
                 <a href="/user/pomodoro"><li><i class="fa-solid fa-comment"></i><span>Comunidades</span></li>
                 <a href="/user/ai"><li><i class="fa-solid fa-brain"></i><span>Focão AI</span></li></a>
@@ -146,76 +146,97 @@
             </div>
         </div>
         </header>
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-            <!-- LINHA 1 -->
-            <div class="flex justify-between items-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-3 col-span-1 transition duration-300 hover:shadow-xl">
-                <div class="text-sm font-extrabold text-[#b6afaf]">
-                    Sequência diária
-                    <br>
-                    <strong class="text-lg text-[var(--color-items-primary)]">0 dias</strong>
-                        
+        <!-- LINHA 1 -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 grid-rows-12 gap-8">
+            <div class="flex-1 items-center bg-[var(--bg-primary)] rounded-[20px] p-8 select-none row-span-2 transition duration-300 hover:shadow-xl">
+                <div class="rounded-lg font-black text-[var(--color-items-primary)] text-3xl ">
+                    <i class="fa-solid fa-bolt-lightning"></i> Resumo diário
                 </div>
-                <div class="flex justify-center items-center bg-[--color-items-primary] rounded-lg w-[50px] h-[50px] text-[var(--text-light)] text-3xl"><i class="fa-solid fa-fire"></i></div>
-            </div>
-            <div class="flex justify-between items-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-3 col-span-1 transition duration-300 hover:shadow-xl">
-                <div class="text-sm font-extrabold text-[#b6afaf]">
-                    Tempo em foco
-                    <br>
-                    <strong class="text-lg text-[var(--color-items-primary)]">0 minutos</strong>
-                        
+
+                <div class="flex gap-7 mt-2 items-center text-lg font-medium">
+                    <i class="text-center fa-solid fa-fire-flame-simple w-5 text-[--accent]"></i><strong class="">0 dias seguidos</strong>                
                 </div>
-                <div class="flex justify-center items-center bg-[--color-items-primary] rounded-lg w-[50px] h-[50px] text-[var(--text-light)] text-3xl"><i class="fa-solid fa-stopwatch"></i></div>
-            </div>
-            <div class="flex justify-between items-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-3 col-span-1 transition duration-300 hover:shadow-xl">
-                <div class="text-sm font-extrabold text-[#b6afaf]">
-                    Tarefas concluídas
-                    <br>
-                    <strong class="text-lg text-[var(--color-items-primary)]">0 tarefas</strong>
-                        
+                <div class="flex gap-7 mt-2 items-center text-lg font-medium">
+                    <i class="text-center fa-solid fa-circle-check w-5 text-[--accent]"></i><strong class="">1/8 tarefas concluidas</strong>                
                 </div>
-                <div class="flex justify-center items-center bg-[--color-items-primary] rounded-lg w-[50px] h-[50px] text-[var(--text-light)] text-3xl"><i class="fa-solid fa-check"></i></div>
-            </div>
-            <div class="flex justify-between items-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-3 col-span-1 transition duration-300 hover:shadow-xl">
-                <div class="text-sm font-extrabold text-[#b6afaf]">
-                    Rotinas ativas
-                    <br>
-                    <strong class="text-lg text-[var(--color-items-primary)]">0 rotinas</strong>
-                        
+                <div class="flex gap-7 mt-2 items-center text-lg font-medium">
+                    <i class="text-center fa-solid fa-hourglass-end w-5 text-[--accent]"></i><strong class="">0 pomodoros</strong>                
                 </div>
-                <div class="flex justify-center items-center bg-[--color-items-primary] rounded-lg w-[50px] h-[50px] text-[var(--text-light)] text-3xl"><i class="fa-solid fa-calendar-day"></i></div>
+                <div class="flex gap-7 mt-2 items-center text-lg font-medium">
+                    <i class="text-center fa-solid fa-stopwatch w-5 text-[--accent]"></i><strong class="">0 atividades programadas</strong>                
+                </div>
+                <div class="flex gap-7 mt-2 items-center text-lg font-medium">
+                    <i class="text-center fa-solid fa-hourglass-end w-5 text-[--accent]"></i><strong class="">0 minutos focados</strong>                
+                </div>
             </div>
+            <div class="flex-1 items-center bg-[var(--bg-primary)] rounded-[20px] p-8 select-none row-span-2 transition duration-300 hover:shadow-xl">
+                <div class="rounded-lg font-black text-[var(--color-items-primary)] text-3xl ">
+                    <i class="fa-solid fa-bolt-lightning"></i> Resumo diário
+                </div>
+
+                <div class="flex gap-7 mt-2 items-center text-lg font-medium">
+                    <i class="text-center fa-solid fa-fire-flame-simple w-5 text-[--accent]"></i><strong class="">0 dias seguidos</strong>                
+                </div>
+                <div class="flex gap-7 mt-2 items-center text-lg font-medium">
+                    <i class="text-center fa-solid fa-circle-check w-5 text-[--accent]"></i><strong class="">1/8 tarefas concluidas</strong>                
+                </div>
+                <div class="flex gap-7 mt-2 items-center text-lg font-medium">
+                    <i class="text-center fa-solid fa-hourglass-end w-5 text-[--accent]"></i><strong class="">0 pomodoros</strong>                
+                </div>
+                <div class="flex gap-7 mt-2 items-center text-lg font-medium">
+                    <i class="text-center fa-solid fa-stopwatch w-5 text-[--accent]"></i><strong class="">0 atividades programadas</strong>                
+                </div>
+                <div class="flex gap-7 mt-2 items-center text-lg font-medium">
+                    <i class="text-center fa-solid fa-hourglass-end w-5 text-[--accent]"></i><strong class="">0 minutos focados</strong>                
+                </div>
+            </div>
+            <div class="flex-1 items-center bg-[var(--bg-primary)] rounded-[20px] p-8 select-none row-span-2 transition duration-300 hover:shadow-xl">
+                <div class="rounded-lg font-black text-[var(--color-items-primary)] text-3xl ">
+                    <i class="fa-solid fa-bolt-lightning"></i> Resumo diário
+                </div>
+
+                <div class="flex gap-7 mt-2 items-center text-lg font-medium">
+                    <i class="text-center fa-solid fa-fire-flame-simple w-5 text-[--accent]"></i><strong class="">0 dias seguidos</strong>                
+                </div>
+                <div class="flex gap-7 mt-2 items-center text-lg font-medium">
+                    <i class="text-center fa-solid fa-circle-check w-5 text-[--accent]"></i><strong class="">1/8 tarefas concluidas</strong>                
+                </div>
+                <div class="flex gap-7 mt-2 items-center text-lg font-medium">
+                    <i class="text-center fa-solid fa-hourglass-end w-5 text-[--accent]"></i><strong class="">0 pomodoros</strong>                
+                </div>
+                <div class="flex gap-7 mt-2 items-center text-lg font-medium">
+                    <i class="text-center fa-solid fa-stopwatch w-5 text-[--accent]"></i><strong class="">0 atividades programadas</strong>                
+                </div>
+                <div class="flex gap-7 mt-2 items-center text-lg font-medium">
+                    <i class="text-center fa-solid fa-hourglass-end w-5 text-[--accent]"></i><strong class="">0 minutos focados</strong>                
+                </div>
+            </div>
+            <div class="flex-1 items-center bg-[var(--bg-primary)] rounded-[20px] p-8 select-none row-span-2 transition duration-300 hover:shadow-xl">
+                <div class="rounded-lg font-black text-[var(--color-items-primary)] text-3xl ">
+                    <i class="fa-solid fa-bolt-lightning"></i> Resumo diário
+                </div>
+
+                <div class="flex gap-7 mt-2 items-center text-lg font-medium">
+                    <i class="text-center fa-solid fa-fire-flame-simple w-5 text-[--accent]"></i><strong class="">0 dias seguidos</strong>                
+                </div>
+                <div class="flex gap-7 mt-2 items-center text-lg font-medium">
+                    <i class="text-center fa-solid fa-circle-check w-5 text-[--accent]"></i><strong class="">1/8 tarefas concluidas</strong>                
+                </div>
+                <div class="flex gap-7 mt-2 items-center text-lg font-medium">
+                    <i class="text-center fa-solid fa-hourglass-end w-5 text-[--accent]"></i><strong class="">0 pomodoros</strong>                
+                </div>
+                <div class="flex gap-7 mt-2 items-center text-lg font-medium">
+                    <i class="text-center fa-solid fa-stopwatch w-5 text-[--accent]"></i><strong class="">0 atividades programadas</strong>                
+                </div>
+                <div class="flex gap-7 mt-2 items-center text-lg font-medium">
+                    <i class="text-center fa-solid fa-hourglass-end w-5 text-[--accent]"></i><strong class="">0 minutos focados</strong>                
+                </div>
+            </div>
+
+            
             <!-- LINHA 2 -->
-            <div class="flex flex-col justify-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-4 col-span-1 transition duration-300 hover:shadow-xl">
-                <div class="flex items-center gap-2 text-xl">
-                    <i class="fa-solid fa-stopwatch text-[--color-items-primary]"></i><h4 class="font-bold">Sessão de foco</h4>
-                </div>
-                <div class="flex justify-between items-center mt-5">
-                    <div class="flex flex-col gap-3">
-                        <div id="caixa-1" class="w-56">
-                            <label for="tempo-session" class="block text-sm font-medium text-[#b6afaf] mb-1">Duração: </label>
-                            <select name="tempo-session" id="tempo-session"
-                                class="block w-full rounded-md border border-gray-300 bg-[--bg-primary] py-2 px-3 text-sm shadow-sm focus:border-[--accent] focus:outline-none focus:ring-1 focus:ring-[--accent]">
-                                <option value="25">25 min</option>
-                                <option value="45">45 min</option>
-                                <option value="60">60 min</option>
-                            </select>
-                        </div>
-                        <div id="caixa-1" class="w-56">
-                            <label for="task-session" class="block text-sm font-medium text-[#b6afaf] mb-1">Tarefa: </label>
-                            <select name="task-session" id="task-session"
-                                class="block w-full rounded-md border border-gray-300 bg-[--bg-primary] py-2 px-3 text-sm shadow-sm focus:border-[--accent] focus:outline-none focus:ring-1 focus:ring-[--accent]">
-                                <option value="estuprar">Estudar</option>
-                                <option value="estudar">Abusar</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="flex justify-center items-center rounded-[50%] h-[200px] w-[200px] bg-[--color-items-primary] text-[var(--text-light)] text-7xl text-center font-black cursor-pointer inset-shadow-[4px_8px_1px_#000]">
-                        <i class="fa-solid fa-play ml-2"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="flex items-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-8 col-span-1 transition duration-300 hover:shadow-xl">
-                <div class="m-auto">
+            <div class="flex justify-center items-center lg:col-span-2 col-span-1 row-span-3 bg-[var(--bg-primary)] rounded-[20px] p-8 select-none transition duration-300 hover:shadow-xl">
+                <div class="w-1/3 flex-1 m-auto">
                     <div class="text-md font-extrabold text-[#b6afaf]"> Minutos focados
                         <br>
                         <strong class="text-7xl text-[var(--color-items-primary)]">200</strong>
@@ -225,33 +246,93 @@
                 </div>
                 <div class="w-2/3 h-full">
                     <canvas id="meuGrafico"></canvas>
-                </div> 
+                </div>      
             </div>
+
+
+            <div class="container-calendar flex flex-col justify-around bg-[var(--bg-primary)] rounded-[20px] p-8 select-none col-span-1 lg:col-span-2 row-span-3 transition duration-300 hover:shadow-xl">
+                <canvas id="meuRadar" height="127px"></canvas>
+            </div>
+
             <!-- LINHA 3 -->
-            <div class="flex flex-col items-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-3 col-span-1 transition duration-300 hover:shadow-xl">
+
+            <div class="container-calendar flex-1 flex flex-col justify-around h-full bg-[var(--bg-primary)] rounded-[20px] p-8 select-none col-span-1 lg:col-span-1 row-span-3 transition duration-300 hover:shadow-xl">
+                <div id='calendar'></div>
+            </div>
+
+            <div class="container-calendar flex flex-col justify-around h-full bg-[var(--bg-primary)] rounded-[20px] p-8 select-none col-span-1 lg:col-span-2 row-span-3 transition duration-300 hover:shadow-xl">
+                <div id='calendar-month'></div>
+            </div>
+
+            <div class="flex-1 flex flex-col justify-around h-full bg-[var(--bg-primary)] rounded-[20px] p-8 select-none col-span-1 row-span-3 transition duration-300 hover:shadow-xl">
+                <div class=" font-black text-[var(--color-items-primary)] text-3xl">
+                    <i class="fa-solid fa-chart-line"></i> Metas e progresso
+                </div>
+                <div class="flex flex-col gap-5 justify-center">
+                    <div class="flex flex-col gap-3 font-bold text-[--text-theme] text-2xl">
+                        Estudar para prova de matemática
+                        <div class="flex gap-3 items-center">
+                            <div class="bg-[--bg-second] rounded-lg w-full max-w-[13rem] h-3 overflow-hidden">
+                                <div class="bg-[--color-items-primary] w-2/3 h-full"></div>
+                            </div>
+                        </div>
+                        <small class="text-[#b6afaf] font-bold text-base">
+                            Última vez: Ontem
+                        </small>
+                    </div>
+                    <div class="flex flex-col gap-3 font-bold text-[--text-theme] text-2xl">
+                        Estudar para prova de matemática
+                        <div class="flex gap-3 items-center">
+                            <div class="bg-[--bg-second] rounded-lg w-full max-w-[13rem] h-3 overflow-hidden">
+                                <div class="bg-[--color-items-primary] w-1/2 h-full"></div>
+                            </div>
+                        </div>
+                        <small class="text-[#b6afaf] font-bold text-base">
+                            Última vez: Ontem
+                        </small>
+                    </div>
+                </div>
 
             </div>
-            <div class="flex flex-col items-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-3 col-span-1 transition duration-300 hover:shadow-xl">
 
-            </div>
-            <div class="flex flex-col items-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-6 col-span-1 transition duration-300 hover:shadow-xl">
+            
 
-            </div>
-            <!-- LINHA 4 -->
-            <div class="flex flex-col items-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-12 col-span-1 transition duration-300 hover:shadow-xl">
+            
 
-            </div>
-            <!-- LINHA 5 -->
-            <div class="flex flex-col items-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-6 col-span-1 transition duration-300 hover:shadow-xl">
+            
 
-            </div>
-            <div class="flex flex-col items-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-6 col-span-1 transition duration-300 hover:shadow-xl">
+            <!-- <div class="flex-1 justify-center col-span-1 row-span-2 bg-[var(--bg-primary)] rounded-[20px] p-8 select-none transition duration-300 hover:shadow-xl">
+                Checklist diária
+                <ul id="taskList"
+                    class="max-h-[180px] overflow-y-auto list-none">
+                </ul>
+            </div> -->
 
-            </div>
-            <!-- LINHA 6 -->
-            <div class="flex flex-col items-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-12 col-span-1 transition duration-300 hover:shadow-xl">
 
-            </div>
+            <!-- Dashboard section below tasks -->
+            <!-- <section> -->
+                <!-- <div class="flex flex-col sm:flex-row justify-between gap-6 mt-10"> -->
+
+                    <!-- Uncompleted tasks -->
+                <!-- </div> -->
+
+                <!-- <div class="w-full max-w-md mx-auto h-72 mt-6">
+                    <canvas id="tasksChart"
+                        aria-label="Gráfico de pizza mostrando porcentagem de tarefas completadas e não completadas"
+                        role="img"></canvas>
+                </div> -->
+
+                <!-- <div class="flex justify-center gap-10 mt-6 select-none text-sm font-semibold text-[#b3b3b3] tracking-wide">
+                    <div class="flex items-center gap-3">
+                        <span class="w-5 h-5 rounded-full bg-[var(--color-items-primary)] block shadow-[0_0_8px_var(--color-items-primary)]"></span>
+                        Completadas
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="w-5 h-5 rounded-full bg-[#666666] block shadow-[0_0_8px_#666666]"></span> Não
+                        Completadas
+                    </div>
+                </div> -->
+            <!-- </section> -->
         </div>
     </main>
 
