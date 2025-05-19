@@ -9,4 +9,4 @@ const sessionSchema = new mongoose.Schema({
     taskId: { type: mongoose.Schema.Types.ObjectId, ref: 'Task' } // se linkado a uma task
   });  
 
-  export default mongoose.model('Routine', routineSchema);
+  export default mongoose.model('Session', sessionSchema);

@@ -1,0 +1,193 @@
+const taskList = document.getElementById('taskList');
+const taskForm = document.getElementById('taskForm');
+const taskInput = document.getElementById('taskInput');
+const completedCountEl = document.getElementById('completedCount');
+const uncompletedCountEl = document.getElementById('uncompletedCount');
+// const ctx = document.getElementById('tasksChart').getContext('2d');
+
+const confirmModal = document.getElementById('confirmModal');
+const confirmMessage = document.getElementById('confirmMessage');
+const confirmYes = document.getElementById('confirmYes');
+const confirmNo = document.getElementById('confirmNo');
+
+
+let taskToDeleteId = null;
+
+
+document.addEventListener('DOMContentLoaded', async function() {
+    const tasks = await getApiData('tasks') || [];
+    const routines = await getApiData('routines') || [];
+    const sessionTime = await getApiData('sessions/total-duration') || 0;
+    const user = await getUser(token);
+    const dailyChallenge = await getApiData('daily-challenge');
+
+    await renderTaskList(tasks);
+    await selectTaks(tasks);
+
+    const sequenciaEl = document.getElementById('sequencia')
+    sequenciaEl.textContent = user.gamification.streak + " dias";
+
+    
+    const minutosEl = document.getElementById('minutos')
+    if(sessionTime.totalDuration < 60) {
+        minutosEl.textContent = sessionTime.totalDuration + " minutos";
+    } else {
+        const horas = Math.floor(sessionTime.totalDuration / 60);
+        const minutos = sessionTime.totalDuration % 60;
+        minutosEl.textContent = `${horas}h${
+            minutos < 10 ? '0' + minutos : minutos
+        }`;
+    }
+
+    const completed = tasks.filter(t => t.completed);
+    const tarefasEl = document.getElementById('tarefas')
+    tarefasEl.textContent = completed.length + " tarefas";
+
+    
+    const rotinasEl = document.getElementById('rotinas')
+    rotinasEl.textContent = routines.length + " rotinas";
+
+    const desafioEl = document.getElementById('desafio');
+    if(dailyChallenge) {
+        desafioEl.innerHTML = `
+            <h1 class="text-5xl text-[--color-items-primary] font-black">${dailyChallenge.title}</h1>
+            <p class="text-[#b6afaf] text-sm mt-2">${dailyChallenge.description}</p>
+            <br>
+            <div class="flex gap-10 items-center">
+                <div class="flex items-center gap-2 align-middle text-xl font-bold text-[--color-items-primary]">
+                    <span class="material-symbols-rounded text-[--accent] text-3xl">paid</span> ${formatarPara00_00(dailyChallenge.rewardCoins)} $
+                </div>
+                <div class="flex items-center gap-2 align-middle text-xl font-bold text-[--color-items-primary]">
+                    <span class="material-symbols-rounded text-[--accent] text-3xl">star</span> ${dailyChallenge.rewardXP} XP
+                </div>
+            </div>
+            <br>
+            <div class="bg-[--bg-second] rounded-lg w-full max-w-[13rem] h-3 overflow-hidden">
+                <div class="bg-[--color-items-primary] w-2/3 h-full"></div>
+            </div>
+            <br>
+            <div>
+                <button class="bg-[--color-items-primary] text-[var(--text-light)] font-bold text-sm py-2 px-4 rounded-lg hover:bg-[--color-items-second] transition duration-300">Detalhes</button>
+            </div>
+            <br>
+            <p id="challenge-description" class="text-[#b6afaf] text-sm mt-2">Amigos que já concluiram: </p>
+            <br>
+        `
+    }else {
+        desafioEl.innerHTML = `
+            <h1 class="text-5xl text-[--color-items-primary] font-black">Desafio do dia</h1>
+            <p class="text-[#b6afaf] text-sm mt-2">Sem desafios por hoje!</p>
+        `
+    }
+
+    const rankingTable = document.getElementById('rankingTable');
+    const ranking = await getApiData('ranking');
+    const cincoPrimeiros = ranking.slice(0, 5);
+
+    cincoPrimeiros.forEach((user) => {
+        const tr = document.createElement('tr');
+        tr.className = "text-left border-t border-[--bg-second] align-middle";
+        tr.innerHTML = `
+            <td class="text-sm font-extrabold py-3 text-[--accent]">${user.pos}</td>
+            <td class="text-sm font-extrabold py-3">
+                <div class="flex items-center gap-2">
+                    <img src="${user.avatar || 'upload/default-profile.png'}" alt="" class="w-8 h-8 rounded-full">
+                    <span class="text-[--color-items-primary]">${user.username}</span>
+                </div>
+            </td>
+            <td class="text-sm font-extrabold py-3">${user.level}</td>
+            <td class="text-sm font-extrabold py-3">${user.focus}</td>
+            <td class="text-sm font-extrabold py-3">${user.tasks}</td>
+        `
+        rankingTable.appendChild(tr);
+    });
+});
+
+
+// Render task list items
+async function renderTaskList(tasks) {
+    taskList.innerHTML = '';
+    tasks.forEach(task => {
+        const li = document.createElement('li');
+        li.className = 'flex justify-between items-center rounded-md py-3 px-1';
+
+        const label = document.createElement('label');
+        label.className = 'flex items-center gap-2 cursor-pointer select-none';
+        label.setAttribute('for', `task-${task._id}`);
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = `task-${task._id}`;
+        checkbox.checked = task.completed;
+        checkbox.className = 'custom-checkbox';
+        checkbox.addEventListener('change', () => {
+            task.completed = checkbox.checked;
+            updateCountsAndChart();
+            renderTaskList();
+        });
+
+        const span = document.createElement('span');
+        span.textContent = task.title;
+        if (task.completed) {
+            span.className = 'line-through title-[#666666]';
+        }
+
+        label.appendChild(checkbox);
+        label.appendChild(span);
+
+        const btnRemove = document.createElement('button');
+        btnRemove.setAttribute('aria-label', `Remover tarefa ${task.text}`);
+        btnRemove.className = 'text-[var(--color-items-primary)] hover:text-[#c4002f] ml-4';
+        btnRemove.innerHTML = '<i class="fas fa-trash-alt"></i>';
+        btnRemove.addEventListener('click', () => {
+            taskToDeleteId = task.id;
+            confirmMessage.textContent = `Deseja realmente remover a tarefa:\n"${task.title}"?`;
+            confirmModal.classList.remove('hidden');
+        });
+
+        li.appendChild(label);
+        li.appendChild(btnRemove);
+        taskList.appendChild(li);
+    });
+}
+
+// Update completed/uncompleted counts and chart
+function updateCountsAndChart() {
+    const completed = tasks.filter(t => t.completed).length;
+    const uncompleted = tasks.length - completed;
+    completedCountEl.textContent = completed;
+    uncompletedCountEl.textContent = uncompleted;
+
+    doughnutChart.data.datasets[0].data = [completed, uncompleted];
+    doughnutChart.update();
+}
+
+// Confirmation modal buttons
+confirmYes.addEventListener('click', () => {
+    if (taskToDeleteId !== null) {
+        tasks = tasks.filter(t => t.id !== taskToDeleteId);
+        taskToDeleteId = null;
+        renderTaskList();
+        updateCountsAndChart();
+    }
+    confirmModal.classList.add('hidden');
+});
+
+confirmNo.addEventListener('click', () => {
+    taskToDeleteId = null;
+    confirmModal.classList.add('hidden');
+});
+
+
+async function selectTaks(tasks) {
+    const selectTasksEl = document.getElementById('task-session');
+
+    tasks
+     .filter(t => t.completed === false)
+     .forEach(t => {
+        const option = document.createElement("option");
+        option.value = t._id;
+        option.text = t.title;
+        selectTasksEl.appendChild(option);
+     })
+}

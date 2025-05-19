@@ -7,8 +7,10 @@ import authRoutes from './routes/auth.js';
 import tasksRoutes from './routes/tasks.js';
 import userRoutes from './routes/user.js';
 import routinesRoutes from './routes/routines.js';
+import sessionRoutes from './routes/sessions.js';
+import challengeRoutes from './routes/dailyChallenge.js';
+import rankingRoutes from './routes/ranking.js';
 import dotenv from 'dotenv';
-import auth from './middlewares/auth.js';
 
 dotenv.config();
 const app = express();
@@ -25,6 +27,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/tasks', tasksRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/routines', routinesRoutes);
+app.use('/api/sessions', sessionRoutes);
+app.use('/api/daily-challenge', challengeRoutes);
+app.use('/api/ranking', rankingRoutes);
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));

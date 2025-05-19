@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Foca - Overview</title>
+    <title>Foca</title>
+    <link rel="shortcut icon" href="../imgs/foca_branco.svg" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js'></script>
@@ -68,10 +69,9 @@
         </div>
         <nav class="navbar">
             <ul class="navbar-links">
-                <a href="#/user"><li><i class="fa-solid fa-chart-line"></i><span>Overview</span></li></a>
-                <a href="#/user/rotina"><li><i class="fa-solid fa-calendar"></i><span>Rotina</span></li></a>
+                <a href="/user"><li><i class="fa-solid fa-chart-line"></i><span>Overview</span></li></a>
+                <a href="/user/rotina"><li><i class="fa-solid fa-calendar"></i><span>Rotina</span></li></a>
                 <a href="/user/tarefas"><li><i class="fa-solid fa-clipboard-list"></i><span>Tarefas</span></li></a>
-                <a href="/user/pomodoro"><li><i class="fa-solid fa-hourglass-half"></i><span>Pomodoro</span></li>
                 <a href="/user/pomodoro"><li><i class="fa-solid fa-comment"></i><span>Comunidades</span></li>
                 <a href="/user/ai"><li><i class="fa-solid fa-brain"></i><span>Focão AI</span></li></a>
             </ul>
@@ -152,7 +152,7 @@
                 <div class="text-sm font-extrabold text-[#b6afaf]">
                     Sequência diária
                     <br>
-                    <strong class="text-lg text-[var(--color-items-primary)]">0 dias</strong>
+                    <strong class="text-lg text-[var(--color-items-primary)]" id="sequencia">0 dias</strong>
                         
                 </div>
                 <div class="flex justify-center items-center bg-[--color-items-primary] rounded-lg w-[50px] h-[50px] text-[var(--text-light)] text-3xl"><i class="fa-solid fa-fire"></i></div>
@@ -161,7 +161,7 @@
                 <div class="text-sm font-extrabold text-[#b6afaf]">
                     Tempo em foco
                     <br>
-                    <strong class="text-lg text-[var(--color-items-primary)]">0 minutos</strong>
+                    <strong class="text-lg text-[var(--color-items-primary)]" id="minutos">0 min</strong>
                         
                 </div>
                 <div class="flex justify-center items-center bg-[--color-items-primary] rounded-lg w-[50px] h-[50px] text-[var(--text-light)] text-3xl"><i class="fa-solid fa-stopwatch"></i></div>
@@ -170,7 +170,7 @@
                 <div class="text-sm font-extrabold text-[#b6afaf]">
                     Tarefas concluídas
                     <br>
-                    <strong class="text-lg text-[var(--color-items-primary)]">0 tarefas</strong>
+                    <strong class="text-lg text-[var(--color-items-primary)]" id="tarefas">0 tarefas</strong>
                         
                 </div>
                 <div class="flex justify-center items-center bg-[--color-items-primary] rounded-lg w-[50px] h-[50px] text-[var(--text-light)] text-3xl"><i class="fa-solid fa-check"></i></div>
@@ -179,78 +179,177 @@
                 <div class="text-sm font-extrabold text-[#b6afaf]">
                     Rotinas ativas
                     <br>
-                    <strong class="text-lg text-[var(--color-items-primary)]">0 rotinas</strong>
+                    <strong class="text-lg text-[var(--color-items-primary)]" id="rotinas">0 rotinas</strong>
                         
                 </div>
                 <div class="flex justify-center items-center bg-[--color-items-primary] rounded-lg w-[50px] h-[50px] text-[var(--text-light)] text-3xl"><i class="fa-solid fa-calendar-day"></i></div>
             </div>
             <!-- LINHA 2 -->
-            <div class="flex flex-col justify-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-4 col-span-1 transition duration-300 hover:shadow-xl">
-                <div class="flex items-center gap-2 text-xl">
-                    <i class="fa-solid fa-stopwatch text-[--color-items-primary]"></i><h4 class="font-bold">Sessão de foco</h4>
+            <div class="flex flex-col justify-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-5 col-span-1 transition duration-300 hover:shadow-xl">
+                <div class="flex justify-between items-center text-xl">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-stopwatch text-[--color-items-primary]"></i><h4 class="font-bold">Sessão de foco</h4>
+                    </div>
+                    <div class="text-[--accent] text-2xl cursor-pointer hover:rotate-180 transition duration-300">
+                        <i class="fa-solid fa-gear"></i>
+                    </div>
                 </div>
                 <div class="flex justify-between items-center mt-5">
-                    <div class="flex flex-col gap-3">
-                        <div id="caixa-1" class="w-56">
-                            <label for="tempo-session" class="block text-sm font-medium text-[#b6afaf] mb-1">Duração: </label>
+                    <div class="flex flex-col gap-6 h-full">
+                        <div id="caixa-1" class="flex flex-col justify-center w-56 h-full rounded-xl border border-[--bg-second] bg-[--bg-primary] py-2 px-3 text-xs shadow-sm">
+                            <label for="tempo-session" class="block text-xs font-extrabold text-[#b6afaf] mb-1">Duração: </label>
                             <select name="tempo-session" id="tempo-session"
-                                class="block w-full rounded-md border border-gray-300 bg-[--bg-primary] py-2 px-3 text-sm shadow-sm focus:border-[--accent] focus:outline-none focus:ring-1 focus:ring-[--accent]">
+                                class="block bg-[--bg-primary] text-[--accent] font-extrabold text-base w-full focus:border-[transparent] focus:outline-none">
                                 <option value="25">25 min</option>
                                 <option value="45">45 min</option>
                                 <option value="60">60 min</option>
                             </select>
                         </div>
-                        <div id="caixa-1" class="w-56">
-                            <label for="task-session" class="block text-sm font-medium text-[#b6afaf] mb-1">Tarefa: </label>
+                        <div id="caixa-1" class="flex flex-col justify-center w-56 h-full rounded-xl border border-[--bg-second] bg-[--bg-primary] py-2 px-3 text-xs shadow-sm">
+                            <label for="task-session" class="block text-xs font-extrabold text-[#b6afaf] mb-1">Tarefa: </label>
                             <select name="task-session" id="task-session"
-                                class="block w-full rounded-md border border-gray-300 bg-[--bg-primary] py-2 px-3 text-sm shadow-sm focus:border-[--accent] focus:outline-none focus:ring-1 focus:ring-[--accent]">
-                                <option value="estuprar">Estudar</option>
-                                <option value="estudar">Abusar</option>
+                                class="block bg-[--bg-primary] text-[--accent] font-extrabold text-base w-full focus:border-[transparent] focus:outline-none">
+                            </select>
+                        </div>
+                        <div id="caixa-1" class="flex flex-col justify-center w-56 h-full rounded-xl border border-[--bg-second] bg-[--bg-primary] py-2 px-3 text-xs shadow-sm">
+                            <label for="task-session" class="block text-xs font-extrabold text-[#b6afaf] mb-1">Modo: </label>
+                            <select name="task-session" id="task-session"
+                                class="block bg-[--bg-primary] text-[--accent] font-extrabold text-base w-full focus:border-[transparent] focus:outline-none">
+                                <option value="estuprar">Pomodoro</option>
+                                <option value="estuprar">Livre</option>
                             </select>
                         </div>
                     </div>
-                    <div class="flex justify-center items-center rounded-[50%] h-[200px] w-[200px] bg-[--color-items-primary] text-[var(--text-light)] text-7xl text-center font-black cursor-pointer inset-shadow-[4px_8px_1px_#000]">
+                    <button class="flex justify-center items-center border-b-8 border-[--color-items-second] rounded-full h-[250px] w-[250px] bg-[--color-items-primary] text-[var(--text-light)] text-7xl text-center font-black cursor-pointer active:border-b-0">
                         <i class="fa-solid fa-play ml-2"></i>
-                    </div>
+                    </button>
                 </div>
             </div>
-            <div class="flex items-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-8 col-span-1 transition duration-300 hover:shadow-xl">
-                <div class="m-auto">
-                    <div class="text-md font-extrabold text-[#b6afaf]"> Minutos focados
-                        <br>
-                        <strong class="text-7xl text-[var(--color-items-primary)]">200</strong>
-                        <br>
-                        <small><i class="text-[--color-items-primary] fa-solid fa-caret-up"></i> 10% a mais que na última semana.</small>
-                    </div>
+            <div class="flex justify-between items-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-7 col-span-1 transition duration-300 hover:shadow-xl">
+                <div id="weekly-stats">
+                    
                 </div>
                 <div class="w-2/3 h-full">
                     <canvas id="meuGrafico"></canvas>
                 </div> 
             </div>
+
             <!-- LINHA 3 -->
-            <div class="flex flex-col items-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-3 col-span-1 transition duration-300 hover:shadow-xl">
-
+            <div class="flex flex-col bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-3 col-span-1 transition duration-300 hover:shadow-xl">
+                <div class="flex justify-between items-center text-xl">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-clipboard-list text-[--color-items-primary]"></i><h4 class="font-bold">Tarefas</h4>
+                    </div>
+                </div>
+                <ul id="taskList"
+                    class="h-[380px] w-full overflow-y-auto list-none mt-5">
+                </ul>
             </div>
-            <div class="flex flex-col items-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-3 col-span-1 transition duration-300 hover:shadow-xl">
 
+            <div class="flex flex-col bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-3 col-span-1 transition duration-300 hover:shadow-xl">
+                <div class="flex justify-between items-center text-xl">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-calendar-day text-[--color-items-primary]"></i><h4 class="font-bold">Rotina de hoje</h4>
+                    </div>
+                </div>
+                <div id="calendar" class="mt-5"></div>
             </div>
-            <div class="flex flex-col items-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-6 col-span-1 transition duration-300 hover:shadow-xl">
 
+            <div class="flex flex-col bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-6 col-span-1 transition duration-300 hover:shadow-xl">
+                <div class="flex justify-between items-center text-xl">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-trophy text-[--color-items-primary]"></i><h4 class="font-bold">Desafio diário</h4>
+                    </div>
+                </div>
+                <div class="mt-5" id="desafio">
+                    <h1 class="text-5xl text-[--color-items-primary] font-black">Titulo do desafio</h1>
+                    <p class="text-[#b6afaf] text-sm mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus recusandae, odit ea saepe atque odio doloremque doloribus. Totam, adipisci ex quidem minima at, facilis nisi soluta enim itaque corrupti accusantium!</p>
+                    <br>
+                    <div class="flex gap-10 items-center">
+                        <div class="flex items-center gap-2 align-middle text-xl font-bold text-[--color-items-primary]">
+                            <span class="material-symbols-rounded text-[--accent] text-3xl">paid</span> 50,00 $
+                        </div>
+                        <div class="flex items-center gap-2 align-middle text-xl font-bold text-[--color-items-primary]">
+                            <span class="material-symbols-rounded text-[--accent] text-3xl">star</span> 100 XP
+                        </div>
+                    </div>
+                    <br>
+                    <div class="bg-[--bg-second] rounded-lg w-full max-w-[13rem] h-3 overflow-hidden">
+                        <div class="bg-[--color-items-primary] w-2/3 h-full"></div>
+                    </div>
+                    <br>
+                    <div>
+                        <button class="bg-[--color-items-primary] text-[var(--text-light)] font-bold text-sm py-2 px-4 rounded-lg hover:bg-[--color-items-second] transition duration-300">Detalhes</button>
+                    </div>
+                    <br>
+                    <p id="challenge-description" class="text-[#b6afaf] text-sm mt-2">Amigos que já concluiram: </p>
+                    <br>
+                </div>
             </div>
+
             <!-- LINHA 4 -->
-            <div class="flex flex-col items-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-12 col-span-1 transition duration-300 hover:shadow-xl">
-
+            <div class="flex flex-col bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-12 col-span-1 transition duration-300 hover:shadow-xl">
+                <div class="flex justify-between items-center text-xl">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-medal text-[--color-items-primary]"></i><h4 class="font-bold">Conquistas</h4>
+                    </div>
+                </div>
+                <div class="carrosel-badges flex gap-5 mt-5">
+                    <div class="bg-[--bg-second] rounded-lg w-[70px] h-[70px] border-2 border-[--color-items-primary]"></div>
+                    <div class="bg-[--bg-second] rounded-lg w-[70px] h-[70px] border-2 border-[--color-items-primary]"></div>
+                    <div class="bg-[--bg-second] rounded-lg w-[70px] h-[70px] border-2 border-[--color-items-primary] shadow-[0_0_15px_var(--color-items-primary)]"></div>
+                    <div class="bg-[--bg-second] rounded-lg w-[70px] h-[70px] border-2 border-[--color-items-primary]"></div>
+                    <div class="bg-[--bg-second] rounded-lg w-[70px] h-[70px] border-2 border-[--color-items-primary]"></div>
+                </div>
             </div>
             <!-- LINHA 5 -->
-            <div class="flex flex-col items-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-6 col-span-1 transition duration-300 hover:shadow-xl">
-
+            <div class="flex flex-col bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-7 col-span-1 transition duration-300 hover:shadow-xl">
+                <div class="flex justify-between items-center text-xl">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-ranking-star text-[--color-items-primary]"></i><h4 class="font-bold">Rank</h4>
+                    </div>
+                    <div class="text-[--accent] text-2xl cursor-pointer hover:rotate-180 transition duration-300">
+                        <i class="fa-solid fa-gear"></i>
+                    </div>
+                </div>
+                <table class="w-full mt-5">
+                    <thead>
+                        <tr class="text-left text-[#b6afaf]">
+                            <th class="text-sm font-extrabold">Pos.</th>
+                            <th class="text-sm font-extrabold">Nome</th>
+                            <th class="text-sm font-extrabold">XP</th>
+                            <th class="text-sm font-extrabold">Foco</th>
+                            <th class="text-sm font-extrabold">Tarefas</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rankingTable">
+                        
+                    </tbody>
+                </table>
             </div>
-            <div class="flex flex-col items-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-6 col-span-1 transition duration-300 hover:shadow-xl">
-
-            </div>
-            <!-- LINHA 6 -->
-            <div class="flex flex-col items-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-12 col-span-1 transition duration-300 hover:shadow-xl">
-
+            <div class="flex flex-col bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-5 col-span-1 transition duration-300 hover:shadow-xl">
+                <div class="flex justify-between items-center text-xl">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-ranking-star text-[--color-items-primary]"></i><h4 class="font-bold">Rank de Amigos</h4>
+                    </div>
+                    <div class="text-[--accent] text-2xl cursor-pointer hover:rotate-180 transition duration-300">
+                        <i class="fa-solid fa-gear"></i>
+                    </div>
+                </div>
+                <table class="w-full mt-5">
+                    <thead>
+                        <tr class="text-left text-[#b6afaf]">
+                            <th class="text-sm font-extrabold">Pos.</th>
+                            <th class="text-sm font-extrabold">Nome</th>
+                            <th class="text-sm font-extrabold">XP</th>
+                            <th class="text-sm font-extrabold">Foco</th>
+                            <th class="text-sm font-extrabold">Tarefas</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rankingTable">
+                        
+                    </tbody>
+                </table>
             </div>
         </div>
     </main>
@@ -267,222 +366,10 @@
             </div>
         </div>
     </div>
-    <script>
-        const ctx1 = document.getElementById('meuRadar').getContext('2d');
-        const meuRadar = new Chart(ctx1, {
-        type: 'radar',
-        data: {
-            labels: ['Força de vontade', 'Concentração', 'Inteligência', 'Disciplina', 'Resiliência'],
-            datasets: [{
-            label: 'Jogador 2',
-            data: [28, 48, 40, 19, 96],
-            fill: true,
-            backgroundColor: '#0098db7c',
-            borderColor: '#0098db',
-            pointBackgroundColor: '#0098db',
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: false
-            },
-            scales: {
-                r: {
-                    angleLines: {
-                    display: false
-                    },
-                    suggestedMin: 0,
-                    suggestedMax: 100 ,
-                    ticks: {
-                        display: false
-                    }
-                }
-            }
-        }
-        });
-    </script>
-
-    <script>
-        const taskList = document.getElementById('taskList');
-        const taskForm = document.getElementById('taskForm');
-        const taskInput = document.getElementById('taskInput');
-        const completedCountEl = document.getElementById('completedCount');
-        const uncompletedCountEl = document.getElementById('uncompletedCount');
-        // const ctx = document.getElementById('tasksChart').getContext('2d');
-
-        const confirmModal = document.getElementById('confirmModal');
-        const confirmMessage = document.getElementById('confirmMessage');
-        const confirmYes = document.getElementById('confirmYes');
-        const confirmNo = document.getElementById('confirmNo');
-
-        let taskToDeleteId = null;
-
-        // Initial dummy tasks (3 tasks)
-        let tasks = [
-            { id: 1, text: 'Revisar relatório mensal', completed: false },
-            { id: 2, text: 'Planejar semana', completed: false },
-            { id: 3, text: 'Enviar e-mails pendentes', completed: true },
-            { id: 4, text: 'Enviar e-mails pendentes', completed: false },
-            { id: 5, text: 'Enviar e-mails pendentes', completed: false },
-            { id: 6, text: 'Enviar e-mails pendentes', completed: false },
-            { id: 6, text: 'Enviar e-mails pendentes', completed: false },
-            { id: 6, text: 'Enviar e-mails pendentes', completed: false },
-            { id: 6, text: 'Enviar e-mails pendentes', completed: false },
-            { id: 6, text: 'Enviar e-mails pendentes', completed: false },
-        ];
-
-        // Render task list items
-        function renderTaskList() {
-            taskList.innerHTML = '';
-            tasks.forEach(task => {
-                const li = document.createElement('li');
-                li.className = 'flex justify-between items-center rounded-md p-3';
-
-                const label = document.createElement('label');
-                label.className = 'flex items-center gap-2 cursor-pointer select-none';
-                label.setAttribute('for', `task-${task.id}`);
-
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.id = `task-${task.id}`;
-                checkbox.checked = task.completed;
-                checkbox.className = 'custom-checkbox';
-                checkbox.addEventListener('change', () => {
-                    task.completed = checkbox.checked;
-                    updateCountsAndChart();
-                    renderTaskList();
-                });
-
-                const span = document.createElement('span');
-                span.textContent = task.text;
-                if (task.completed) {
-                    span.className = 'line-through text-[#666666]';
-                }
-
-                label.appendChild(checkbox);
-                label.appendChild(span);
-
-                const btnRemove = document.createElement('button');
-                btnRemove.setAttribute('aria-label', `Remover tarefa ${task.text}`);
-                btnRemove.className = 'text-[var(--color-items-primary)] hover:text-[#c4002f] ml-4';
-                btnRemove.innerHTML = '<i class="fas fa-trash-alt"></i>';
-                btnRemove.addEventListener('click', () => {
-                    taskToDeleteId = task.id;
-                    confirmMessage.textContent = `Deseja realmente remover a tarefa:\n"${task.text}"?`;
-                    confirmModal.classList.remove('hidden');
-                });
-
-                li.appendChild(label);
-                li.appendChild(btnRemove);
-                taskList.appendChild(li);
-            });
-        }
-
-        // Update completed/uncompleted counts and chart
-        function updateCountsAndChart() {
-            const completed = tasks.filter(t => t.completed).length;
-            const uncompleted = tasks.length - completed;
-            completedCountEl.textContent = completed;
-            uncompletedCountEl.textContent = uncompleted;
-
-            doughnutChart.data.datasets[0].data = [completed, uncompleted];
-            doughnutChart.update();
-        }
-
-        // Confirmation modal buttons
-        confirmYes.addEventListener('click', () => {
-            if (taskToDeleteId !== null) {
-                tasks = tasks.filter(t => t.id !== taskToDeleteId);
-                taskToDeleteId = null;
-                renderTaskList();
-                updateCountsAndChart();
-            }
-            confirmModal.classList.add('hidden');
-        });
-
-        confirmNo.addEventListener('click', () => {
-            taskToDeleteId = null;
-            confirmModal.classList.add('hidden');
-        });
-
-        // Initialize chart
-        const ctx = document.getElementById('meuGrafico').getContext('2d');
-        const meuGrafico = new Chart(ctx, {
-            type: 'bar', // Tipo do gráfico
-            data: {
-            labels: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'], // Eixo X
-            datasets: [
-                {
-                    label: 'Semana passada', // Nome do gráfico
-                    data: [12, 19, 3, 5, 2, 60, 25], // Eixo Y
-                    borderColor: '#ff0546',
-                    backgroundColor: '#ff0546',
-                    fill: true,
-                },
-                {
-                    label: 'Essa semana', // Nome do gráfico
-                    data: [10, 2, 8, 30, 75, 63, 50], // Eixo Y
-                    borderColor: '#0098db',
-                    backgroundColor: '#0098db',
-                    fill: true,
-                }
-            ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: '#b6afaf',
-                            font: {
-                                family: 'Montserrat'
-                            }
-                        },
-                        position: 'bottom'
-                    }
-                },
-                scales: {
-                    x: {
-                        grid: {
-                            display: false,
-                            drawBorder: false,
-                            drawTicks: false,
-                            color: 'transparent' // tira a grade do eixo X
-                        },
-                        ticks: {
-                            display: false
-                        },
-                        border: {
-                            display: false
-                        }
-                    },
-                    y: {
-                        grid: {
-                            display: false,
-                            drawBorder: false,
-                            drawTicks: false,
-                            color: 'transparent'
-                        },
-                        ticks: {
-                            display: false
-                        },
-                        border: {
-                            display: false
-                        }
-                    }
-                }
-            }
-        });
-
-        // Initial render
-        renderTaskList();
-        updateCountsAndChart();
-    </script>
-    <script src="../scripts/calendar-dashboard.js"></script>
     <script src="../scripts/main-user.js"></script>
+    <script src="../scripts/dashboard.js"></script>
+    <script src="../scripts/graficos-dashboard.js"></script>
+    <script src="../scripts/calendar-dashboard.js"></script>
     <script src="https://kit.fontawesome.com/c27d52a16d.js" crossorigin="anonymous"></script>
 </body>
 

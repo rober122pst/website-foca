@@ -397,3 +397,16 @@
 .fc-timegrid-body, .fc .fc-scrollgrid-section-body table {
     width: 100% !important;
 }
+
+#taskList::-webkit-scrollbar {
+    width: 7px;
+}
+
+#taskList::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#taskList::-webkit-scrollbar-thumb {
+    background: var(--bg-second);
+    border-radius: 5px;
+}

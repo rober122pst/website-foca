@@ -38,13 +38,7 @@ const userSchema = new mongoose.Schema({
           badgeId: {type: mongoose.Schema.Types.ObjectId, ref: 'Badge'},
           earnedAt: Date
         }],
-        quests: [{
-          title: String,
-          description: String,
-          completed: { type: Boolean, default: false },
-          rewardXP: Number,
-          rewardCoins: Number
-        }]
+        streak: { type: Number, default: 0 } 
     },      
     //// Perfil
     profile: {
