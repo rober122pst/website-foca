@@ -10,43 +10,71 @@ const confirmMessage = document.getElementById('confirmMessage');
 const confirmYes = document.getElementById('confirmYes');
 const confirmNo = document.getElementById('confirmNo');
 
+const loadingScreen = document.getElementById('loading-screen');
+const mainContent = document.getElementById('main-content');
 
 let taskToDeleteId = null;
 
+async function carregarDados() {
+    try {
+        const [tasks, routines, sessionTime, dailyChallenge, ranking, rankingFriends] = await Promise.all([
+            getApiData('tasks'),
+            getApiData('routines'),
+            getApiData('sessions/total-duration'),
+            getApiData('daily-challenge'),
+            getApiData('ranking'),
+            getApiData('ranking/friends')
+        ])
 
-document.addEventListener('DOMContentLoaded', async function() {
-    const tasks = await getApiData('tasks') || [];
-    const routines = await getApiData('routines') || [];
-    const sessionTime = await getApiData('sessions/total-duration') || 0;
-    const user = await getUser(token);
-    const dailyChallenge = await getApiData('daily-challenge');
+        const user = await getUser(token);
 
-    await renderTaskList(tasks);
-    await selectTaks(tasks);
+        await renderTaskList(tasks);
+        await selectTaks(tasks);
 
-    const sequenciaEl = document.getElementById('sequencia')
-    sequenciaEl.textContent = user.gamification.streak + " dias";
+        const sequenciaEl = document.getElementById('sequencia')
+        sequenciaEl.textContent = user.gamification.streak + " dias";
 
-    
-    const minutosEl = document.getElementById('minutos')
-    if(sessionTime.totalDuration < 60) {
-        minutosEl.textContent = sessionTime.totalDuration + " minutos";
-    } else {
-        const horas = Math.floor(sessionTime.totalDuration / 60);
-        const minutos = sessionTime.totalDuration % 60;
-        minutosEl.textContent = `${horas}h${
-            minutos < 10 ? '0' + minutos : minutos
-        }`;
+        
+        const minutosEl = document.getElementById('minutos')
+        if(sessionTime.totalDuration < 60) {
+            minutosEl.textContent = sessionTime.totalDuration + " minutos";
+        } else {
+            const horas = Math.floor(sessionTime.totalDuration / 60);
+            const minutos = sessionTime.totalDuration % 60;
+            minutosEl.textContent = `${horas}h${
+                minutos < 10 ? '0' + minutos : minutos
+            }`;
+        }
+
+        const completed = tasks.filter(t => t.completed);
+        const tarefasEl = document.getElementById('tarefas')
+        tarefasEl.textContent = completed.length + " tarefas";
+
+        const rotinasEl = document.getElementById('rotinas')
+        rotinasEl.textContent = routines.length + " rotinas";
+
+        await renderDailyChallenge(dailyChallenge);
+
+        await renderRankingTables(ranking, rankingFriends);
+    } catch (erro) {
+        console.error('Falha ao carregar dados:', erro);
+        document.getElementById('main-content').innerHTML = `
+            <h1 class="text-red-500 text-2xl font-bold">Erro ao carregar dados.</h1>
+            <p>${erro.message}</p>
+        `;
+    } finally {
+        // Esconde o loading e mostra o conteúdo
+        loadingScreen.classList.add('opacity-0');
+        setTimeout(() => {
+            loadingScreen.style.display = 'none';
+            mainContent.classList.remove('opacity-0');
+        }, 500);
     }
+}
 
-    const completed = tasks.filter(t => t.completed);
-    const tarefasEl = document.getElementById('tarefas')
-    tarefasEl.textContent = completed.length + " tarefas";
+document.addEventListener('DOMContentLoaded', carregarDados);
 
-    
-    const rotinasEl = document.getElementById('rotinas')
-    rotinasEl.textContent = routines.length + " rotinas";
-
+async function renderDailyChallenge(dailyChallenge) {
     const desafioEl = document.getElementById('desafio');
     if(dailyChallenge) {
         desafioEl.innerHTML = `
@@ -79,9 +107,30 @@ document.addEventListener('DOMContentLoaded', async function() {
             <p class="text-[#b6afaf] text-sm mt-2">Sem desafios por hoje!</p>
         `
     }
+}
+
+async function renderRankingTables(ranking, rankingFriends) {
+    const rankingFriendsTable = document.getElementById('rankingFriendsTable');
+    const cincoPrimeirosAmigos = rankingFriends.slice(0, 5);
+    cincoPrimeirosAmigos.forEach((user) => {
+        const tr = document.createElement('tr');
+        tr.className = "text-left border-t border-[--bg-second] align-middle";
+        tr.innerHTML = `
+            <td class="text-sm font-extrabold py-3 text-[--accent]">${user.pos}</td>
+            <td class="text-sm font-extrabold py-3">
+                <div class="flex items-center gap-2">
+                    <img src="${user.avatar || 'upload/default-profile.png'}" alt="" class="w-8 h-8 rounded-full">
+                    <span class="text-[--color-items-primary]">${user.username}</span>
+                </div>
+            </td>
+            <td class="text-sm font-extrabold py-3">${user.level}</td>
+            <td class="text-sm font-extrabold py-3">${user.focus}</td>
+            <td class="text-sm font-extrabold py-3">${user.tasks}</td>
+        `
+        rankingFriendsTable.appendChild(tr);
+    });
 
     const rankingTable = document.getElementById('rankingTable');
-    const ranking = await getApiData('ranking');
     const cincoPrimeiros = ranking.slice(0, 5);
 
     cincoPrimeiros.forEach((user) => {
@@ -101,7 +150,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         `
         rankingTable.appendChild(tr);
     });
-});
+}
 
 
 // Render task list items

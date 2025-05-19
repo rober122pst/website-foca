@@ -61,6 +61,13 @@
 </head>
 
 <body class="big-sidebar">
+    <!-- Tela de Carregamento -->
+    <div id="loading-screen" class="fixed inset-0 flex flex-col items-center justify-center bg-gray-900 z-[1001] text-center transition-opacity duration-500">
+        <div class="animate-pulse text-2xl font-bold tracking-wider">
+            👁️ Buscando dados sombrios...
+        </div>
+        <div class="mt-6 w-12 h-12 border-4 border-t-transparent border-white rounded-full animate-spin"></div>
+    </div>
     <!-- Sidebar -->
     <aside class="sidebar-container">
       <div class="sidebar">
@@ -346,8 +353,7 @@
                             <th class="text-sm font-extrabold">Tarefas</th>
                         </tr>
                     </thead>
-                    <tbody id="rankingTable">
-                        
+                    <tbody id="rankingFriendsTable">
                     </tbody>
                 </table>
             </div>
