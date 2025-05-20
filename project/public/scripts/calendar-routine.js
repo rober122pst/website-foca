@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
             extendedProps: {
                 description: ev.description,
                 completedToday: ev.completedToday,
-                completedDays: ev.com
+                completedDays: ev.completedDays
             }
          }));
         calendar.addEventSource({ groupId: 'rotinas', events: eventosRotinas });

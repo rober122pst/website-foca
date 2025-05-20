@@ -60,14 +60,17 @@ export const getWeeklySessions = async (req, res) => {
     try {
         const today = new Date();
 
-        const cachedStats = await WeeklyStats.findOne({ userId: req.user._id });
+        const cachedStats = await WeeklyStats.findOne({ userId: req.user._id }).lean();
+
+        delete cachedStats._id;
+        delete cachedStats.userId;
 
         // Só libera a partir de quinta-feira
         const dayOfWeek = today.getDay(); // domingo = 0, segunda = 1, ..., sábado = 6
         if (dayOfWeek < 4 && cachedStats) {
             return res.json({
+                ...cachedStats,
                 labels: ['Sexta', 'Sábado', 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta'],
-                cachedStats,
                 message: 'O gráfico estará disponível a partir de quinta-feira para garantir uma comparação justa entre as semanas.',
             });
         }

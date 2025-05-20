@@ -6,12 +6,11 @@ import * as challengesController from '../controllers/challengeController.js';
 
 
 router.use(auth);
-router.use(isAdmin);
 
-router.post('/', challengesController.createChallenge);
+router.post('/', isAdmin, challengesController.createChallenge);
 router.get('/', challengesController.getChallenge);
 router.get('/:id', challengesController.getChallengeById);
-router.put('/:id', challengesController.updateChallenge);
-router.delete('/:id', challengesController.deleteChallenge);
+router.put('/:id', isAdmin, challengesController.updateChallenge);
+router.delete('/:id', isAdmin, challengesController.deleteChallenge);
 
 export default router;

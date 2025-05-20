@@ -10,14 +10,14 @@ document.addEventListener('DOMContentLoaded', async function() {
         datasets: [
             {
                 label: 'Semana passada', // Nome do gráfico
-                data: chartData.lastWeek.totalDuration, // Eixo Y
+                data: chartData.lastWeek, // Eixo Y
                 borderColor: '#ff0546',
                 backgroundColor: '#ff0546',
                 fill: true,
             },
             {
                 label: 'Essa semana', // Nome do gráfico
-                data: chartData.thisWeek.totalDuration, // Eixo Y
+                data: chartData.thisWeek, // Eixo Y
                 borderColor: '#0098db',
                 backgroundColor: '#0098db',
                 fill: true,
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             <small>
                 ${
                     chartData.focusStats.isIncrease
-                    ? `<i class="text-[--color-accent] fa-solid fa-caret-up"></i> ${chartData.focusStats.diffPercent}% a mais que semana passada`
+                    ? `<i class="text-[--accent] fa-solid fa-caret-up"></i> ${chartData.focusStats.diffPercent}% a mais que semana passada`
                     : `<i class="text-[--color-items-primary] fa-solid fa-caret-down"></i> ${chartData.focusStats.diffPercent}% a menos que semana passada`
                 }
             </small>

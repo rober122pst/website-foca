@@ -1,8 +1,9 @@
 const taskList = document.getElementById('taskList');
-const taskForm = document.getElementById('taskForm');
-const taskInput = document.getElementById('taskInput');
-const completedCountEl = document.getElementById('completedCount');
-const uncompletedCountEl = document.getElementById('uncompletedCount');
+const routineList = document.getElementById('routineList');
+// const taskForm = document.getElementById('taskForm');
+// const taskInput = document.getElementById('taskInput');
+// const completedCountEl = document.getElementById('completedCount');
+// const uncompletedCountEl = document.getElementById('uncompletedCount');
 // const ctx = document.getElementById('tasksChart').getContext('2d');
 
 const confirmModal = document.getElementById('confirmModal');
@@ -12,14 +13,15 @@ const confirmNo = document.getElementById('confirmNo');
 
 const loadingScreen = document.getElementById('loading-screen');
 const mainContent = document.getElementById('main-content');
-
+const tarefasEl = document.getElementById('tarefas')
 let taskToDeleteId = null;
 
 async function carregarDados() {
     try {
-        const [tasks, routines, sessionTime, dailyChallenge, ranking, rankingFriends] = await Promise.all([
+        const [tasks, routines, routinesToday, sessionTime, dailyChallenge, ranking, rankingFriends] = await Promise.all([
             getApiData('tasks'),
             getApiData('routines'),
+            getApiData('routines/today'),
             getApiData('sessions/total-duration'),
             getApiData('daily-challenge'),
             getApiData('ranking'),
@@ -27,9 +29,9 @@ async function carregarDados() {
         ])
 
         const user = await getUser(token);
-
         await renderTaskList(tasks);
-        await selectTaks(tasks);
+        await renderRoutineList(routinesToday);
+        await updateCountsAndOptions(tasks);
 
         const sequenciaEl = document.getElementById('sequencia')
         sequenciaEl.textContent = user.gamification.streak + " dias";
@@ -47,7 +49,7 @@ async function carregarDados() {
         }
 
         const completed = tasks.filter(t => t.completed);
-        const tarefasEl = document.getElementById('tarefas')
+        
         tarefasEl.textContent = completed.length + " tarefas";
 
         const rotinasEl = document.getElementById('rotinas')
@@ -67,7 +69,6 @@ async function carregarDados() {
         loadingScreen.classList.add('opacity-0');
         setTimeout(() => {
             loadingScreen.style.display = 'none';
-            mainContent.classList.remove('opacity-0');
         }, 500);
     }
 }
@@ -156,7 +157,7 @@ async function renderRankingTables(ranking, rankingFriends) {
 // Render task list items
 async function renderTaskList(tasks) {
     taskList.innerHTML = '';
-    tasks.forEach(task => {
+    tasks.forEach(task =>  {
         const li = document.createElement('li');
         li.className = 'flex justify-between items-center rounded-md py-3 px-1';
 
@@ -169,10 +170,11 @@ async function renderTaskList(tasks) {
         checkbox.id = `task-${task._id}`;
         checkbox.checked = task.completed;
         checkbox.className = 'custom-checkbox';
-        checkbox.addEventListener('change', () => {
+        checkbox.addEventListener('change', async () => {
             task.completed = checkbox.checked;
-            updateCountsAndChart();
-            renderTaskList();
+            await putApiData(`tasks/${task._id}`, { completed: task.completed, completedAt: task.completed ? new Date() : null })
+            await renderTaskList(tasks);
+            await updateCountsAndOptions(tasks);
         });
 
         const span = document.createElement('span');
@@ -188,10 +190,11 @@ async function renderTaskList(tasks) {
         btnRemove.setAttribute('aria-label', `Remover tarefa ${task.text}`);
         btnRemove.className = 'text-[var(--color-items-primary)] hover:text-[#c4002f] ml-4';
         btnRemove.innerHTML = '<i class="fas fa-trash-alt"></i>';
-        btnRemove.addEventListener('click', () => {
-            taskToDeleteId = task.id;
+        btnRemove.addEventListener('click', async () => {
+            taskToDeleteId = task._id;
             confirmMessage.textContent = `Deseja realmente remover a tarefa:\n"${task.title}"?`;
             confirmModal.classList.remove('hidden');
+            confirmYes.onclick = () => confirmYesClick(tasks);
         });
 
         li.appendChild(label);
@@ -200,27 +203,71 @@ async function renderTaskList(tasks) {
     });
 }
 
-// Update completed/uncompleted counts and chart
-function updateCountsAndChart() {
-    const completed = tasks.filter(t => t.completed).length;
-    const uncompleted = tasks.length - completed;
-    completedCountEl.textContent = completed;
-    uncompletedCountEl.textContent = uncompleted;
+async function renderRoutineList(routines) {
+    routineList.innerHTML = '';
+    routines.forEach(routine =>  {
+        const data = new Date();
+        const formato = new Intl.DateTimeFormat('fr-CA',{
+            timeZone: 'America/Sao_Paulo',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        }).format(data);
+        const li = document.createElement('li');
+        li.className = 'flex justify-between items-center rounded-md py-3 px-1';
 
-    doughnutChart.data.datasets[0].data = [completed, uncompleted];
-    doughnutChart.update();
+        const label = document.createElement('label');
+        label.className = 'flex items-center gap-2 cursor-pointer select-none';
+        label.setAttribute('for', `routine-${routine._id}`);
+        
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = `routine-${routine._id}`;
+        checkbox.checked = routine.completedToday;
+        checkbox.className = 'custom-checkbox';
+        checkbox.addEventListener('change', async () => {
+            routine.completedToday = checkbox.checked;
+            if(routine.completedToday) {
+                await putApiData(`routines/${routine._id}`, { completedToday: routine.completedToday, completedDays: [...routine.completedDays, formato] });
+            }else {
+                await putApiData(`routines/${routine._id}`, { completedToday: routine.completedToday, completedDays: routine.completedDays.filter(d => d !== formato) });
+            }
+            await renderRoutineList(routines);
+            // await updateCountsAndOptions(routines);
+        });
+        
+        const span = document.createElement('span');
+        span.textContent = routine.title;
+        if (routine.completedToday) {
+            span.className = 'line-through title-[#666666]';
+        }
+
+        label.appendChild(checkbox);
+        label.appendChild(span);
+
+        li.appendChild(label);
+        routineList.appendChild(li);
+    });
+}
+// Update completed/uncompleted counts and chart
+async function updateCountsAndOptions(tasks) {
+    const completed = tasks.filter(t => t.completed);
+    tarefasEl.textContent = completed.length + " tarefas";
+    
+    await selectTaks(tasks);
 }
 
 // Confirmation modal buttons
-confirmYes.addEventListener('click', () => {
+async function confirmYesClick(tasks) {
     if (taskToDeleteId !== null) {
-        tasks = tasks.filter(t => t.id !== taskToDeleteId);
+        await deleteApiData(`tasks/${taskToDeleteId}`)
+        tasks = tasks.filter(t => t._id !== taskToDeleteId);
         taskToDeleteId = null;
-        renderTaskList();
-        updateCountsAndChart();
+        confirmModal.classList.add('hidden');
+        await renderTaskList(tasks);
+        await updateCountsAndOptions(tasks);
     }
-    confirmModal.classList.add('hidden');
-});
+};
 
 confirmNo.addEventListener('click', () => {
     taskToDeleteId = null;
@@ -230,7 +277,7 @@ confirmNo.addEventListener('click', () => {
 
 async function selectTaks(tasks) {
     const selectTasksEl = document.getElementById('task-session');
-
+    selectTasksEl.innerHTML = '';
     tasks
      .filter(t => t.completed === false)
      .forEach(t => {

@@ -8,8 +8,10 @@ router.use(auth);
 
 router.post('/', routineController.createRoutine);
 router.get('/', routineController.getRoutine);
+router.get('/today', routineController.getTodayRoutine);
 router.get('/:id', routineController.getRoutineById);
 router.put('/:id', routineController.updateRoutine);
 router.delete('/:id', routineController.deleteRoutine);
+router.put('/:id/today', routineController.updateTodayRoutine);
 
 export default router;

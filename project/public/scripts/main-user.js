@@ -53,8 +53,44 @@ async function getApiData(endpoint) {
             }
         })
         const data = await res.json();
-        if(!res.ok) { console.error(data.message); return }
-        console.log(data)
+        if(!res.ok) { console.error(data.message || data.error); return }
+        return data
+    } catch (e) {
+        console.error(e);
+        return
+    }
+}
+
+async function deleteApiData(endpoint) {
+    try {
+        const res = await fetch(`/api/${endpoint}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        const data = await res.json();
+        if(!res.ok) { console.error(data.message || data.error); return }
+        return data
+    } catch (e) {
+        console.error(e);
+        return
+    }
+}
+
+async function putApiData(endpoint, body) {
+    try {
+        const res = await fetch(`/api/${endpoint}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(body)
+        })
+        const data = await res.json();
+        if(!res.ok) { console.error(data.message || data.error); return }
         return data
     } catch (e) {
         console.error(e);

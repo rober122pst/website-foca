@@ -10,6 +10,7 @@ import routinesRoutes from './routes/routines.js';
 import sessionRoutes from './routes/sessions.js';
 import challengeRoutes from './routes/dailyChallenge.js';
 import rankingRoutes from './routes/ranking.js';
+import friendshipsRoutes from './routes/friendships.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -30,6 +31,7 @@ app.use('/api/routines', routinesRoutes);
 app.use('/api/sessions', sessionRoutes);
 app.use('/api/daily-challenge', challengeRoutes);
 app.use('/api/ranking', rankingRoutes);
+app.use('/api/friendships', friendshipsRoutes);
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));

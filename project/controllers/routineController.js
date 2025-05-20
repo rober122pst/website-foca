@@ -37,3 +37,21 @@ export const deleteRoutine = async (req, res) => {
     if (!result) return res.status(404).json({ error: 'Rotina não encontrada' });
     res.json({ message: 'Rotina deletada' });
 };
+
+export const getTodayRoutine = async (req, res) => {
+    const today = new Date();
+    const dayOfWeek = today.getDay(); // 0 (domingo) a 6 (sábado)
+    const routines = await Routines.find({ userId: req.user._id });
+    const todayRoutine = routines.filter(routine => routine.frequency.includes(dayOfWeek.toString()));
+    res.json(todayRoutine);
+}
+
+export const updateTodayRoutine = async (req, res) => {
+    const routine = await Routines.findOneAndUpdate(
+        { _id: req.params.id, userId: req.user._id },
+        { $addToSet: req.body, updatedAt: new Date() },
+        { new: true }
+    );
+    if (!routine) return res.status(404).json({ error: 'Rotina não encontrada' });
+    res.json(routine);
+}

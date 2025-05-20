@@ -18,7 +18,9 @@ export const getRankingGeral = async (req, res) => {
             {
                 $group: {
                     _id: "$userId",
-                    totalTarefas: { $sum: 1 }
+                    totalTarefas: { $sum: 
+                        { $cond: [{ $eq: ["$completed", true]}, 1, 0]}
+                    }
                 }
             }
         ]);
@@ -61,9 +63,10 @@ export const getRankingGeral = async (req, res) => {
 
 export const getRankingFriends = async (req, res) => {
     try {
-        const amigosIds = req.friendsIds;
+        const amigosIds = req.friendsIds
+        const amigosIdsObj = req.friendsIds.map(id => new ObjectId(id));
         const focoTotal = await Session.aggregate([
-            { $match: { jogadorId: { $in: amigosIds } } },
+            { $match: { userId: { $in: amigosIdsObj } } },
             {
                 $group: {
                     _id: "$userId",
@@ -72,11 +75,13 @@ export const getRankingFriends = async (req, res) => {
             }
         ]);
         const tarefasTotal = await Task.aggregate([
-            { $match: { jogadorId: { $in: amigosIds } } },
+            { $match: { userId: { $in: amigosIdsObj } } },
             {
                 $group: {
                     _id: "$userId",
-                    totalTarefas: { $sum: 1 }
+                    totalTarefas: { $sum: 
+                        { $cond: [{ $eq: ["$completed", true]}, 1, 0]}
+                    }
                 }
             }
         ]);
