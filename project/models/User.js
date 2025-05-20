@@ -37,8 +37,7 @@ const userSchema = new mongoose.Schema({
         badgesEarned: [{ 
           badgeId: {type: mongoose.Schema.Types.ObjectId, ref: 'Badge'},
           earnedAt: Date
-        }],
-        streak: { type: Number, default: 0 } 
+        }]
     },      
     //// Perfil
     profile: {

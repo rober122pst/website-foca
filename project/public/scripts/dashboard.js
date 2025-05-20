@@ -1,5 +1,6 @@
 const taskList = document.getElementById('taskList');
 const routineList = document.getElementById('routineList');
+const carroselBadges = document.getElementById('carrosel-badges');
 // const taskForm = document.getElementById('taskForm');
 // const taskInput = document.getElementById('taskInput');
 // const completedCountEl = document.getElementById('completedCount');
@@ -31,10 +32,11 @@ async function carregarDados() {
         const user = await getUser(token);
         await renderTaskList(tasks);
         await renderRoutineList(routinesToday);
+        // await renderBadges(user.gamification.badgesEarned);
         await updateCountsAndOptions(tasks);
 
         const sequenciaEl = document.getElementById('sequencia')
-        sequenciaEl.textContent = user.gamification.streak + " dias";
+        sequenciaEl.textContent = user.productivityStats.dailyStreak + " dias";
 
         
         const minutosEl = document.getElementById('minutos')
@@ -153,6 +155,14 @@ async function renderRankingTables(ranking, rankingFriends) {
     });
 }
 
+async function renderBadges(badges) {
+    taskList.innerHTML = '';
+    badges.forEach(b => {
+        const div = document.createElement('div');
+        div.className = 'bg-[--bg-second] rounded-lg w-[70px] h-[70px] border-2 border-[--color-items-primary]';
+        carroselBadges.appendChild(div);
+    })
+}
 
 // Render task list items
 async function renderTaskList(tasks) {

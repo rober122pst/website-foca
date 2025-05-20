@@ -1,11 +1,37 @@
 let resizeTimeout;
 const token = localStorage.getItem("token") || sessionStorage.getItem("token")
 
+function isSameDayInBrasilia(date1, date2) {
+    const offset = -3 * 60; // UTC-3 em minutos
+
+    function toBrasiliaDateOnly(date) {
+        const utc = date.getTime() + (date.getTimezoneOffset() * 60000);
+        const brTime = new Date(utc + offset * 60000);
+        return `${brTime.getFullYear()}-${brTime.getMonth()}-${brTime.getDate()}`;
+    }
+
+    return toBrasiliaDateOnly(date1) !== toBrasiliaDateOnly(date2);
+}
+
 
 document.addEventListener('DOMContentLoaded', async function() {
     if (!token) return;
     
     user = await getUser(token);
+    const hoje = new Date()
+    if(isSameDayInBrasilia(new Date(user.productivityStats.lastSessionDate), hoje)) {
+        console.log("É hoje!")
+        user.productivityStats.lastSessionDate = hoje;
+        user.productivityStats.dailyStreak += 1;
+        await putUser(token, {
+            productivityStats: {
+                lastSessionDate: user.productivityStats.lastSessionDate,
+                dailyStreak: user.productivityStats.dailyStreak
+            }
+        })
+    }else {
+        console.log("Não é hoje!")
+    }
 
     if(user.preferences.theme === "dark") {
         document.body.classList.add("dark-mode");

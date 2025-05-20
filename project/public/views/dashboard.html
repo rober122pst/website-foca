@@ -63,9 +63,6 @@
 <body class="big-sidebar">
     <!-- Tela de Carregamento -->
     <div id="loading-screen" class="fixed inset-0 flex flex-col items-center justify-center bg-gray-900 z-[1001] text-center transition-opacity duration-500">
-        <div class="animate-pulse text-2xl font-bold tracking-wider">
-            👁️ Buscando dados sombrios...
-        </div>
         <div class="mt-6 w-12 h-12 border-4 border-t-transparent border-white rounded-full animate-spin"></div>
     </div>
     <!-- Sidebar -->
@@ -202,8 +199,8 @@
                     </div>
                 </div>
                 <div class="flex justify-between items-center mt-5">
-                    <div class="flex flex-col gap-6 h-full">
-                        <div id="caixa-1" class="flex flex-col justify-center w-56 h-full rounded-xl border border-[--bg-second] bg-[--bg-primary] py-2 px-3 text-xs shadow-sm">
+                    <div class="flex flex-col gap-6 h-full w-[40%]">
+                        <div id="caixa-1" class="flex flex-col justify-center w-full h-full rounded-xl border border-[--bg-second] bg-[--bg-primary] py-2 px-3 text-xs shadow-sm">
                             <label for="tempo-session" class="block text-xs font-extrabold text-[#b6afaf] mb-1">Duração: </label>
                             <select name="tempo-session" id="tempo-session"
                                 class="block bg-[--bg-primary] text-[--accent] font-extrabold text-base w-full focus:border-[transparent] focus:outline-none">
@@ -212,18 +209,19 @@
                                 <option value="60">60 min</option>
                             </select>
                         </div>
-                        <div id="caixa-1" class="flex flex-col justify-center w-56 h-full rounded-xl border border-[--bg-second] bg-[--bg-primary] py-2 px-3 text-xs shadow-sm">
+                        <div id="caixa-1" class="flex flex-col justify-center w-full h-full rounded-xl border border-[--bg-second] bg-[--bg-primary] py-2 px-3 text-xs shadow-sm">
                             <label for="task-session" class="block text-xs font-extrabold text-[#b6afaf] mb-1">Tarefa: </label>
                             <select name="task-session" id="task-session"
                                 class="block bg-[--bg-primary] text-[--accent] font-extrabold text-base w-full focus:border-[transparent] focus:outline-none">
                             </select>
                         </div>
-                        <div id="caixa-1" class="flex flex-col justify-center w-56 h-full rounded-xl border border-[--bg-second] bg-[--bg-primary] py-2 px-3 text-xs shadow-sm">
-                            <label for="task-session" class="block text-xs font-extrabold text-[#b6afaf] mb-1">Modo: </label>
+                        <div id="caixa-1" class="flex flex-col justify-center w-full h-full rounded-xl border border-[--bg-second] bg-[--bg-primary] py-2 px-3 text-xs shadow-sm">
+                            <label for="task-session" class="block text-xs font-extrabold text-[#b6afaf] mb-1">Tempo de descanso: </label>
                             <select name="task-session" id="task-session"
                                 class="block bg-[--bg-primary] text-[--accent] font-extrabold text-base w-full focus:border-[transparent] focus:outline-none">
-                                <option value="estuprar">Pomodoro</option>
-                                <option value="estuprar">Livre</option>
+                                <option value="estuprar">5 min</option>
+                                <option value="estuprar">10 min</option>
+                                <option value="estuprar">15 min</option>
                             </select>
                         </div>
                     </div>
@@ -304,11 +302,7 @@
                     </div>
                 </div>
                 <div class="carrosel-badges flex gap-5 mt-5">
-                    <div class="bg-[--bg-second] rounded-lg w-[70px] h-[70px] border-2 border-[--color-items-primary]"></div>
-                    <div class="bg-[--bg-second] rounded-lg w-[70px] h-[70px] border-2 border-[--color-items-primary]"></div>
                     <div class="bg-[--bg-second] rounded-lg w-[70px] h-[70px] border-2 border-[--color-items-primary] shadow-[0_0_15px_var(--color-items-primary)]"></div>
-                    <div class="bg-[--bg-second] rounded-lg w-[70px] h-[70px] border-2 border-[--color-items-primary]"></div>
-                    <div class="bg-[--bg-second] rounded-lg w-[70px] h-[70px] border-2 border-[--color-items-primary]"></div>
                 </div>
             </div>
             <!-- LINHA 5 -->
