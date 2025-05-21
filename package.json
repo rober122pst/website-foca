@@ -38,7 +38,9 @@
     "mongoose": "^8.14.1",
     "nanoid": "^5.1.5",
     "nodemailer": "^6.10.1",
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "socket.io": "^4.8.1",
+    "ws": "^8.18.2"
   },
   "description": "",
   "devDependencies": {

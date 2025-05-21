@@ -32,3 +32,26 @@ export const deleteUser = async (req, res) => {
     if (!result) return res.status(404).json({ error: 'Usuário não encontrado' });
     res.json({ message: 'Usuário deletado' });
 };
+
+export const updateUserStatus = async (req, res) => {
+    const { status } = req.body;
+    const allowedStatuses = ["offline", "online", "focus"];
+    const io = req.io;
+    if (!allowedStatuses.includes(status)) {
+        return res.status(400).json({ error: 'Status inválido' });
+    }
+    if (status === 'focus') {
+        io.emit('focus_mode', { start: true });
+        console.log('Emitido: focus_mode = true');
+    } else {
+        io.emit('focus_mode', { start: false });
+        console.log('Emitido: focus_mode = false');
+    }
+    const user = await User.findOneAndUpdate(
+        { _id: req.params.id },
+        { status },
+        { new: true }
+    );
+    if (!user) return res.status(404).json({ error: 'Usuário não encontrado' });
+    res.json({ _id: user._id, status: user.status });
+};

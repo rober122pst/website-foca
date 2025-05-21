@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles/overview.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&" />
+    <script src="../scripts/main-user.js"></script>
     <style>
 
         ul::-webkit-scrollbar {
@@ -198,7 +199,7 @@
                         <i class="fa-solid fa-gear"></i>
                     </div>
                 </div>
-                <div class="flex justify-between items-center mt-5">
+                <form action="/user/session" class="flex justify-between items-center mt-5">
                     <div class="flex flex-col gap-6 h-full w-[40%]">
                         <div id="caixa-1" class="flex flex-col justify-center w-full h-full rounded-xl border border-[--bg-second] bg-[--bg-primary] py-2 px-3 text-xs shadow-sm">
                             <label for="tempo-session" class="block text-xs font-extrabold text-[#b6afaf] mb-1">Duração: </label>
@@ -216,19 +217,19 @@
                             </select>
                         </div>
                         <div id="caixa-1" class="flex flex-col justify-center w-full h-full rounded-xl border border-[--bg-second] bg-[--bg-primary] py-2 px-3 text-xs shadow-sm">
-                            <label for="task-session" class="block text-xs font-extrabold text-[#b6afaf] mb-1">Tempo de descanso: </label>
-                            <select name="task-session" id="task-session"
+                            <label for="interval-session" class="block text-xs font-extrabold text-[#b6afaf] mb-1">Tempo de descanso: </label>
+                            <select name="interval-session" id="interval-session"
                                 class="block bg-[--bg-primary] text-[--accent] font-extrabold text-base w-full focus:border-[transparent] focus:outline-none">
-                                <option value="estuprar">5 min</option>
-                                <option value="estuprar">10 min</option>
-                                <option value="estuprar">15 min</option>
+                                <option value="5">5 min</option>
+                                <option value="10">10 min</option>
+                                <option value="15">15 min</option>
                             </select>
                         </div>
                     </div>
                     <button class="flex justify-center items-center border-b-8 border-[--color-items-second] rounded-full h-[250px] w-[250px] bg-[--color-items-primary] text-[var(--text-light)] text-7xl text-center font-black cursor-pointer active:border-b-0">
                         <i class="fa-solid fa-play ml-2"></i>
                     </button>
-                </div>
+                </form>
             </div>
             <div class="flex justify-between items-center bg-[var(--bg-primary)] rounded-[15px] p-5 select-none lg:col-span-7 col-span-1 transition duration-300 hover:shadow-xl">
                 <div id="weekly-stats">
@@ -368,7 +369,7 @@
             </div>
         </div>
     </div>
-    <script src="../scripts/main-user.js"></script>
+    
     <script src="../scripts/dashboard.js"></script>
     <script src="../scripts/graficos-dashboard.js"></script>
     <script src="../scripts/calendar-dashboard.js"></script>

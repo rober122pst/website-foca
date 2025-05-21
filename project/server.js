@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
+
 import authRoutes from './routes/auth.js';
 import tasksRoutes from './routes/tasks.js';
 import userRoutes from './routes/user.js';
@@ -11,10 +12,19 @@ import sessionRoutes from './routes/sessions.js';
 import challengeRoutes from './routes/dailyChallenge.js';
 import rankingRoutes from './routes/ranking.js';
 import friendshipsRoutes from './routes/friendships.js';
+import webRoutes from './routes/webRoutes.js';
+
 import dotenv from 'dotenv';
+import { createServer } from 'http';
+import { Server } from "socket.io";
 
 dotenv.config();
 const app = express();
+const server = createServer(app);
+
+const io = new Server(server, {
+    cors: { origin: '*' }
+});
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,7 +32,13 @@ const __dirname = path.dirname(__filename);
 app.use(cors());
 app.set('view engine', 'ejs');
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/public')));
+
+
+app.use((req, res, next) => {
+    req.io = io;
+    next();
+});
 
 app.use('/api/auth', authRoutes);
 app.use('/api/tasks', tasksRoutes);
@@ -33,32 +49,15 @@ app.use('/api/daily-challenge', challengeRoutes);
 app.use('/api/ranking', rankingRoutes);
 app.use('/api/friendships', friendshipsRoutes);
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-app.get('/auth', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/auth', 'login.html'));
-});
-app.get('/auth/verify', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/auth', 'verify.html'));
-});
-app.get('/auth/forgot', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/auth', 'forgot.html'));
-});
-app.get('/auth/reset', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/auth', 'reset.html'));
-});
-app.get('/user', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/views', 'dashboard.html'));;
-});
-app.get('/user/rotina', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/views', 'routine.html'));;
+app.use('/', webRoutes);
+app.get('/ws', (req, res) => {
+    res.status(426).send('Esta rota é apenas para WebSocket'); // 426 - Upgrade Required
 });
 
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
         console.log('MongoDB conectado');
-        app.listen(process.env.PORT, () => {
+        server.listen(process.env.PORT, () => {
             console.log(`Servidor rodando na porta ${process.env.PORT}`);
         });
     })

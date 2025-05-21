@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { STATES } from 'mongoose';
 import { customAlphabet } from 'nanoid'
 const nanoid = customAlphabet('1234567890ABCDEFG', 8)
 const userSchema = new mongoose.Schema({
@@ -11,6 +11,8 @@ const userSchema = new mongoose.Schema({
     // User infos
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
     createdAt: { type: Date, default: Date.now },
+    status: { type: String, enum: ['offline', 'online', 'focus'], default: 'offline' },
+    lastSeen: Date,
     //// Preferencias
     preferences: {
         focusDuration: { type: Number, default: 25 },
