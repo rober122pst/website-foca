@@ -18,6 +18,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     if (!token) return;
     
     user = await getUser(token);
+
+    profileLink = document.getElementById("profile-link");
+    profileLink.href = `/profile/${user._id}`
+
     const hoje = new Date()
     if(isSameDayInBrasilia(new Date(user.productivityStats.lastSessionDate), hoje)) {
         console.log("É hoje!")
@@ -109,6 +113,25 @@ async function putApiData(endpoint, body) {
     try {
         const res = await fetch(`/api/${endpoint}`, {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(body)
+        })
+        const data = await res.json();
+        if(!res.ok) { console.error(data.message || data.error); return }
+        return data
+    } catch (e) {
+        console.error(e);
+        return
+    }
+}
+
+async function postApiData(endpoint, body) {
+    try {
+        const res = await fetch(`/api/${endpoint}`, {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`

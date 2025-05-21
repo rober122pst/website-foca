@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Foca - Tarefas</title>
+    <link rel="shortcut icon" href="../imgs/foca_branco.svg" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales-all.global.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles/overview.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&" />
+    <script src="../scripts/main-user.js"></script>
+</head>
+<body>
+    <form>
+        <label for="name-task">Nome da tarefa*</label>
+        <input type="text" name="name-task" id="name-task" class="text-[--color-items-second]" required>
+
+        <label for="select-task">Prioridade da tarefa*</label>
+        <select name="select-task" id="select-task" class="text-[--color-items-second]" required>
+            <option value="low">Baixa</option>
+            <option value="medium">Média</option>
+            <option value="hight">Alta</option>
+        </select>
+        
+        <label for="category">Categoria</label>
+        <input type="text" name="category" id="category" placeholder="geral" class="text-[--color-items-second]">
+
+        <label for="isRecurring">É recorrente?</label>
+        <input type="checkbox" name="isRecurring" id="isRecurring">
+
+        <button type="submit">Enviar</button>
+    </form>
+    <script>
+        document.querySelector('form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await saveTask()
+        })
+        async function saveTask() {
+            try {
+                title = document.getElementById("name-task").value;
+                priority = document.getElementById("select-task").value;
+                category = document.getElementById("category").value;
+                isRecurring = document.getElementById("isRecurring").checked;
+    
+                await postApiData('tasks', { title, priority, category, isRecurring })
+                alert("Tarefa postada!")
+            }catch (e) {
+                alert("Algum erro aconteceu.", e)
+            }
+        }
+    </script>
+</body>
+</html>

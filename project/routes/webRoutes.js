@@ -30,5 +30,11 @@ router.get('/user/rotina', (req, res) => {
 router.get('/user/session', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/views', 'session.html'));;
 });
+router.get('/user/tarefas', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/views', 'task.html'));;
+});
+router.get('/profile/:id', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/views', 'profile.html'));;
+});
 
 export default router;
