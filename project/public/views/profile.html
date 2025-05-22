@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Foca - Perfil</title>
-    <link rel="shortcut icon" href="../imgs/foca_branco.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="../imgs/foca_icon.ico" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js'></script>
@@ -14,14 +14,45 @@
     <link rel="stylesheet" href="/styles/cores.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&" />
     <script src="../scripts/main-user.js"></script>
+    <style>
+        .multiline-truncate {
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Número de linhas */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <div class="bg-[--color-dark] w-full h-[35vh] relative bg-cover">
-            <div class="size-48 absolute -bottom-20 left-48 border-4 border-[--color-items-primary] rounded-full">
-                <img class="object-cover rounded-full" id="profilePic" src="/upload/default-profile.png" alt="">
+<body class="bg-[--bg-second]">
+    <div class="max-w-5xl mx-auto mt-8 bg-[--bg-primary] rounded-xl shadow-md overflow-hidden">
+        <!-- Banner -->
+        <div class="relative h-64 bg-gray-300">
+            <img id="banner" src="https://placehold.co/1200x300/png" alt="Banner" class="w-full h-full object-cover" />
+
+            <!-- Foto de Perfil -->
+            <div class="absolute -bottom-16 left-8">
+            <img id="profilePic" src="/upload/default-profile.png" alt="Foto de Perfil" class="w-32 h-32 rounded-3xl border-4 border-[--bg-primary] object-cover" />
             </div>
         </div>
-    </header>
+
+        <!-- Nome e ações -->
+        <div class="pt-20 px-8 pb-6">
+            <div class="flex items-center justify-between">
+            <div>
+                <h1 id="username" class="text-3xl font-bold text-[--color-items-primary]">João da Silva</h1>
+                <p id="description" class="multiline-truncate max-w-xs">Esta pessoa ainda não tem uma bio :(</p>
+            </div>
+                <div class="flex gap-10 items-center">
+                    <div class="flex items-center gap-2 align-middle text-xl font-bold text-[--color-items-primary]">
+                        <span class="material-symbols-rounded text-[--accent] text-3xl">paid</span> <p id="coins"></p>
+                    </div>
+                    <div class="flex items-center gap-2 align-middle text-xl font-bold text-[--color-items-primary]">
+                        <span class="material-symbols-rounded text-[--accent] text-3xl">star</span> <p id="xp"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../scripts/profile.js"></script>
 </body>
 </html>

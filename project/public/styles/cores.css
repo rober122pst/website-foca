@@ -22,6 +22,23 @@
     box-sizing: border-box;
 }
 
+
+.dark-mode {
+    --bg-primary: #1D1D1D;
+    --bg-second: #121212;
+    --bg-third: #121212;
+    --bg-cont: #fdfdfd;
+    --color-items-primary: #ff0546;
+    --color-items-primary50: #ff05487c;
+    --color-items-second: #9c173b;
+    --color-dark: #450327;
+    --accent: #0098db;
+    --accent-gradient: #1e579c;
+    --text-light: #fdfdfd;
+    --text-dark: #17001d;
+    --text-theme: #fdfdfd;
+}
+
 body {
     font-family: "Nunito", sans-serif;
     font-weight: 400;

@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     user = await getUser(token);
 
     profileLink = document.getElementById("profile-link");
-    profileLink.href = `/profile/${user._id}`
+    if(profileLink) profileLink.href = `/profile/${user._id}`
 
     const hoje = new Date()
     if(isSameDayInBrasilia(new Date(user.productivityStats.lastSessionDate), hoje)) {
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     coinsEl.textContent = `${formatarPara00_00(user.gamification.coins)} $`;
     expBarEl.style.width = `${progressoXp}%`;
-    profilePicEl.src = user.profile.avatarUrl
+    if(user.profile.avatarUrl !== "") profilePicEl.src = user.profile.avatarUrl
     console.log(profilePicEl)
 });
 
