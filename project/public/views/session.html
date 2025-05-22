@@ -10,7 +10,7 @@
     <script src="../scripts/session-page.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        if(!localStorage.getItem("token") || !sessionStorage.getItem("token")) window.location.href = '/auth'
+        if(!localStorage.getItem("token") && !sessionStorage.getItem("token")) window.location.href = '/auth'
     </script>
 </head>
 <body class="bg-[--color-items-second] text-white flex items-center justify-center h-screen">
