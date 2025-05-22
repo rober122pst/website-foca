@@ -222,3 +222,9 @@ function formatarPara00_00(numero) {
     // Retorna no formato 00.00
     return `${parteInteiraFormatada},${parteDecimal}`;
 }
+
+function logout() {
+    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
+    window.location.href = '/auth'
+}

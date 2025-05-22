@@ -123,7 +123,7 @@ router.post('/resend-verification', async (req, res) => {
     }
 
     const verificationToken = jwt.sign({ email }, process.env.JWT_SECRET, {
-      expiresIn: '1d',
+      expiresIn: '15d',
     });
     utils.sendVerificationEmail(email, verificationToken);
 
